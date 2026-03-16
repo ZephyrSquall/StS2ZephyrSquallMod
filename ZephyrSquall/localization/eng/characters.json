@@ -1,0 +1,16 @@
+{
+  "ZEPHYRSQUALL-ZEPHYR_SQUALL.aromaPrinciple": "Lore",
+  "ZEPHYRSQUALL-ZEPHYR_SQUALL.banter.alive.endTurnPing": "Co-op hurry up end turn ping message",
+  "ZEPHYRSQUALL-ZEPHYR_SQUALL.banter.dead.endTurnPing": "...",
+  "ZEPHYRSQUALL-ZEPHYR_SQUALL.cardsModifierDescription": "__ cards will now appear in rewards and shops.",
+  "ZEPHYRSQUALL-ZEPHYR_SQUALL.cardsModifierTitle": "__ Cards",
+  "ZEPHYRSQUALL-ZEPHYR_SQUALL.description": "Character Selection\nScreen Description",
+  "ZEPHYRSQUALL-ZEPHYR_SQUALL.eventDeathPrevention": "Co-op survival line",
+  "ZEPHYRSQUALL-ZEPHYR_SQUALL.goldMonologue": "Line spoken when obtaining a large amount of gold",
+  "ZEPHYRSQUALL-ZEPHYR_SQUALL.possessiveAdjective": "his/her/its",
+  "ZEPHYRSQUALL-ZEPHYR_SQUALL.pronounObject": "him/her/it",
+  "ZEPHYRSQUALL-ZEPHYR_SQUALL.pronounPossessive": "his/hers/its",
+  "ZEPHYRSQUALL-ZEPHYR_SQUALL.pronounSubject": "he/she/it",
+  "ZEPHYRSQUALL-ZEPHYR_SQUALL.title": "The ZephyrSquall",
+  "ZEPHYRSQUALL-ZEPHYR_SQUALL.titleObject": "The ZephyrSquall"
+}
