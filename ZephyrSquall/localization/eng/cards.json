@@ -1,3 +1,4 @@
 {
-  
+  "ZEPHYRSQUALL-BUILD_MOMENTUM.description": "Deal {Damage:diff()} damage a number of times equal to the turn number.{InCombat:\n(Hits {CalculatedHits:diff()} {CalculatedHits:plural:time|times})|}",
+  "ZEPHYRSQUALL-BUILD_MOMENTUM.title": "Build Momentum"
 }
