@@ -6,7 +6,7 @@ riderModule.iml
 /_ReSharper.Caches/
 /android/
 .git/
-.idea/*
+.idea/
 .vs/
 publish/
 Properties/
