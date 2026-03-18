@@ -20,7 +20,7 @@ public class AllOut() : ZephyrSquallCard(1,
         CardPlay play)
     {
         int tailwindAmount = Owner.Creature.Block;
-        await CreatureCmd.LoseBlock(Owner.Creature, (Decimal) Owner.Creature.Block);
+        await CreatureCmd.LoseBlock(Owner.Creature, Owner.Creature.Block);
         await PowerCmd.Apply<TailwindPower>(Owner.Creature, tailwindAmount, Owner.Creature, this);
         await PowerCmd.Apply<AllOutPower>(Owner.Creature, 1M, Owner.Creature, this);
     }
