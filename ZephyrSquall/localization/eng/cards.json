@@ -4,5 +4,7 @@
   "ZEPHYRSQUALL-BUILD_MOMENTUM.description": "Deal {Damage:diff()} damage a number of times equal to the turn number.{InCombat:\n(Hits {CalculatedHits:diff()} {CalculatedHits:plural:time|times})|}",
   "ZEPHYRSQUALL-BUILD_MOMENTUM.title": "Build Momentum",
   "ZEPHYRSQUALL-BURST_OF_SPEED.description": "Cannot be played during extra turns.\nGain {TailwindPower:diff()} [gold]Tailwind[/gold].",
-  "ZEPHYRSQUALL-BURST_OF_SPEED.title": "Burst of Speed"
+  "ZEPHYRSQUALL-BURST_OF_SPEED.title": "Burst of Speed",
+  "ZEPHYRSQUALL-PLAN_OF_ATTACK.description": "While in hand, your Attacks deal {AdditionalDamage:diff()} additional damage.",
+  "ZEPHYRSQUALL-PLAN_OF_ATTACK.title": "Plan of Attack"
 }
