@@ -1,4 +1,6 @@
 {
+  "ZEPHYRSQUALL-ALL_OUT.description": "Convert your [gold]Block[/gold] into [gold]Tailwind[/gold].\nYou cannot gain [gold]Block[/gold].",
+  "ZEPHYRSQUALL-ALL_OUT.title": "All-Out",
   "ZEPHYRSQUALL-BUILD_MOMENTUM.description": "Deal {Damage:diff()} damage a number of times equal to the turn number.{InCombat:\n(Hits {CalculatedHits:diff()} {CalculatedHits:plural:time|times})|}",
   "ZEPHYRSQUALL-BUILD_MOMENTUM.title": "Build Momentum",
   "ZEPHYRSQUALL-BURST_OF_SPEED.description": "Cannot be played during extra turns.\nGain {TailwindPower:diff()} [gold]Tailwind[/gold].",
