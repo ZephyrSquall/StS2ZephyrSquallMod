@@ -18,28 +18,21 @@ public class BuildMomentum() : ZephyrSquallCard(1,
     CardType.Attack, CardRarity.Uncommon,
     TargetType.AnyEnemy)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars
-    {
-        get
-        {
-            return (IEnumerable<DynamicVar>) new ReadOnlyCollection<DynamicVar>(new DynamicVar[4]
-            {
-                (DynamicVar) new DamageVar(4M, ValueProp.Move),
-                (DynamicVar) new CalculationBaseVar(0M),
-                (DynamicVar) new CalculationExtraVar(1M),
-                // Implement fetching the round number a different way without using a method explicitly marked as debug-only?
-                (DynamicVar) new CalculatedVar("CalculatedHits").WithMultiplier((Func<CardModel, Creature, Decimal>) ((card, _) => (Decimal) CombatManager.Instance.DebugOnlyGetState().RoundNumber))
-            });
-        }
-    }
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new DamageVar(4M, ValueProp.Move),
+        new CalculationBaseVar(0M),
+        new CalculationExtraVar(1M),
+        new CalculatedVar("CalculatedHits").WithMultiplier((Func<CardModel, Creature, Decimal>)((card, _) =>
+            CombatManager.Instance.DebugOnlyGetState().RoundNumber))
+    ];
+
     
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay cardPlay)
     {
-        BuildMomentum card = this;
-        ArgumentNullException.ThrowIfNull((object?) cardPlay.Target, "cardPlay.Target");
-        AttackCommand attackCommand = await DamageCmd.Attack(card.DynamicVars.Damage.BaseValue).WithHitCount((int) ((CalculatedVar) card.DynamicVars["CalculatedHits"]).Calculate(cardPlay.Target)).FromCard((CardModel) card).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue).WithHitCount((int) ((CalculatedVar) DynamicVars["CalculatedHits"]).Calculate(cardPlay.Target)).FromCard(this).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
     }
 
     protected override void OnUpgrade() => this.DynamicVars.Damage.UpgradeValueBy(2M);

@@ -1,3 +1,5 @@
 {
-  
+  "ZEPHYRSQUALL-TAILWIND_POWER.description": "If you end your turn with at least [blue]10[/blue] [gold]Tailwind[/gold], take an extra turn.",
+  "ZEPHYRSQUALL-TAILWIND_POWER.smartDescription": "If you end your turn with at least [blue]10[/blue] [gold]Tailwind[/gold], take an extra turn.",
+  "ZEPHYRSQUALL-TAILWIND_POWER.title": "Tailwind"
 }
