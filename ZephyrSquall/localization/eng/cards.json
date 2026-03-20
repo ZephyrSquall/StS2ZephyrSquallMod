@@ -10,5 +10,8 @@
   "ZEPHYRSQUALL-PLAN_OF_ATTACK.description": "While in hand, your Attacks deal {AdditionalDamage:diff()} additional damage.",
   "ZEPHYRSQUALL-PLAN_OF_ATTACK.title": "Plan of Attack",
   "ZEPHYRSQUALL-STRIKE.description": "Deal {Damage:diff()} damage.",
-  "ZEPHYRSQUALL-STRIKE.title": "Strike"
+  "ZEPHYRSQUALL-STRIKE.title": "Strike",
+  "ZEPHYRSQUALL-WHET.description": "Add [gold]Sharp[/gold] {Sharp:diff()} to an Attack in your [gold]Hand[/gold].",
+  "ZEPHYRSQUALL-WHET.selectionScreenPrompt": "Choose a card to add [gold]Sharp[/gold] {Sharp:diff()} to.",
+  "ZEPHYRSQUALL-WHET.title": "Whet"
 }

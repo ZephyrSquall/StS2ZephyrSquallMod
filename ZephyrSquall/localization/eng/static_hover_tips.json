@@ -1,3 +1,7 @@
 {
-  
+  "SHARP.extraText": "[gold]Sharp[/gold] {Sharp}.",
+  "SHARP_DYNAMIC.description": "This card deals [blue]{Sharp}[/blue] additional damage.",
+  "SHARP_DYNAMIC.title": "Sharp",
+  "SHARP_STATIC.description": "This card deals additional damage.",
+  "SHARP_STATIC.title": "Sharp"
 }
