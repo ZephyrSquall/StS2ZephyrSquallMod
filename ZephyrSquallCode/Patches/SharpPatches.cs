@@ -1,3 +1,4 @@
+using System.Reflection;
 using BaseLib.Utils;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Combat;
@@ -11,19 +12,41 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace ZephyrSquall.ZephyrSquallCode.Patches;
 
-
-[HarmonyPatch(typeof(CardModel), nameof(CardModel.GetDescriptionForPile))]
+[HarmonyPatch]
 public class SharpDescriptionPatch
 {
-    [HarmonyPostfix]
-    static void AddSharpDescription(ref string __result, CardModel __instance)
+    static MethodBase TargetMethod()
     {
-        if (SharpTracker.SharpAmount[__instance] > 0)
-        {
-            LocString sharpDesc = new LocString("static_hover_tips", "REPLAY.extraText");
-            sharpDesc.Add("Sharp", (decimal)SharpTracker.SharpAmount[__instance]);
-            __result += sharpDesc;
-        }
+        MethodInfo method = typeof(CardModel).GetMethod("GetDescriptionForPile", BindingFlags.NonPublic | BindingFlags.Instance);
+        return method;
+    }
+    
+    [HarmonyTranspiler]
+     static IEnumerable<CodeInstruction> AddSharpDescription(IEnumerable<CodeInstruction> instructions)
+     // static IEnumerable<CodeInstruction> AddSharpDescription(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+     {
+         var codeMatcher = new CodeMatcher(instructions);
+         // LocalBuilder source = generator.DeclareLocal(typeof(List<string>));
+
+         // Add "Sharp" text immediately before where added "Replay" text would go if the card also had Replay.
+         codeMatcher.MatchStartForward(CodeMatch.Calls(() => default(CardModel).GetEnchantedReplayCount()))
+             .ThrowIfInvalid("Could not find it!!!!!!!!")
+             // Load the "source" local variable onto the stack, which is index 5 in the raw IL.
+             // Note the cardModel happens to already be the last thing on the stack before this instruction, so no need
+             // to load that again.
+             .InsertAndAdvance(CodeInstruction.LoadLocal(5))
+             .InsertAndAdvance(CodeInstruction.Call(() => AddSharp(default, default)));
+         
+
+         return codeMatcher.Instructions();
+     }
+     
+    public static CardModel AddSharp(CardModel cardModel, List<string> source)
+    {
+        var x = source[0];
+        // This is just to cause a visible effect in-game to prove this helper method was called.
+        SharpTracker.SharpAmount[cardModel] += 1;
+        return cardModel;
     }
 }
 
