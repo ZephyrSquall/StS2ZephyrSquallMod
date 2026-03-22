@@ -1,7 +1,7 @@
 {
-  "SHARP.extraText": "[gold]Sharp[/gold] {Sharp}.",
-  "SHARP_DYNAMIC.description": "This card deals [blue]{Sharp}[/blue] additional damage.",
-  "SHARP_DYNAMIC.title": "Sharp",
-  "SHARP_STATIC.description": "This card deals additional damage.",
-  "SHARP_STATIC.title": "Sharp"
+  "HONED.extraText": "[gold]Honed[/gold] {Honed}.",
+  "HONED_DYNAMIC.description": "This card deals [blue]{Honed}[/blue] additional damage.",
+  "HONED_DYNAMIC.title": "Honed",
+  "HONED_STATIC.description": "This card deals additional damage.",
+  "HONED_STATIC.title": "Honed"
 }

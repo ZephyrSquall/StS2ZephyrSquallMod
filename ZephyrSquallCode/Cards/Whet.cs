@@ -17,9 +17,9 @@ public class Whet() : ZephyrSquallCard(1,
     CardType.Skill, CardRarity.Basic,
     TargetType.Self)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new IntVar("Sharp", 2M)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new IntVar("Honed", 2M)];
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [new HoverTip(new LocString("static_hover_tips", "SHARP_STATIC.title"), (new LocString("static_hover_tips", "SHARP_STATIC.description")))];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [new HoverTip(new LocString("static_hover_tips", "HONED_STATIC.title"), (new LocString("static_hover_tips", "HONED_STATIC.description")))];
     
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
@@ -29,9 +29,9 @@ public class Whet() : ZephyrSquallCard(1,
         CardModel? selectedCard = (await CardSelectCmd.FromHand(choiceContext, Owner, prefs, (Func<CardModel, bool>) (c => c.Type == CardType.Attack), (AbstractModel) this)).FirstOrDefault<CardModel>();
         if (selectedCard != null)
         {
-            SharpTracker.SharpAmount[selectedCard] += DynamicVars["Sharp"].IntValue;
+            HonedTracker.HonedAmount[selectedCard] += DynamicVars["Honed"].IntValue;
         }
     }
 
-    protected override void OnUpgrade() => DynamicVars["Sharp"].UpgradeValueBy(1M);
+    protected override void OnUpgrade() => DynamicVars["Honed"].UpgradeValueBy(1M);
 }

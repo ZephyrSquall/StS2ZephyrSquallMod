@@ -13,7 +13,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace ZephyrSquall.ZephyrSquallCode.Patches;
 
 [HarmonyPatch]
-public class SharpDescriptionPatch
+public class HonedDescriptionPatch
 {
     static MethodBase TargetMethod()
     {
@@ -22,18 +22,18 @@ public class SharpDescriptionPatch
     }
     
     [HarmonyTranspiler]
-     static IEnumerable<CodeInstruction> AddSharpDescription(IEnumerable<CodeInstruction> instructions)
+     static IEnumerable<CodeInstruction> AddHonedDescription(IEnumerable<CodeInstruction> instructions)
      {
          var codeMatcher = new CodeMatcher(instructions);
 
-         // Add "Sharp" text immediately before where added "Replay" text would go if the card also had Replay.
+         // Add "Honed" text immediately before where added "Replay" text would go if the card also had Replay.
          codeMatcher.MatchStartForward(CodeMatch.Calls(() => default(CardModel).GetEnchantedReplayCount()))
              .ThrowIfInvalid("Could not find call to GetEnchantedReplayCount")
              // Load the "source" local variable onto the stack, which is index 5 in the raw IL.
              // Note the cardModel happens to already be the last thing on the stack before this instruction, so no need
              // to load that again.
              .InsertAndAdvance(CodeInstruction.LoadLocal(5))
-             .InsertAndAdvance(CodeInstruction.Call(() => AddSharp(default, default)))
+             .InsertAndAdvance(CodeInstruction.Call(() => AddHonedDescriptionHelper(default, default)))
              // Store the "source" local variable.
              .InsertAndAdvance(CodeInstruction.StoreLocal(5))
              // Load the cardModel onto the stack again to restore its original state before this patch.
@@ -42,13 +42,13 @@ public class SharpDescriptionPatch
          return codeMatcher.Instructions();
      }
      
-    public static List<string> AddSharp(CardModel cardModel, List<string> source)
+    public static List<string> AddHonedDescriptionHelper(CardModel cardModel, List<string> source)
     {
-        var sharp = SharpTracker.SharpAmount[cardModel];
-        if (sharp > 0)
+        var honed = HonedTracker.HonedAmount[cardModel];
+        if (honed > 0)
         {
-            LocString locString = new LocString("static_hover_tips", "SHARP.extraText");
-            locString.Add("Sharp", sharp);
+            LocString locString = new LocString("static_hover_tips", "HONED.extraText");
+            locString.Add("Honed", honed);
             source.Add(locString.GetFormattedText());  
         }
         return source;
@@ -56,21 +56,21 @@ public class SharpDescriptionPatch
 }
 
 [HarmonyPatch(typeof(CardModel), nameof(CardModel.HoverTips), MethodType.Getter)]
-public class SharpHoverTipPatch
+public class HonedHoverTipPatch
 {
     [HarmonyTranspiler]
-    static IEnumerable<CodeInstruction> AddSharpHoverTip(IEnumerable<CodeInstruction> instructions)
+    static IEnumerable<CodeInstruction> AddHonedHoverTip(IEnumerable<CodeInstruction> instructions)
     {
         var codeMatcher = new CodeMatcher(instructions);
 
-        // Add "Sharp" hover tip immediately before "Replay" hover tip.
+        // Add "Honed" hover tip immediately before "Replay" hover tip.
         codeMatcher.MatchStartForward(CodeMatch.Calls(() => default(CardModel).GetEnchantedReplayCount()))
             .ThrowIfInvalid("Could not find call to GetEnchantedReplayCount")
             // Load the "list" local variable onto the stack, which is index 0 in the raw IL.
             // Note the cardModel happens to already be the last thing on the stack before this instruction, so no need
             // to load that again.
             .InsertAndAdvance(CodeInstruction.LoadLocal(0))
-            .InsertAndAdvance(CodeInstruction.Call(() => AddSharp(default, default)))
+            .InsertAndAdvance(CodeInstruction.Call(() => AddHonedHoverTipHelper(default, default)))
             // Store the "list" local variable.
             .InsertAndAdvance(CodeInstruction.StoreLocal(0))
             // Load the cardModel onto the stack again to restore its original state before this patch.
@@ -79,14 +79,14 @@ public class SharpHoverTipPatch
         return codeMatcher.Instructions();
     }
     
-    public static List<IHoverTip> AddSharp(CardModel cardModel, List<IHoverTip> list)
+    public static List<IHoverTip> AddHonedHoverTipHelper(CardModel cardModel, List<IHoverTip> list)
     {
-        var sharp = SharpTracker.SharpAmount[cardModel];
-        if (sharp > 0)
+        var honed = HonedTracker.HonedAmount[cardModel];
+        if (honed > 0)
         {
-            LocString description = new LocString("static_hover_tips", "SHARP_DYNAMIC.description");
-            description.Add("Sharp", sharp);
-            list.Add(new HoverTip(new LocString("static_hover_tips", "SHARP_DYNAMIC.title"),
+            LocString description = new LocString("static_hover_tips", "HONED_DYNAMIC.description");
+            description.Add("Honed", honed);
+            list.Add(new HoverTip(new LocString("static_hover_tips", "HONED_DYNAMIC.title"),
                 description));
         }
 
@@ -95,7 +95,7 @@ public class SharpHoverTipPatch
 }
 
 [HarmonyPatch(typeof(Hook), "ModifyDamageInternal")]
-public class SharpDamagePatch
+public class HonedDamagePatch
 {
     [HarmonyPrefix]
     static bool IncreaseDamage(
@@ -111,14 +111,14 @@ public class SharpDamagePatch
     {
         if (cardSource != null)
         {
-            damage += SharpTracker.SharpAmount[cardSource];
+            damage += HonedTracker.HonedAmount[cardSource];
         }
 
         return true;
     }
 }
 
-public class SharpTracker
+public class HonedTracker
 {
-    public static readonly SpireField<CardModel, int> SharpAmount = new(() => 0);
+    public static readonly SpireField<CardModel, int> HonedAmount = new(() => 0);
 }
