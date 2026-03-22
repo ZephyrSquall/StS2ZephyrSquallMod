@@ -23,46 +23,74 @@ public class SharpDescriptionPatch
     
     [HarmonyTranspiler]
      static IEnumerable<CodeInstruction> AddSharpDescription(IEnumerable<CodeInstruction> instructions)
-     // static IEnumerable<CodeInstruction> AddSharpDescription(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
      {
          var codeMatcher = new CodeMatcher(instructions);
-         // LocalBuilder source = generator.DeclareLocal(typeof(List<string>));
 
          // Add "Sharp" text immediately before where added "Replay" text would go if the card also had Replay.
          codeMatcher.MatchStartForward(CodeMatch.Calls(() => default(CardModel).GetEnchantedReplayCount()))
-             .ThrowIfInvalid("Could not find it!!!!!!!!")
+             .ThrowIfInvalid("Could not find call to GetEnchantedReplayCount")
              // Load the "source" local variable onto the stack, which is index 5 in the raw IL.
              // Note the cardModel happens to already be the last thing on the stack before this instruction, so no need
              // to load that again.
              .InsertAndAdvance(CodeInstruction.LoadLocal(5))
-             .InsertAndAdvance(CodeInstruction.Call(() => AddSharp(default, default)));
+             .InsertAndAdvance(CodeInstruction.Call(() => AddSharp(default, default)))
+             // Store the "source" local variable.
+             .InsertAndAdvance(CodeInstruction.StoreLocal(5))
+             // Load the cardModel onto the stack again to restore its original state before this patch.
+             .InsertAndAdvance(CodeInstruction.LoadArgument(0));
          
-
          return codeMatcher.Instructions();
      }
      
-    public static CardModel AddSharp(CardModel cardModel, List<string> source)
+    public static List<string> AddSharp(CardModel cardModel, List<string> source)
     {
-        var x = source[0];
-        // This is just to cause a visible effect in-game to prove this helper method was called.
-        SharpTracker.SharpAmount[cardModel] += 1;
-        return cardModel;
+        var sharp = SharpTracker.SharpAmount[cardModel];
+        if (sharp > 0)
+        {
+            LocString locString = new LocString("static_hover_tips", "SHARP.extraText");
+            locString.Add("Sharp", sharp);
+            source.Add(locString.GetFormattedText());  
+        }
+        return source;
     }
 }
 
 [HarmonyPatch(typeof(CardModel), nameof(CardModel.HoverTips), MethodType.Getter)]
 public class SharpHoverTipPatch
 {
-    [HarmonyPostfix]
-    static void AddSharpHoverTip(ref IEnumerable<IHoverTip> __result, CardModel __instance)
+    [HarmonyTranspiler]
+    static IEnumerable<CodeInstruction> AddSharpHoverTip(IEnumerable<CodeInstruction> instructions)
     {
-        if (SharpTracker.SharpAmount[__instance] > 0)
+        var codeMatcher = new CodeMatcher(instructions);
+
+        // Add "Sharp" hover tip immediately before "Replay" hover tip.
+        codeMatcher.MatchStartForward(CodeMatch.Calls(() => default(CardModel).GetEnchantedReplayCount()))
+            .ThrowIfInvalid("Could not find call to GetEnchantedReplayCount")
+            // Load the "list" local variable onto the stack, which is index 0 in the raw IL.
+            // Note the cardModel happens to already be the last thing on the stack before this instruction, so no need
+            // to load that again.
+            .InsertAndAdvance(CodeInstruction.LoadLocal(0))
+            .InsertAndAdvance(CodeInstruction.Call(() => AddSharp(default, default)))
+            // Store the "list" local variable.
+            .InsertAndAdvance(CodeInstruction.StoreLocal(0))
+            // Load the cardModel onto the stack again to restore its original state before this patch.
+            .InsertAndAdvance(CodeInstruction.LoadArgument(0));
+         
+        return codeMatcher.Instructions();
+    }
+    
+    public static List<IHoverTip> AddSharp(CardModel cardModel, List<IHoverTip> list)
+    {
+        var sharp = SharpTracker.SharpAmount[cardModel];
+        if (sharp > 0)
         {
             LocString description = new LocString("static_hover_tips", "SHARP_DYNAMIC.description");
-            description.Add("Sharp", (decimal)SharpTracker.SharpAmount[__instance]);
-            __result = __result.Append(new HoverTip(new LocString("static_hover_tips", "SHARP_DYNAMIC.title"),
+            description.Add("Sharp", sharp);
+            list.Add(new HoverTip(new LocString("static_hover_tips", "SHARP_DYNAMIC.title"),
                 description));
         }
+
+        return list;
     }
 }
 

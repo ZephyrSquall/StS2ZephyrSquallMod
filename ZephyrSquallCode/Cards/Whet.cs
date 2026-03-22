@@ -14,7 +14,7 @@ namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
 [Pool(typeof(ZephyrSquallCardPool))]
 public class Whet() : ZephyrSquallCard(1,
-    CardType.Attack, CardRarity.Basic,
+    CardType.Skill, CardRarity.Basic,
     TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new IntVar("Sharp", 2M)];
