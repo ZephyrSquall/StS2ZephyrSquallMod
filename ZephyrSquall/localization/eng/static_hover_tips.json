@@ -1,4 +1,9 @@
 {
+  "DEFT.extraText": "[gold]Deft[/gold] {Deft}.",
+  "DEFT_DYNAMIC.description": "This card gains [blue]{Deft}[/blue] additional [gold]Block[/gold].",
+  "DEFT_DYNAMIC.title": "Deft",
+  "DEFT_STATIC.description": "This card gains additional [gold]Block[/gold].",
+  "DEFT_STATIC.title": "Deft",
   "HONED.extraText": "[gold]Honed[/gold] {Honed}.",
   "HONED_DYNAMIC.description": "This card deals [blue]{Honed}[/blue] additional damage.",
   "HONED_DYNAMIC.title": "Honed",

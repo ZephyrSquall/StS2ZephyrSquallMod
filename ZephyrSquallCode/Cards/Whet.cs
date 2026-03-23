@@ -25,11 +25,11 @@ public class Whet() : ZephyrSquallCard(1,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        CardSelectorPrefs prefs = new CardSelectorPrefs(this.SelectionScreenPrompt, 1);
-        CardModel? selectedCard = (await CardSelectCmd.FromHand(choiceContext, Owner, prefs, (Func<CardModel, bool>) (c => c.Type == CardType.Attack), (AbstractModel) this)).FirstOrDefault<CardModel>();
+        CardSelectorPrefs prefs = new CardSelectorPrefs(SelectionScreenPrompt, 1);
+        CardModel? selectedCard = (await CardSelectCmd.FromHand(choiceContext, Owner, prefs, (Func<CardModel, bool>) (c => c.Type == CardType.Attack), this)).FirstOrDefault();
         if (selectedCard != null)
         {
-            HonedTracker.HonedAmount[selectedCard] += DynamicVars["Honed"].IntValue;
+            CardModifierTracker.HonedAmount[selectedCard] += DynamicVars["Honed"].IntValue;
         }
     }
 
