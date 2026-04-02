@@ -14,6 +14,8 @@
   "ZEPHYRSQUALL-FORETHOUGHT.title": "Forethought",
   "ZEPHYRSQUALL-FLURRY.description": "Deal {Damage:diff()} damage {HitMultiplier:diff()} X times.",
   "ZEPHYRSQUALL-FLURRY.title": "Flurry",
+  "ZEPHYRSQUALL-IMPROVISED_WEAPON.description": "Deal {Damage:diff()} damage.\nPermanently decrease this card's damage by {Decrease:diff()}.",
+  "ZEPHYRSQUALL-IMPROVISED_WEAPON.title": "Improvised Weapon",
   "ZEPHYRSQUALL-PLAN_OF_ATTACK.description": "While in hand, your Attacks deal {AdditionalDamage:diff()} additional damage.",
   "ZEPHYRSQUALL-PLAN_OF_ATTACK.title": "Plan of Attack",
   "ZEPHYRSQUALL-STRIKE.description": "Deal {Damage:diff()} damage.",
