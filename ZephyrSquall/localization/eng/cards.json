@@ -12,6 +12,8 @@
   "ZEPHYRSQUALL-FORETHOUGHT.description": "Gain {Block:diff()} [gold]Block[/gold].\nAdd [gold]Deft[/gold] {Deft:diff()} to a [gold]Block[/gold] card in your [gold]Draw Pile[/gold].",
   "ZEPHYRSQUALL-FORETHOUGHT.selectionScreenPrompt": "Choose a card to add [gold]Deft[/gold] {Deft:diff()} to.",
   "ZEPHYRSQUALL-FORETHOUGHT.title": "Forethought",
+  "ZEPHYRSQUALL-FLURRY.description": "Deal {Damage:diff()} damage {HitMultiplier:diff()} X times.",
+  "ZEPHYRSQUALL-FLURRY.title": "Flurry",
   "ZEPHYRSQUALL-PLAN_OF_ATTACK.description": "While in hand, your Attacks deal {AdditionalDamage:diff()} additional damage.",
   "ZEPHYRSQUALL-PLAN_OF_ATTACK.title": "Plan of Attack",
   "ZEPHYRSQUALL-STRIKE.description": "Deal {Damage:diff()} damage.",
