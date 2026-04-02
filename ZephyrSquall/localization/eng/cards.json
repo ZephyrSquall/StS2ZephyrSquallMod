@@ -7,6 +7,8 @@
   "ZEPHYRSQUALL-BURST_OF_SPEED.title": "Burst of Speed",
   "ZEPHYRSQUALL-DEFEND.description": "Gain {Block:diff()} [gold]Block[/gold].",
   "ZEPHYRSQUALL-DEFEND.title": "Defend",
+  "ZEPHYRSQUALL-FAIR_WINDS.description": "The next time you take an extra turn, all allies take an extra turn as well.",
+  "ZEPHYRSQUALL-FAIR_WINDS.title": "Fair Winds",
   "ZEPHYRSQUALL-FORETHOUGHT.description": "Gain {Block:diff()} [gold]Block[/gold].\nAdd [gold]Deft[/gold] {Deft:diff()} to a [gold]Block[/gold] card in your [gold]Draw Pile[/gold].",
   "ZEPHYRSQUALL-FORETHOUGHT.selectionScreenPrompt": "Choose a card to add [gold]Deft[/gold] {Deft:diff()} to.",
   "ZEPHYRSQUALL-FORETHOUGHT.title": "Forethought",
