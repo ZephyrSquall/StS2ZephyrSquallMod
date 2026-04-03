@@ -18,6 +18,8 @@
   "ZEPHYRSQUALL-IMPROVISED_WEAPON.title": "Improvised Weapon",
   "ZEPHYRSQUALL-PLAN_OF_ATTACK.description": "While in hand, your Attacks deal {AdditionalDamage:diff()} additional damage.",
   "ZEPHYRSQUALL-PLAN_OF_ATTACK.title": "Plan of Attack",
+  "ZEPHYRSQUALL-STORM_BREWING.description": "Gain {TailwindPower:diff()} [gold]Tailwind[/gold].\nPermanently increase this card's [gold]Tailwind[/gold] by {Increase:diff()}{IfUpgraded:show:|, to a maximum of {Limit:diff()}}.",
+  "ZEPHYRSQUALL-STORM_BREWING.title": "Storm Brewing",
   "ZEPHYRSQUALL-STRIKE.description": "Deal {Damage:diff()} damage.",
   "ZEPHYRSQUALL-STRIKE.title": "Strike",
   "ZEPHYRSQUALL-WHET.description": "Add [gold]Honed[/gold] {Honed:diff()} to an Attack in your [gold]Hand[/gold].",
