@@ -28,7 +28,7 @@ public class ZephyrSquall : PlaceholderCharacterModel
         ModelDb.Card<Defend>(),
         ModelDb.Card<Defend>(),
         ModelDb.Card<Defend>(),
-        ModelDb.Card<BurstOfSpeed>()
+        ModelDb.Card<Whet>()
     ];
 
     public override IReadOnlyList<RelicModel> StartingRelics =>
