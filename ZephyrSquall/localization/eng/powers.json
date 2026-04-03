@@ -5,6 +5,9 @@
   "ZEPHYRSQUALL-FAIR_WINDS_POWER.description": "The next time you take an extra turn, all allies take an extra turn as well.",
   "ZEPHYRSQUALL-FAIR_WINDS_POWER.smartDescription": "The next {Amount:plural:time|[blue]{}[/blue] times} you take an extra turn, all allies take an extra turn as well.",
   "ZEPHYRSQUALL-FAIR_WINDS_POWER.title": "Fair Winds",
+  "ZEPHYRSQUALL-MAELSTROM_POWER.description": "Whenever you deal attack damage, deal [blue]1[/blue] damage to ALL enemies.",
+  "ZEPHYRSQUALL-MAELSTROM_POWER.smartDescription": "Whenever you deal attack damage, deal [blue]{Amount}[/blue] damage to ALL enemies.",
+  "ZEPHYRSQUALL-MAELSTROM_POWER.title": "Maelstrom",
   "ZEPHYRSQUALL-TAILWIND_POWER.description": "If you end your turn with at least [blue]10[/blue] [gold]Tailwind[/gold], take an extra turn.",
   "ZEPHYRSQUALL-TAILWIND_POWER.smartDescription": "If you end your turn with at least [blue]10[/blue] [gold]Tailwind[/gold], take an extra turn.",
   "ZEPHYRSQUALL-TAILWIND_POWER.title": "Tailwind"
