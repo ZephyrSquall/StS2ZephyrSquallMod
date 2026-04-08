@@ -1,6 +1,8 @@
 {
   "ZEPHYRSQUALL-ALL_OUT.description": "Convert your [gold]Block[/gold] into [gold]Tailwind[/gold].\nYou cannot gain [gold]Block[/gold].",
   "ZEPHYRSQUALL-ALL_OUT.title": "All-Out",
+  "ZEPHYRSQUALL-BREATHE_DEEPLY.description": "Next turn, add a [gold]{IfUpgraded:show:Wind Blast+|Wind Blast}[/gold] into your [gold]Hand[/gold].",
+  "ZEPHYRSQUALL-BREATHE_DEEPLY.title": "Breathe Deeply",
   "ZEPHYRSQUALL-BUILD_MOMENTUM.description": "Deal {Damage:diff()} damage a number of times equal to the turn number.{InCombat:\n(Hits {CalculatedHits:diff()} {CalculatedHits:plural:time|times})|}",
   "ZEPHYRSQUALL-BUILD_MOMENTUM.title": "Build Momentum",
   "ZEPHYRSQUALL-BURST_OF_SPEED.description": "Cannot be played during extra turns.\nGain {TailwindPower:diff()} [gold]Tailwind[/gold].",
@@ -28,5 +30,7 @@
   "ZEPHYRSQUALL-STRIKE.title": "Strike",
   "ZEPHYRSQUALL-WHET.description": "Add [gold]Honed[/gold] {Honed:diff()} to an Attack in your [gold]Hand[/gold].",
   "ZEPHYRSQUALL-WHET.selectionScreenPrompt": "Choose a card to add [gold]Honed[/gold] {Honed:diff()} to.",
-  "ZEPHYRSQUALL-WHET.title": "Whet"
+  "ZEPHYRSQUALL-WHET.title": "Whet",
+  "ZEPHYRSQUALL-WIND_BLAST.description": "Deal {Damage:diff()} damage to ALL enemies.",
+  "ZEPHYRSQUALL-WIND_BLAST.title": "Wind Blast"
 }
