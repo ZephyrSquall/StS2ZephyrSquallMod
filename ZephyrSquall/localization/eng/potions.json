@@ -1,4 +1,6 @@
 {
   "ZEPHYRSQUALL-BOTTLED_SQUALL.description": "Gain [blue]{TailwindPower}[/blue] [gold]Tailwind[/gold].",
-  "ZEPHYRSQUALL-BOTTLED_SQUALL.title": "Bottled Squall"
+  "ZEPHYRSQUALL-BOTTLED_SQUALL.title": "Bottled Squall",
+  "ZEPHYRSQUALL-INK_BOTTLE.description": "[gold]Record[/gold] any number of cards in your [gold]Hand[/gold].",
+  "ZEPHYRSQUALL-INK_BOTTLE.title": "Ink Bottle"
 }

@@ -8,7 +8,6 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.CardPools;
 using ZephyrSquall.ZephyrSquallCode.CardPiles;
@@ -30,11 +29,11 @@ public class Book() : CustomCardModel(1,
     
     public static async Task<Book?> CreateInHand(
         Player owner,
-        List<CardModel> recordedCards,
+        IEnumerable<CardModel> recordedCards,
         CombatState combatState)
     {
         Book book = combatState.CreateCard<Book>(owner);
-        book.RecordedCards = recordedCards;
+        book.RecordedCards = recordedCards.ToList();
         await CardPileCmd.AddGeneratedCardToCombat(book, PileType.Hand, true);
         RecordPile.TargetBook = book;
         await CardPileCmd.Add(recordedCards, RecordPile.Record);

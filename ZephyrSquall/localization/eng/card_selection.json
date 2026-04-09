@@ -1,0 +1,5 @@
+{
+  "TO_RECORD": "Choose {Amount:plural:a card|[blue]{}[/blue] cards} to [gold]Record[/gold].",
+  "TO_RECORD_ANY": "Choose any number of cards to [gold]Record[/gold].",
+  "TO_RECORD_UP_TO": "Choose up to {Amount:plural:[blue]{}[/blue] card|[blue]{}[/blue] cards} to [gold]Record[/gold]."
+}

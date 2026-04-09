@@ -31,7 +31,6 @@
   "ZEPHYRSQUALL-STRIKE.description": "Deal {Damage:diff()} damage.",
   "ZEPHYRSQUALL-STRIKE.title": "Strike",
   "ZEPHYRSQUALL-TOME_SMACK.description": "[gold]Record[/gold] 1 card.\nDeal {Damage:diff()} damage.",
-  "ZEPHYRSQUALL-TOME_SMACK.selectionScreenPrompt": "Choose a card to [gold]Record[/gold].",
   "ZEPHYRSQUALL-TOME_SMACK.title": "Tome Smack",
   "ZEPHYRSQUALL-WHET.description": "Add [gold]Honed[/gold] {Honed:diff()} to an Attack in your [gold]Hand[/gold].",
   "ZEPHYRSQUALL-WHET.selectionScreenPrompt": "Choose a card to add [gold]Honed[/gold] {Honed:diff()} to.",

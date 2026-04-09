@@ -12,7 +12,7 @@ public class ZephyrSquall : PlaceholderCharacterModel
 {
     public const string CharacterId = "ZephyrSquall";
 
-    public static readonly Color Color = new("ffffff");
+    public static readonly Color Color = new("6ceef5");
 
     public override Color NameColor => Color;
     public override CharacterGender Gender => CharacterGender.Masculine;
