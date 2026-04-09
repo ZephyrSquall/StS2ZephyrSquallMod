@@ -22,7 +22,7 @@ public class Forethought() : ZephyrSquallCard(2,
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(7M, ValueProp.Move), new IntVar("Deft", 4M)];
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [new HoverTip(new LocString("static_hover_tips", "DEFT_STATIC.title"), (new LocString("static_hover_tips", "DEFT_STATIC.description")))];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [new HoverTip(new LocString("static_hover_tips", "DEFT_STATIC.title"), new LocString("static_hover_tips", "DEFT_STATIC.description"))];
     
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,

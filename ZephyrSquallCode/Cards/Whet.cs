@@ -19,7 +19,7 @@ public class Whet() : ZephyrSquallCard(1,
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new IntVar("Honed", 2M)];
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [new HoverTip(new LocString("static_hover_tips", "HONED_STATIC.title"), (new LocString("static_hover_tips", "HONED_STATIC.description")))];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [new HoverTip(new LocString("static_hover_tips", "HONED_STATIC.title"), new LocString("static_hover_tips", "HONED_STATIC.description"))];
     
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
