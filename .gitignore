@@ -11,6 +11,4 @@ riderModule.iml
 publish/
 Properties/
 .editorconfig
-*.import
-*.uid
 *.user

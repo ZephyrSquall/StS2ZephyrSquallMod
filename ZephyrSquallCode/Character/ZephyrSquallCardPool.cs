@@ -6,7 +6,6 @@ namespace ZephyrSquall.ZephyrSquallCode.Character;
 public class ZephyrSquallCardPool : CustomCardPoolModel
 {
     public override string Title => ZephyrSquall.CharacterId; //This is not a display name.
-    public override string EnergyColorName => ZephyrSquall.CharacterId;
 
     /* These HSV values will determine the color of your card back.
     They are applied as a shader onto an already colored image,
@@ -27,4 +26,7 @@ public class ZephyrSquallCardPool : CustomCardPoolModel
     public override Color DeckEntryCardColor => new("6ceef5");
 
     public override bool IsColorless => false;
+    
+    public override string? BigEnergyIconPath => "res://ZephyrSquall/images/ui/combat/zephyr_squall_energy_icon_big.png";
+    public override string? TextEnergyIconPath => "res://ZephyrSquall/images/ui/combat/zephyr_squall_energy_icon_text.png";
 }
