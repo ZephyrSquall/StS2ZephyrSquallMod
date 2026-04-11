@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctptyx7yepc85"
-path="res://.godot/imported/strike.png-1da2be92469bd1d1f5814499b7624330.ctex"
+uid="uid://dn6dbsworf557"
+path="res://.godot/imported/beta.png-acd81a5129b5d209fdd17f60b8543008.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ZephyrSquall/images/card_portraits/big/strike.png"
-dest_files=["res://.godot/imported/strike.png-1da2be92469bd1d1f5814499b7624330.ctex"]
+source_file="res://ZephyrSquall/images/card_portraits/big/beta.png"
+dest_files=["res://.godot/imported/beta.png-acd81a5129b5d209fdd17f60b8543008.ctex"]
 
 [params]
 
