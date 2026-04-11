@@ -36,5 +36,7 @@
   "ZEPHYRSQUALL-WHET.selectionScreenPrompt": "Choose a card to add [gold]Honed[/gold] {Honed:diff()} to.",
   "ZEPHYRSQUALL-WHET.title": "Whet",
   "ZEPHYRSQUALL-WIND_BLAST.description": "Deal {Damage:diff()} damage to ALL enemies.",
-  "ZEPHYRSQUALL-WIND_BLAST.title": "Wind Blast"
+  "ZEPHYRSQUALL-WIND_BLAST.title": "Wind Blast",
+  "ZEPHYRSQUALL-WINDS_FURY.description": "The first Attack you play each turn hits an additional time.",
+  "ZEPHYRSQUALL-WINDS_FURY.title": "Wind's Fury"
 }

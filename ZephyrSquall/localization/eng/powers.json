@@ -16,5 +16,8 @@
   "ZEPHYRSQUALL-MAELSTROM_POWER.title": "Maelstrom",
   "ZEPHYRSQUALL-TAILWIND_POWER.description": "If you end your turn with at least [blue]10[/blue] [gold]Tailwind[/gold], take an extra turn.",
   "ZEPHYRSQUALL-TAILWIND_POWER.smartDescription": "If you end your turn with at least [blue]10[/blue] [gold]Tailwind[/gold], take an extra turn.",
-  "ZEPHYRSQUALL-TAILWIND_POWER.title": "Tailwind"
+  "ZEPHYRSQUALL-TAILWIND_POWER.title": "Tailwind",
+  "ZEPHYRSQUALL-WINDS_FURY_POWER.description": "The first Attack you play each turn hits an additional time.",
+  "ZEPHYRSQUALL-WINDS_FURY_POWER.smartDescription": "The first Attack you play each turn hits {Amount:plural:an additional time|[blue]{}[/blue] additional times}.",
+  "ZEPHYRSQUALL-WINDS_FURY_POWER.title": "Wind's Fury"
 }
