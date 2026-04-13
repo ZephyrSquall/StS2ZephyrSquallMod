@@ -1,14 +1,11 @@
 using BaseLib.Utils;
-using MegaCrit.Sts2.Core.CardSelection;
-using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Models;
 using ZephyrSquall.ZephyrSquallCode.Character;
-using ZephyrSquall.ZephyrSquallCode.Patches;
+using ZephyrSquall.ZephyrSquallCode.Commands;
 
 namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
@@ -25,12 +22,7 @@ public class Whet() : ZephyrSquallCard(1,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        CardSelectorPrefs prefs = new CardSelectorPrefs(SelectionScreenPrompt, 1);
-        CardModel? selectedCard = (await CardSelectCmd.FromHand(choiceContext, Owner, prefs, (Func<CardModel, bool>) (c => c.Type == CardType.Attack), this)).FirstOrDefault();
-        if (selectedCard != null)
-        {
-            CardModifierTracker.HonedAmount[selectedCard] += DynamicVars["Honed"].IntValue;
-        }
+        await ModifierCmd.AddHoned(choiceContext, Owner, DynamicVars["Honed"].IntValue, 1, this);
     }
 
     protected override void OnUpgrade() => DynamicVars["Honed"].UpgradeValueBy(1M);

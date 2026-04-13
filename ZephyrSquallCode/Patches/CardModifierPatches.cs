@@ -170,6 +170,20 @@ public class HonedDamagePatch
     }
 }
 
+[HarmonyPatch(typeof(AbstractModel), nameof(AbstractModel.MutableClone))]
+public class ModifierClonePatch
+{
+    [HarmonyPostfix]
+    static void CloneModifiers(ref AbstractModel __result, AbstractModel __instance)
+    {
+        if (__result is CardModel resultCardModel && __instance is CardModel instanceCardModel)
+        {
+            CardModifierTracker.DeftAmount[resultCardModel] = CardModifierTracker.DeftAmount[instanceCardModel];
+            CardModifierTracker.HonedAmount[resultCardModel] = CardModifierTracker.HonedAmount[instanceCardModel];
+        }
+    }
+}
+
 public class CardModifierTracker
 {
     public static readonly SpireField<CardModel, int> DeftAmount = new(() => 0);

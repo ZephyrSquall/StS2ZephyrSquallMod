@@ -1,4 +1,7 @@
 {
+  "TO_HONED": "Choose {Amount:plural:a card|[blue]{}[/blue] cards} to add [gold]Honed[/gold] {Honed} to.",
+  "TO_HONED_ANY": "Choose any number of cards to add [gold]Honed[/gold] {Honed} to.",
+  "TO_HONED_UP_TO": "Choose up to {Amount:plural:[blue]{}[/blue] card|[blue]{}[/blue] cards} to add [gold]Honed[/gold] {Honed} to.",
   "TO_RECORD": "Choose {Amount:plural:a card|[blue]{}[/blue] cards} to [gold]Record[/gold].",
   "TO_RECORD_ANY": "Choose any number of cards to [gold]Record[/gold].",
   "TO_RECORD_UP_TO": "Choose up to {Amount:plural:[blue]{}[/blue] card|[blue]{}[/blue] cards} to [gold]Record[/gold]."
