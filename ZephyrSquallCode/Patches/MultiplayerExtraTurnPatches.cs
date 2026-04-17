@@ -11,7 +11,7 @@ namespace ZephyrSquall.ZephyrSquallCode.Patches;
 [HarmonyPatch]
 public class ShareExtraTurnPatch
 {
-    static Type _innerAsyncClass = AccessTools.FirstInner(typeof(CombatManager), t => t.Name.Contains("<SwitchFromPlayerToEnemySide>d__120"));
+    static Type _innerAsyncClass = AccessTools.FirstInner(typeof(CombatManager), t => t.Name.Contains("<SwitchFromPlayerToEnemySide>d__"));
     
     // The method I want to patch, "SwitchFromPlayerToEnemySide", is async. In IL, async methods are implemented with a
     // private inner class (in this case named "<SwitchFromPlayerToEnemySide>d__120") inside its "MoveNext" method.
