@@ -38,6 +38,8 @@
   "ZEPHYRSQUALL-STRIKE.title": "Strike",
   "ZEPHYRSQUALL-TOME_SMACK.description": "[gold]Record[/gold] 1 card.\nDeal {Damage:diff()} damage.",
   "ZEPHYRSQUALL-TOME_SMACK.title": "Tome Smack",
+  "ZEPHYRSQUALL-WARINESS.description": "Gain {Block:diff()} [gold]Block[/gold].\nAt the start of your turn, if this is in your [gold]Discard Pile[/gold], put this into your [gold]Hand[/gold].",
+  "ZEPHYRSQUALL-WARINESS.title": "Wariness",
   "ZEPHYRSQUALL-WHET.description": "Add [gold]Honed[/gold] {Honed:diff()} to an Attack in your [gold]Hand[/gold].",
   "ZEPHYRSQUALL-WHET.title": "Whet",
   "ZEPHYRSQUALL-WIND_BLAST.description": "Deal {Damage:diff()} damage to ALL enemies.",
