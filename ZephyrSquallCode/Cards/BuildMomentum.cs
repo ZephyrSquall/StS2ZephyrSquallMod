@@ -24,15 +24,15 @@ public class BuildMomentum() : ZephyrSquallCard(1,
         new CalculationBaseVar(0M),
         new CalculationExtraVar(1M),
         new CalculatedVar("CalculatedHits").WithMultiplier((Func<CardModel, Creature, Decimal>)((card, _) =>
-            CombatManager.Instance.DebugOnlyGetState().RoundNumber))
+            card.CombatState.RoundNumber))
     ];
 
     
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
-        CardPlay cardPlay)
+        CardPlay play)
     {
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue).WithHitCount((int) ((CalculatedVar) DynamicVars["CalculatedHits"]).Calculate(cardPlay.Target)).FromCard(this).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue).WithHitCount((int) ((CalculatedVar) DynamicVars["CalculatedHits"]).Calculate(play.Target)).FromCard(this).Targeting(play.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
     }
 
     protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(2M);
