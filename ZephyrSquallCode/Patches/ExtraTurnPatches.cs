@@ -8,7 +8,7 @@ namespace ZephyrSquall.ZephyrSquallCode.Patches;
 
 public class ExtraTurnTracker
 {
-    public static bool IsExtraTurn;
+    public static List<Player> PlayersTakingExtraTurn = [];
 }
 
 [HarmonyPatch(typeof(Hook), nameof(Hook.AfterTakingExtraTurn))]
@@ -17,7 +17,7 @@ class ExtraTurnStartPatch
     [HarmonyPrefix]
     static bool TrackExtraTurnExtraTurnStart(CombatState combatState, Player player)
     {
-        ExtraTurnTracker.IsExtraTurn = true;
+        ExtraTurnTracker.PlayersTakingExtraTurn.Add(player);
         return true;
     }
 }
@@ -28,7 +28,7 @@ class CombatStartPatch
     [HarmonyPrefix]
     static bool TrackExtraTurnCombatStart(IRunState runState, CombatState? combatState)
     {
-        ExtraTurnTracker.IsExtraTurn = false;
+        ExtraTurnTracker.PlayersTakingExtraTurn.Clear();
         return true;
     }
 }
@@ -39,7 +39,7 @@ class TurnEndPatch
     [HarmonyPrefix]
     static bool TrackExtraTurnTurnEnd(CombatState combatState, CombatSide side)
     {
-        ExtraTurnTracker.IsExtraTurn = false;
+        ExtraTurnTracker.PlayersTakingExtraTurn.Clear();
         return true;
     }
 }

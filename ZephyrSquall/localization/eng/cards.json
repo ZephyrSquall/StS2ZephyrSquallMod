@@ -42,6 +42,8 @@
   "ZEPHYRSQUALL-WARINESS.title": "Wariness",
   "ZEPHYRSQUALL-WHET.description": "Add [gold]Honed[/gold] {Honed:diff()} to an Attack in your [gold]Hand[/gold].",
   "ZEPHYRSQUALL-WHET.title": "Whet",
+  "ZEPHYRSQUALL-WIND_BARRIER.description": "Gain {Block:diff()} [gold]Block[/gold].\nGain {TailwindPower:diff()} [gold]Tailwind[/gold].\n[gold]Block[/gold] is not removed at the start of your next extra turn.",
+  "ZEPHYRSQUALL-WIND_BARRIER.title": "Wind Barrier",
   "ZEPHYRSQUALL-WIND_BLAST.description": "Deal {Damage:diff()} damage to ALL enemies.",
   "ZEPHYRSQUALL-WIND_BLAST.title": "Wind Blast",
   "ZEPHYRSQUALL-WINDS_FURY.description": "The first Attack you play each turn hits an additional time.",
