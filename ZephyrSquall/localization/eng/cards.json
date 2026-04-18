@@ -24,6 +24,8 @@
   "ZEPHYRSQUALL-HARRY.title": "Harry",
   "ZEPHYRSQUALL-IMPROVISED_WEAPON.description": "Deal {Damage:diff()} damage.\nPermanently decrease this card's damage by {Decrease:diff()}.",
   "ZEPHYRSQUALL-IMPROVISED_WEAPON.title": "Improvised Weapon",
+  "ZEPHYRSQUALL-KNOWLEDGE_SHIELD.description": "Gain {Block:diff()} [gold]Block[/gold].\n[gold]Well Read[/gold]: This card gains [gold]Deft[/gold] {Deft:diff()}.",
+  "ZEPHYRSQUALL-KNOWLEDGE_SHIELD.title": "Knowledge Shield",
   "ZEPHYRSQUALL-LOST_IN_THOUGHT.description": "",
   "ZEPHYRSQUALL-LOST_IN_THOUGHT.title": "Lost in Thought",
   "ZEPHYRSQUALL-MAELSTROM.description": "Whenever you deal attack damage, deal {MaelstromPower:diff()} damage to ALL enemies.",

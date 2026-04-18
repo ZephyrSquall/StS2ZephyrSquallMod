@@ -2,10 +2,10 @@ using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
-using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using ZephyrSquall.ZephyrSquallCode.Character;
 using ZephyrSquall.ZephyrSquallCode.Commands;
+using ZephyrSquall.ZephyrSquallCode.Utilities;
 
 namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
@@ -16,7 +16,7 @@ public class Whet() : ZephyrSquallCard(1,
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new IntVar("Honed", 2M)];
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [new HoverTip(new LocString("static_hover_tips", "HONED_STATIC.title"), new LocString("static_hover_tips", "HONED_STATIC.description"))];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [ZephyrHoverTips.Honed()];
     
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,

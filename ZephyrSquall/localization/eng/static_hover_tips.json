@@ -10,5 +10,7 @@
   "HONED_STATIC.description": "This card deals additional damage.",
   "HONED_STATIC.title": "Honed",
   "RECORD.description": "Store the cards in a new [gold]Book[/gold] and add it into your [gold]Hand[/gold]. Statuses, Curses, Quests, and [gold]Books[/gold] cannot be [gold]Recorded[/gold].",
-  "RECORD.title": "Record"
+  "RECORD.title": "Record",
+  "WELL_READ.description": "This effect triggers if your [gold]Hand[/gold] is full.",
+  "WELL_READ.title": "Well Read"
 }

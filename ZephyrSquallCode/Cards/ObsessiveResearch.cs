@@ -12,7 +12,7 @@ public class ObsessiveResearch() : ZephyrSquallCard(0,
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1)];
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<LostInThought>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<LostInThought>(), EnergyHoverTip];
     
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,

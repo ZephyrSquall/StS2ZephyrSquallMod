@@ -1,13 +1,11 @@
-using MegaCrit.Sts2.Core.Combat;
-using MegaCrit.Sts2.Core.Combat.History.Entries;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
-using BaseLib.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Models;
+using ZephyrSquall.ZephyrSquallCode.Utilities;
 
 namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
@@ -23,27 +21,22 @@ public class Harry() : ZephyrSquallCard(1, CardType.Attack, CardRarity.Common, T
         new DamageVar(4M, ValueProp.Move),
         new CalculationBaseVar(0M),
         new CalculationExtraVar(1M),
-        new CalculatedVar("TimesDealtAttackDamage").WithMultiplier((Func<CardModel, Creature, Decimal>) ((card, _) => ((Harry) card).TimesDealtAttackDamage))
+        new CalculatedVar("TimesDealtAttackDamage").WithMultiplier((Func<CardModel, Creature, decimal>)((card, _) =>
+            ZephyrQueries.TimesDealtAttackDamageThisTurn(card.CombatState, card.Owner.Creature)))
     ];
 
-    private bool CanGainBlock => TimesDealtAttackDamage >= 3;
+    private bool CanGainBlock => ZephyrQueries.TimesDealtAttackDamageThisTurn(CombatState, Owner.Creature) >= 3;
 
-    private int TimesDealtAttackDamage =>
-        CombatManager.Instance.History.Entries.OfType<CreatureAttackedEntry>()
-            .Sum(e => e.HappenedThisTurn(CombatState) && e.Actor == Owner.Creature
-                ? e.DamageResults.Count(d => d.Props.IsPoweredAttack_() && d.TotalDamage > 0)
-                : 0);
-
-    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
         if (CanGainBlock)
         {
-            await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
+            await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, play);
         }
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(2)
             .FromCard(this)
-            .Targeting(cardPlay.Target)
+            .Targeting(play.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
     }
