@@ -15,6 +15,8 @@
   "ZEPHYRSQUALL-DEFEND.title": "Defend",
   "ZEPHYRSQUALL-FAIR_WINDS.description": "The next time you take an extra turn, all allies take an extra turn as well.",
   "ZEPHYRSQUALL-FAIR_WINDS.title": "Fair Winds",
+  "ZEPHYRSQUALL-FLOW_STATE.description": "Deal {Damage:diff()} damage to ALL enemies.\n[gold]Well Read[/gold]: If this is in your [gold]Hand[/gold], immediately play it.",
+  "ZEPHYRSQUALL-FLOW_STATE.title": "Flow State",
   "ZEPHYRSQUALL-FORETHOUGHT.description": "Gain {Block:diff()} [gold]Block[/gold].\nAdd [gold]Deft[/gold] {Deft:diff()} to a [gold]Block[/gold] card in your [gold]Draw Pile[/gold].",
   "ZEPHYRSQUALL-FORETHOUGHT.selectionScreenPrompt": "Choose a card to add [gold]Deft[/gold] {Deft:diff()} to.",
   "ZEPHYRSQUALL-FORETHOUGHT.title": "Forethought",
