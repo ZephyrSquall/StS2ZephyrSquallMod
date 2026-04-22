@@ -2,7 +2,6 @@ using HarmonyLib;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
-using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using ZephyrSquall.ZephyrSquallCode.Hooks;
@@ -32,19 +31,19 @@ class PlayStartPatch
     }
 }
 
-[HarmonyPatch(typeof(CombatManager), nameof(CombatManager.CheckForEmptyHand))]
-class WellReadHookPatch
+[HarmonyPatch(typeof(CombatManager), nameof(CombatManager.AfterCombatRoomLoaded))]
+class SetUpOnBecomeWellReadHookPatch
 {
     [HarmonyPostfix]
-    static void CheckForWellReadHandPatch(ref Task __result, PlayerChoiceContext choiceContext, Player player)
+    static void AddActionToHandContentsChangedPatch(CombatManager __instance)
     {
-        if (ZephyrQueries.IsWellRead(player))
-            __result = AsyncWrapper(__result, choiceContext, player);
-    }
-
-    private static async Task AsyncWrapper(Task originalResult, PlayerChoiceContext choiceContext, Player player)
-    {
-        await originalResult;
-        await ZephyrHooks.OnBecomeWellRead(choiceContext, player);
+        foreach (var player in __instance.DebugOnlyGetState().Players)
+        {
+            PileType.Hand.GetPile(player).ContentsChanged += async() =>
+            {
+                if (ZephyrQueries.IsWellRead(player))
+                    await ZephyrHooks.OnBecomeWellRead(player);
+            };
+        }
     }
 }
