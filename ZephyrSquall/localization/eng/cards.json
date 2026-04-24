@@ -42,6 +42,8 @@
   "ZEPHYRSQUALL-OVERTHINK_IT.title": "Overthink It",
   "ZEPHYRSQUALL-PLAN_OF_ATTACK.description": "While in [gold]Hand[/gold], your Attacks deal {AdditionalDamage:diff()} additional damage.",
   "ZEPHYRSQUALL-PLAN_OF_ATTACK.title": "Plan of Attack",
+  "ZEPHYRSQUALL-REPOSITORY.description": "Draw {Cards:diff()} {Cards:plural:card|cards}.\nCan be [gold]Upgraded[/gold] any number of times.",
+  "ZEPHYRSQUALL-REPOSITORY.title": "Repository",
   "ZEPHYRSQUALL-RESHELVE.description": "Swap your [gold]Draw Pile[/gold] and [gold]Discard Pile[/gold].\nShuffle your [gold]Draw Pile[/gold].{IfUpgraded:show:\nDraw {Cards:diff()} {Cards:plural:card|cards}.|}",
   "ZEPHYRSQUALL-RESHELVE.title": "Reshelve",
   "ZEPHYRSQUALL-STORM_BREWING.description": "Gain {TailwindPower:diff()} [gold]Tailwind[/gold].\nPermanently increase this card's [gold]Tailwind[/gold] by {Increase:diff()}{IfUpgraded:show:|, to a maximum of {Limit:diff()}}.",
