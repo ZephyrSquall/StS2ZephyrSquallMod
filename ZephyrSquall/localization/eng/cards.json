@@ -38,6 +38,8 @@
   "ZEPHYRSQUALL-OBSESSIVE_RESEARCH.title": "Obsessive Research",
   "ZEPHYRSQUALL-ONE_WITH_THE_WIND.description": "Whenever you gain [gold]Tailwind[/gold], gain an additional {OneWithTheWindPower:diff()} [gold]Tailwind[/gold].",
   "ZEPHYRSQUALL-ONE_WITH_THE_WIND.title": "One with the Wind",
+  "ZEPHYRSQUALL-OVERTHINK_IT.description": "Draw {Cards:diff()} {Cards:plural:card|cards}.\nGain {Block:diff()} [gold]Block[/gold] each time you [gold]Overflow[/gold] this way.",
+  "ZEPHYRSQUALL-OVERTHINK_IT.title": "Overthink It",
   "ZEPHYRSQUALL-PLAN_OF_ATTACK.description": "While in [gold]Hand[/gold], your Attacks deal {AdditionalDamage:diff()} additional damage.",
   "ZEPHYRSQUALL-PLAN_OF_ATTACK.title": "Plan of Attack",
   "ZEPHYRSQUALL-RESHELVE.description": "Swap your [gold]Draw Pile[/gold] and [gold]Discard Pile[/gold].\nShuffle your [gold]Draw Pile[/gold].{IfUpgraded:show:\nDraw {Cards:diff()} {Cards:plural:card|cards}.|}",
