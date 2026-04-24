@@ -26,6 +26,8 @@
   "ZEPHYRSQUALL-HARRY.title": "Harry",
   "ZEPHYRSQUALL-IMPROVISED_WEAPON.description": "Deal {Damage:diff()} damage.\nPermanently decrease this card's damage by {Decrease:diff()}.",
   "ZEPHYRSQUALL-IMPROVISED_WEAPON.title": "Improvised Weapon",
+  "ZEPHYRSQUALL-KNOWLEDGE_IS_POWER.description": "Whenever you [gold]Overflow[/gold], deal {KnowledgeIsPowerPower:diff()} damage to a random enemy.",
+  "ZEPHYRSQUALL-KNOWLEDGE_IS_POWER.title": "Knowledge is Power",
   "ZEPHYRSQUALL-KNOWLEDGE_SHIELD.description": "Gain {Block:diff()} [gold]Block[/gold].\n[gold]Well Read[/gold]: This card gains [gold]Deft[/gold] {Deft:diff()}.",
   "ZEPHYRSQUALL-KNOWLEDGE_SHIELD.title": "Knowledge Shield",
   "ZEPHYRSQUALL-LOST_IN_THOUGHT.description": "",

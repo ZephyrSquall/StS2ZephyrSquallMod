@@ -17,6 +17,12 @@ public static class ZephyrHoverTips
             new LocString("static_hover_tips", "HONED_STATIC.description"));
     }
     
+    public static IHoverTip Overflow()
+    {
+        return new HoverTip(new LocString("static_hover_tips", "OVERFLOW.title"),
+            new LocString("static_hover_tips", "OVERFLOW.description"));
+    }
+    
     public static IHoverTip Record()
     {
         return new HoverTip(new LocString("static_hover_tips", "RECORD.title"),

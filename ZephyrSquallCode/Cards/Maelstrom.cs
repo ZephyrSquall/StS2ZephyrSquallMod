@@ -10,7 +10,7 @@ public class Maelstrom() : ZephyrSquallCard(1,
     CardType.Power, CardRarity.Uncommon,
     TargetType.Self)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<MaelstromPower>("MaelstromPower", 1M)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<MaelstromPower>(1M)];
     
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
