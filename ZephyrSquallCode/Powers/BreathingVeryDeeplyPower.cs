@@ -19,7 +19,7 @@ public sealed class BreathingVeryDeeplyPower : ZephyrSquallPower
     public override async Task BeforeHandDraw(
         Player player,
         PlayerChoiceContext choiceContext,
-        CombatState combatState)
+        ICombatState combatState)
     {
         if (Owner.Player == player)
         {
@@ -28,7 +28,7 @@ public sealed class BreathingVeryDeeplyPower : ZephyrSquallPower
                 windBlastList.Add(combatState.CreateCard<WindBlast>(Owner.Player));
             foreach (WindBlast card in windBlastList)
                 CardCmd.Upgrade(card);
-            await CardPileCmd.AddGeneratedCardsToCombat(windBlastList, PileType.Hand, true);
+            await CardPileCmd.AddGeneratedCardsToCombat(windBlastList, PileType.Hand, Owner.Player);
             await PowerCmd.Remove(this);
         }
     }

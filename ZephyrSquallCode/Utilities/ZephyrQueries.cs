@@ -12,10 +12,10 @@ public static class ZephyrQueries
 {
     public static bool IsWellRead(Player player)
     {
-        return PileType.Hand.GetPile(player).Cards.Count == MaxHandSizePatch.GetMaxHandSize(player);
+        return PileType.Hand.GetPile(player).Cards.Count == 10;
     }
     
-    public static int TimesDealtAttackDamageThisTurn(CombatState combatState, Creature creature)
+    public static int TimesDealtAttackDamageThisTurn(ICombatState combatState, Creature creature)
     {
         return CombatManager.Instance.History.Entries.OfType<CreatureAttackedEntry>()
             .Sum(e => e.HappenedThisTurn(combatState) && e.Actor == creature

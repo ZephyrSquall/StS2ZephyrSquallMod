@@ -17,8 +17,8 @@ public class BreatheDeeply() : ZephyrSquallCard(2,
         CardPlay cardPlay)
     {
         if (IsUpgraded)
-            await PowerCmd.Apply<BreathingVeryDeeplyPower>(Owner.Creature, 1M, Owner.Creature, this);
+            await PowerCmd.Apply<BreathingVeryDeeplyPower>(choiceContext, Owner.Creature, 1M, Owner.Creature, this);
         else
-            await PowerCmd.Apply<BreathingDeeplyPower>(Owner.Creature, 1M, Owner.Creature, this);
+            await PowerCmd.Apply<BreathingDeeplyPower>(choiceContext, Owner.Creature, 1M, Owner.Creature, this);
     }
 }

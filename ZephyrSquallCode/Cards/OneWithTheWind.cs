@@ -19,7 +19,7 @@ public class OneWithTheWind() : ZephyrSquallCard(1,
         PlayerChoiceContext choiceContext,
         CardPlay cardPlay)
     {
-        await PowerCmd.Apply<OneWithTheWindPower>(Owner.Creature, DynamicVars["OneWithTheWindPower"].BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<OneWithTheWindPower>(choiceContext, Owner.Creature, DynamicVars["OneWithTheWindPower"].BaseValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade() => DynamicVars["OneWithTheWindPower"].UpgradeValueBy(1M);

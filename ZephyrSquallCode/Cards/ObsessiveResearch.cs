@@ -18,7 +18,7 @@ public class ObsessiveResearch() : ZephyrSquallCard(0,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        await CardPileCmd.AddGeneratedCardToCombat(CombatState.CreateCard<LostInThought>(Owner), PileType.Hand, true);
+        await CardPileCmd.AddGeneratedCardToCombat(CombatState.CreateCard<LostInThought>(Owner), PileType.Hand, Owner);
         await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, Owner);
     }
 

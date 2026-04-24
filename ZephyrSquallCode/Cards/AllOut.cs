@@ -21,8 +21,8 @@ public class AllOut() : ZephyrSquallCard(1,
     {
         int tailwindAmount = Owner.Creature.Block;
         await CreatureCmd.LoseBlock(Owner.Creature, Owner.Creature.Block);
-        await PowerCmd.Apply<TailwindPower>(Owner.Creature, tailwindAmount, Owner.Creature, this);
-        await PowerCmd.Apply<AllOutPower>(Owner.Creature, 1M, Owner.Creature, this);
+        await PowerCmd.Apply<TailwindPower>(choiceContext, Owner.Creature, tailwindAmount, Owner.Creature, this);
+        await PowerCmd.Apply<AllOutPower>(choiceContext, Owner.Creature, 1M, Owner.Creature, this);
     }
 
     protected override void OnUpgrade() => EnergyCost.UpgradeBy(-1);

@@ -17,20 +17,20 @@ public static class RecordCmd
     private static LocString RecordAnySelectionPrompt => new("card_selection", "TO_RECORD_ANY");
 
     public static async Task Record(PlayerChoiceContext choiceContext, Player player, int amount,
-        CombatState combatState, AbstractModel source)
+        ICombatState combatState, AbstractModel source)
     {
         CardSelectorPrefs prefs = new CardSelectorPrefs(RecordSelectionPrompt, amount);
         await RecordWithPrefs(choiceContext, player, prefs, combatState, source);
     }
 
     public static async Task RecordUpTo(PlayerChoiceContext choiceContext, Player player, int maxAmount,
-        CombatState combatState, AbstractModel source)
+        ICombatState combatState, AbstractModel source)
     {
         CardSelectorPrefs prefs = new CardSelectorPrefs(RecordUpToSelectionPrompt, 0, maxAmount);
         await RecordWithPrefs(choiceContext, player, prefs, combatState, source);
     }
 
-    public static async Task RecordAny(PlayerChoiceContext choiceContext, Player player, CombatState combatState,
+    public static async Task RecordAny(PlayerChoiceContext choiceContext, Player player, ICombatState combatState,
         AbstractModel source)
     {
         CardSelectorPrefs prefs = new CardSelectorPrefs(RecordAnySelectionPrompt, 0, int.MaxValue);
@@ -40,7 +40,7 @@ public static class RecordCmd
     private static async Task RecordWithPrefs(PlayerChoiceContext choiceContext,
         Player player,
         CardSelectorPrefs prefs,
-        CombatState combatState,
+        ICombatState combatState,
         AbstractModel source)
     {
         IEnumerable<CardModel> selectedCards = await CardSelectCmd.FromHand(choiceContext, player, prefs,

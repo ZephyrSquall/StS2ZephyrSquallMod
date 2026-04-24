@@ -53,7 +53,7 @@ public class ShareExtraTurnPatch
      }
     
     
-    public static List<Player> ShareExtraTurnHelper(List<Player> playersTakingExtraTurn, CombatState state)
+    public static List<Player> ShareExtraTurnHelper(List<Player> playersTakingExtraTurn, ICombatState state)
     {
         // If anyone who's taking an extra turn has the Fair Winds power, replace the current list of players taking an
         // extra turn with a new list that includes every player.

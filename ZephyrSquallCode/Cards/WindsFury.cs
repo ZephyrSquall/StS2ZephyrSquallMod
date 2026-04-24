@@ -13,7 +13,7 @@ public class WindsFury() : ZephyrSquallCard(3,
         PlayerChoiceContext choiceContext,
         CardPlay cardPlay)
     {
-        await PowerCmd.Apply<WindsFuryPower>(Owner.Creature, 1M, Owner.Creature, this);
+        await PowerCmd.Apply<WindsFuryPower>(choiceContext, Owner.Creature, 1M, Owner.Creature, this);
     }
 
     protected override void OnUpgrade() => EnergyCost.UpgradeBy(-1);

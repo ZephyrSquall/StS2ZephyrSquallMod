@@ -15,7 +15,7 @@ public class ExtraTurnTracker
 class ExtraTurnStartPatch
 {
     [HarmonyPrefix]
-    static bool TrackExtraTurnExtraTurnStart(CombatState combatState, Player player)
+    static bool TrackExtraTurnExtraTurnStart(ICombatState combatState, Player player)
     {
         ExtraTurnTracker.PlayersTakingExtraTurn.Add(player);
         return true;
@@ -26,7 +26,7 @@ class ExtraTurnStartPatch
 class CombatStartPatch
 {
     [HarmonyPrefix]
-    static bool TrackExtraTurnCombatStart(IRunState runState, CombatState? combatState)
+    static bool TrackExtraTurnCombatStart(IRunState runState, ICombatState? combatState)
     {
         ExtraTurnTracker.PlayersTakingExtraTurn.Clear();
         return true;
@@ -37,7 +37,7 @@ class CombatStartPatch
 class TurnEndPatch
 {
     [HarmonyPrefix]
-    static bool TrackExtraTurnTurnEnd(CombatState combatState, CombatSide side)
+    static bool TrackExtraTurnTurnEnd(ICombatState combatState, CombatSide side)
     {
         ExtraTurnTracker.PlayersTakingExtraTurn.Clear();
         return true;

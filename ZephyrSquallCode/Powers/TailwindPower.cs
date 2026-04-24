@@ -2,6 +2,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 
 namespace ZephyrSquall.ZephyrSquallCode.Powers;
@@ -20,7 +21,7 @@ public sealed class TailwindPower : ZephyrSquallPower
     {
         if (Amount >= 10 && Owner.Player == player) {
             Flash();
-            await PowerCmd.ModifyAmount(this, -10M, (Creature?)null, (CardModel?)null);
+            await PowerCmd.ModifyAmount(new BlockingPlayerChoiceContext(), this, -10M, (Creature?)null, (CardModel?)null);
         }
     }
 }

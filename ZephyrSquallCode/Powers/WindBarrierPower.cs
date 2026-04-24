@@ -27,7 +27,7 @@ public sealed class WindBarrierPower : ZephyrSquallPower
         return Task.CompletedTask;
     }
 
-    public override async Task AfterSideTurnStart(CombatSide side, CombatState combatState)
+    public override async Task AfterSideTurnStart(CombatSide side, ICombatState combatState)
     {
         if (ExtraTurnTracker.PlayersTakingExtraTurn.Contains(Owner.Player))
             await PowerCmd.Decrement(this);

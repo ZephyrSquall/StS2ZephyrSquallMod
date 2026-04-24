@@ -54,7 +54,7 @@ public class StormBrewing() : ZephyrSquallCard(1,
         PlayerChoiceContext choiceContext,
         CardPlay cardPlay)
     {
-        await PowerCmd.Apply<TailwindPower>(Owner.Creature, DynamicVars["TailwindPower"].BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<TailwindPower>(choiceContext, Owner.Creature, DynamicVars["TailwindPower"].BaseValue, Owner.Creature, this);
         int extraTailwind = DynamicVars["Increase"].IntValue;
         if (IsUpgraded || CurrentTailwind + extraTailwind <= DynamicVars["Limit"].IntValue)
         {

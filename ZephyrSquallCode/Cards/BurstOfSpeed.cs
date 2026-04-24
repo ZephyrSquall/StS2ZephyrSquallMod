@@ -25,7 +25,7 @@ public class BurstOfSpeed() : ZephyrSquallCard(1,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        await PowerCmd.Apply<TailwindPower>(Owner.Creature, DynamicVars["TailwindPower"].BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<TailwindPower>(choiceContext, Owner.Creature, DynamicVars["TailwindPower"].BaseValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade() => DynamicVars["TailwindPower"].UpgradeValueBy(2M);

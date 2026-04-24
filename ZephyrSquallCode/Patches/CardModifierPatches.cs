@@ -122,7 +122,7 @@ public class DeftBlockPatch
 
         // Jumps to immediately before the foreach loop that calls ModifyBlockMultiplicative on each hook listener (this
         // is immediately before the final call to IterateHookListeners in the IL)
-        codeMatcher.End().MatchStartBackwards(CodeMatch.Calls(() => default(CombatState).IterateHookListeners()))
+        codeMatcher.End().MatchStartBackwards(CodeMatch.Calls(() => default(ICombatState).IterateHookListeners()))
             .ThrowIfInvalid("Could not find call to IterateHookListeners")
             // Load current block amount "num1" (local index 1) and card source (argument index 4)
             .InsertAndAdvance(CodeInstruction.LoadArgument(4))
@@ -152,7 +152,7 @@ public class HonedDamagePatch
     [HarmonyPrefix]
     static bool IncreaseDamage(
         IRunState runState,
-        CombatState? combatState,
+        ICombatState? combatState,
         Creature? target,
         Creature? dealer,
         ref Decimal damage,

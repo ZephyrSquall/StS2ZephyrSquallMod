@@ -16,7 +16,7 @@ public class Maelstrom() : ZephyrSquallCard(1,
         PlayerChoiceContext choiceContext,
         CardPlay cardPlay)
     {
-        await PowerCmd.Apply<MaelstromPower>(Owner.Creature, DynamicVars["MaelstromPower"].IntValue, Owner.Creature, this);
+        await PowerCmd.Apply<MaelstromPower>(choiceContext, Owner.Creature, DynamicVars["MaelstromPower"].IntValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade() => DynamicVars["MaelstromPower"].UpgradeValueBy(1M);

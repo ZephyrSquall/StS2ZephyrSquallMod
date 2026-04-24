@@ -32,11 +32,11 @@ public class Book() : CustomCardModel(1,
     public static async Task<Book?> CreateInHand(
         Player owner,
         IEnumerable<CardModel> recordedCards,
-        CombatState combatState)
+        ICombatState combatState)
     {
         Book book = combatState.CreateCard<Book>(owner);
         book.RecordedCards = recordedCards.ToList();
-        await CardPileCmd.AddGeneratedCardToCombat(book, PileType.Hand, true);
+        await CardPileCmd.AddGeneratedCardToCombat(book, PileType.Hand, owner);
         RecordPile.TargetBook = book;
         await CardPileCmd.Add(recordedCards, RecordPile.Record);
 

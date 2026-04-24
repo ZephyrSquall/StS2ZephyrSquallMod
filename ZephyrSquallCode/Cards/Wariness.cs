@@ -28,7 +28,7 @@ public class Wariness() : ZephyrSquallCard(1,
     public override async Task BeforeHandDraw(
         Player player,
         PlayerChoiceContext choiceContext,
-        CombatState combatState)
+        ICombatState combatState)
     {
         if (Pile.Type == PileType.Discard && player == Owner)
             await CardPileCmd.Add(this, PileType.Hand);

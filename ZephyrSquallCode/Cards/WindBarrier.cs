@@ -27,8 +27,8 @@ public class WindBarrier() : ZephyrSquallCard(2,
         CardPlay play)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, play);
-        await PowerCmd.Apply<TailwindPower>(Owner.Creature, DynamicVars["TailwindPower"].BaseValue, Owner.Creature, this);
-        await PowerCmd.Apply<WindBarrierPower>(Owner.Creature, 1, Owner.Creature, this);
+        await PowerCmd.Apply<TailwindPower>(choiceContext, Owner.Creature, DynamicVars["TailwindPower"].BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<WindBarrierPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
