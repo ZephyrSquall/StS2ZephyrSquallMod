@@ -24,7 +24,7 @@ namespace ZephyrSquall.ZephyrSquallCode.Cards;
 [Pool(typeof(TokenCardPool))]
 public class Book() : CustomCardModel(1,
     CardType.Skill, CardRarity.Token,
-    TargetType.Self), ICustomUiModel
+    TargetType.Self)
 {
     public List<CardModel> RecordedCards { get; private set; } = [];
     
@@ -121,33 +121,5 @@ public class Book() : CustomCardModel(1,
             nCard.Model = null;
             nCard.Model = this;
         }
-    }
-
-    public void CreateCustomUi(Control toAdd)
-    {
-        // // Eventually, this method will show a preview for all Recorded cards, but only while hover tips are displaying.
-        // // For now, I'm having trouble getting the card preview to display without breaking, so I'm simplifying to just
-        // // showing the first  Recorded card above the Book at all times.
-        // var firstRecordedCard = RecordedCards.FirstOrDefault();
-        // if (firstRecordedCard != null)
-        // {
-        //     Log.Warn("Book has recorded cards!");
-        //     var nCard = NCard.Create(firstRecordedCard);
-        //
-        //     if (nCard is { } nonNullNCard)
-        //     {
-        //         toAdd.AddChild(nCard);
-        //         Log.Warn("Found an NCard for Book's first recorded card!");
-        //         nCard.Visibility = ModelVisibility.Visible;
-        //         nCard.Position = new Vector2(0f, -500f);
-        //         nCard.UpdateVisuals(nCard.Model.Pile.Type, CardPreviewMode.Normal);
-        //         nCard._Ready();
-        //         
-        //         // It seems the card preview never enters a "Ready" state, which UpdateVisuals explicitly checks for and
-        //         // will do no work if it's not ready. This line helps me check if this may be the case.
-        //         if (!nCard.IsNodeReady())
-        //             Log.Warn("Node is NOT ready!");
-        //     }
-        // }
     }
 }

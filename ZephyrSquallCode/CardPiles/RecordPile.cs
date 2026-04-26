@@ -39,4 +39,9 @@ public class RecordPile() : CustomPile(Record)
         }
         return nCard.GlobalPosition;
     }
+    
+    public override NCard? GetNCard(CardModel card)
+    {
+        return NCard.Create(card);
+    }
 }
