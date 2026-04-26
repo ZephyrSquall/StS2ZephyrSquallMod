@@ -1,20 +1,23 @@
 using System.Text;
 using BaseLib.Abstracts;
+using BaseLib.Extensions;
 using BaseLib.Patches.UI;
 using BaseLib.Utils;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
-using MegaCrit.Sts2.Core.Entities.UI;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.Nodes.Cards;
+using MegaCrit.Sts2.Core.ValueProps;
 using ZephyrSquall.ZephyrSquallCode.CardPiles;
+using ZephyrSquall.ZephyrSquallCode.Powers;
 
 namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
@@ -24,11 +27,20 @@ public class Book() : CustomCardModel(1,
     TargetType.Self), ICustomUiModel
 {
     public List<CardModel> RecordedCards { get; private set; } = [];
+    
+    private bool HasPaperCut => IsInCombat && Owner.HasPower<PaperCutPower>();
+
+    public override CardType Type => HasPaperCut ? CardType.Attack : CardType.Skill;
+    
+    public override TargetType TargetType => HasPaperCut ? TargetType.AnyEnemy : TargetType.Self;
+    
+    protected override IEnumerable<DynamicVar> CanonicalVars => [
+        new StringVar("CardTitles"),
+        new DamageVar(0, ValueProp.Move)
+    ];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust, CardKeyword.Retain];
-    
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new StringVar("CardTitles")];
-    
+
     public static async Task<Book?> CreateInHand(
         Player owner,
         IEnumerable<CardModel> recordedCards,
@@ -42,13 +54,31 @@ public class Book() : CustomCardModel(1,
 
         book.UpdateCardTitles();
         
+        // Update the card's damage and visuals if the player already has the Paper Cut power.
+        book.DynamicVars.Damage.BaseValue = book.Owner.Creature.GetPowerAmount<PaperCutPower>();
+        book.ResetFrame();
+        
         return book;
     }
-    
+
+    public override Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier,
+        CardModel? cardSource)
+    {
+        if (power is PaperCutPower && power.Owner.Player == Owner)
+        {
+            DynamicVars.Damage.BaseValue = power.Amount;
+            ResetFrame();
+        }
+        return Task.CompletedTask;
+    }
+
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
+        if (HasPaperCut && play.Target is not null)
+            await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(play.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
+        
         RecordPile.TargetBook = this;
         await CardPileCmd.Add(RecordedCards, PileType.Hand);
         RecordedCards.Clear();
@@ -78,31 +108,46 @@ public class Book() : CustomCardModel(1,
         ((StringVar) DynamicVars["CardTitles"]).StringValue = sb.ToString();
     }
 
+    // When the card changes from a Skill to an Attack mid-combat, resetting its frame is required, or else its visuals
+    // won't change, and it will continue displaying as a Skill until it changes piles.
+    private void ResetFrame()
+    {
+        var nCard = NCard.FindOnTable(this);
+        if (nCard is not null)
+        {
+            // The setter for NCard.Model calls NCard's private Reload function, which is what we want. However, the
+            // setter won't be called if the Model is assigned the value it already has, hence it must be assigned null
+            // first.
+            nCard.Model = null;
+            nCard.Model = this;
+        }
+    }
+
     public void CreateCustomUi(Control toAdd)
     {
-        // Eventually, this method will show a preview for all Recorded cards, but only while hover tips are displaying.
-        // For now, I'm having trouble getting the card preview to display without breaking, so I'm simplifying to just
-        // showing the first  Recorded card above the Book at all times.
-        var firstRecordedCard = RecordedCards.FirstOrDefault();
-        if (firstRecordedCard != null)
-        {
-            Log.Warn("Book has recorded cards!");
-            var nCard = NCard.Create(firstRecordedCard);
-
-            if (nCard is { } nonNullNCard)
-            {
-                toAdd.AddChild(nCard);
-                Log.Warn("Found an NCard for Book's first recorded card!");
-                nCard.Visibility = ModelVisibility.Visible;
-                nCard.Position = new Vector2(0f, -500f);
-                nCard.UpdateVisuals(nCard.Model.Pile.Type, CardPreviewMode.Normal);
-                nCard._Ready();
-                
-                // It seems the card preview never enters a "Ready" state, which UpdateVisuals explicitly checks for and
-                // will do no work if it's not ready. This line helps me check if this may be the case.
-                if (!nCard.IsNodeReady())
-                    Log.Warn("Node is NOT ready!");
-            }
-        }
+        // // Eventually, this method will show a preview for all Recorded cards, but only while hover tips are displaying.
+        // // For now, I'm having trouble getting the card preview to display without breaking, so I'm simplifying to just
+        // // showing the first  Recorded card above the Book at all times.
+        // var firstRecordedCard = RecordedCards.FirstOrDefault();
+        // if (firstRecordedCard != null)
+        // {
+        //     Log.Warn("Book has recorded cards!");
+        //     var nCard = NCard.Create(firstRecordedCard);
+        //
+        //     if (nCard is { } nonNullNCard)
+        //     {
+        //         toAdd.AddChild(nCard);
+        //         Log.Warn("Found an NCard for Book's first recorded card!");
+        //         nCard.Visibility = ModelVisibility.Visible;
+        //         nCard.Position = new Vector2(0f, -500f);
+        //         nCard.UpdateVisuals(nCard.Model.Pile.Type, CardPreviewMode.Normal);
+        //         nCard._Ready();
+        //         
+        //         // It seems the card preview never enters a "Ready" state, which UpdateVisuals explicitly checks for and
+        //         // will do no work if it's not ready. This line helps me check if this may be the case.
+        //         if (!nCard.IsNodeReady())
+        //             Log.Warn("Node is NOT ready!");
+        //     }
+        // }
     }
 }

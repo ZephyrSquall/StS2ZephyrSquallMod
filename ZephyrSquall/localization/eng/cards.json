@@ -1,7 +1,7 @@
 {
   "ZEPHYRSQUALL-ALL_OUT.description": "Convert your [gold]Block[/gold] into [gold]Tailwind[/gold].\nYou cannot gain [gold]Block[/gold].",
   "ZEPHYRSQUALL-ALL_OUT.title": "All-Out",
-  "ZEPHYRSQUALL-BOOK.description": "Return {InCombat:{CardTitles.StringValue:cond:{}|nothing}|the [gold]Recorded[/gold] cards} to your [gold]Hand[/gold].",
+  "ZEPHYRSQUALL-BOOK.description": "{TargetType:choose(AnyEnemy):Deal {Damage:diff()} damage.\n|}Return {InCombat:{CardTitles.StringValue:cond:{}|nothing}|the [gold]Recorded[/gold] cards} to your [gold]Hand[/gold].",
   "ZEPHYRSQUALL-BOOK.title": "Book",
   "ZEPHYRSQUALL-BREATHE_DEEPLY.description": "Next turn, add a [gold]{IfUpgraded:show:Wind Blast+|Wind Blast}[/gold] into your [gold]Hand[/gold].",
   "ZEPHYRSQUALL-BREATHE_DEEPLY.title": "Breathe Deeply",
@@ -40,6 +40,8 @@
   "ZEPHYRSQUALL-ONE_WITH_THE_WIND.title": "One with the Wind",
   "ZEPHYRSQUALL-OVERTHINK_IT.description": "Draw {Cards:diff()} {Cards:plural:card|cards}.\nGain {Block:diff()} [gold]Block[/gold] each time you [gold]Overflow[/gold] this way.",
   "ZEPHYRSQUALL-OVERTHINK_IT.title": "Overthink It",
+  "ZEPHYRSQUALL-PAPER_CUT.description": "[gold]Books[/gold] are now Attacks that deal {PaperCutPower:diff()} damage.\n[gold]Record[/gold] 2 cards.",
+  "ZEPHYRSQUALL-PAPER_CUT.title": "Paper Cut",
   "ZEPHYRSQUALL-PLAN_OF_ATTACK.description": "While in [gold]Hand[/gold], your Attacks deal {AdditionalDamage:diff()} additional damage.",
   "ZEPHYRSQUALL-PLAN_OF_ATTACK.title": "Plan of Attack",
   "ZEPHYRSQUALL-REPOSITORY.description": "Draw {Cards:diff()} {Cards:plural:card|cards}.\nCan be [gold]Upgraded[/gold] any number of times.",
