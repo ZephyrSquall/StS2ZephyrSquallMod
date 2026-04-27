@@ -1,7 +1,6 @@
 using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.Cards.Holders;
@@ -17,50 +16,65 @@ public class RecordedCardPreviewTracker
 [HarmonyPatch(typeof(NCardHolder), "CreateHoverTips")]
 public class DisplayRecordedCardsPatch
 {
-    private static readonly Vector2 PreviewCardSize = NCard.defaultSize * NCardHolder.smallScale;
     private const float XPadding = 8f;
     private const float YPadding = 8f;
 
     [HarmonyPrefix]
     static bool DisplayRecordedCards(NCardHolder __instance)
     {
-        Log.Warn($"Viewport size: {NGame.Instance.GetViewportRect().Size.X}, {NGame.Instance.GetViewportRect().Size.Y}");
-        Log.Warn($"Running a CreateHoverTips Prefix Patch on {__instance.CardModel}!");
-        
-        if (__instance.CardModel is Book book)
+        if (__instance.CardModel is Book { RecordedCards.Count: > 0 } book)
         {
-            Log.Warn("Book detected!");
-
+            Vector2 previewCardSize = NCard.defaultSize * NCardHolder.smallScale;
+            // "Card offset" is how much a card preview has to be offset to the side to fit an additional card.
+            float cardOffsetSize = previewCardSize.X + XPadding;
+            float shrinkScale = 1;
+            
+            // Add offset in the x direction if cards scroll off-screen to keep them on screen . Or alternatively,
+            // shrink the previewCardSize if cards scroll off-screen in both directions.
+            float xOffset = 0;
+            float cardsPreviewWidth = book.RecordedCards.Count * cardOffsetSize;
+            if (cardsPreviewWidth > NGame.Instance.GetViewportRect().Size.X)
+            {
+                shrinkScale = NGame.Instance.GetViewportRect().Size.X / cardsPreviewWidth;
+                previewCardSize *= shrinkScale;
+                cardOffsetSize *= shrinkScale;
+                cardsPreviewWidth *= shrinkScale;
+            }
+            
+            float previewsLeftEdgeX = __instance.GlobalPosition.X - cardsPreviewWidth / 2;
+            float previewsRightEdgeX = __instance.GlobalPosition.X + cardsPreviewWidth / 2;
+            if (previewsLeftEdgeX < 0)
+            {
+                xOffset = -previewsLeftEdgeX;
+            }
+            else if (previewsRightEdgeX > NGame.Instance.GetViewportRect().Size.X)
+            {
+                xOffset = NGame.Instance.GetViewportRect().Size.X - previewsRightEdgeX;
+            }
+            
+            var yOffset = -((NCard.defaultSize.Y + previewCardSize.Y) / 2f + YPadding);
+            // If the Book is too close to the top of the screen (only possible when viewed in a pile other than the
+            // Hand), show the previewed cards beneath the Book instead.
+            if (__instance.GlobalPosition.Y + yOffset < 180)
+                yOffset *= -1;
+            
             for (int i = 0; i < book.RecordedCards.Count; i++)
             {
                 var recordedCard = book.RecordedCards[i];
-                
-                Log.Warn("Book has recorded cards!");
                 var nCard = NCard.FindOnTable(recordedCard);
         
-                if (nCard is { } nonNullNCard)
+                if (nCard is not null)
                 {
-                    Log.Warn("Found an NCard for Book's first recorded card!");
                     __instance.AddChild(nCard);
                     nCard.UpdateVisuals(nCard.Model.Pile.Type, CardPreviewMode.Normal);
                     RecordedCardPreviewTracker.RecordedCardsInPreview.Add(nCard);
 
-                    nCard.Scale = NCardHolder.smallScale;
+                    nCard.Scale = NCardHolder.smallScale * shrinkScale;
                     
-                    // Offset from the card being directly above the Book. Negative for being offset to the left.
-                    var cardOffset = i + 0.5f - (book.RecordedCards.Count / 2f);
-                    var xOffset = cardOffset * (PreviewCardSize.X + XPadding);
-                    var yOffset = -((NCard.defaultSize.Y + PreviewCardSize.Y) / 2f + YPadding);
-                    nCard.Position = new Vector2(xOffset, yOffset);
-                    
-                    Log.Warn($"Is this card ready? {nCard.IsNodeReady()}");
+                    float individualCardOffset = i + 0.5f - (book.RecordedCards.Count / 2f);
+                    float individualXOffset = xOffset + individualCardOffset * cardOffsetSize;
+                    nCard.Position = new Vector2(individualXOffset, yOffset);
                 }
-            }
-            
-            var firstRecordedCard = book.RecordedCards.FirstOrDefault();
-            if (firstRecordedCard != null)
-            {
-
             }
         }
         
@@ -72,18 +86,12 @@ public class DisplayRecordedCardsPatch
 public class HideRecordedCardsPatch
 {
     [HarmonyPrefix]
-    static bool HideRecordedCards(NCardHolder __instance)
+    static bool HideRecordedCards()
     {
-        Log.Warn($"Running a ClearHoverTips Prefix Patch on {__instance.CardModel}!");
-
         foreach (var nCard in RecordedCardPreviewTracker.RecordedCardsInPreview)
-        {
-            Log.Warn($"Removing NCard {nCard.Model.Title} from Book preview");
             nCard.QueueFree();
-        }
 
         RecordedCardPreviewTracker.RecordedCardsInPreview.Clear();
-        
         return true;
     }
 }

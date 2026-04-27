@@ -1,9 +1,7 @@
 using System.Text;
 using BaseLib.Abstracts;
 using BaseLib.Extensions;
-using BaseLib.Patches.UI;
 using BaseLib.Utils;
-using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -11,7 +9,6 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.Nodes.Cards;
@@ -116,8 +113,8 @@ public class Book() : CustomCardModel(1,
         if (nCard is not null)
         {
             // The setter for NCard.Model calls NCard's private Reload function, which is what we want. However, the
-            // setter won't be called if the Model is assigned the value it already has, hence it must be assigned null
-            // first.
+            // setter returns immediately if the Model is assigned the value it already has, hence it must be assigned
+            // null first.
             nCard.Model = null;
             nCard.Model = this;
         }
