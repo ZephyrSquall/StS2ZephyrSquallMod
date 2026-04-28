@@ -14,9 +14,10 @@ public class ZephyrSquall : PlaceholderCharacterModel
 
     public static readonly Color Color = new("6ceef5");
     
-    public override CustomEnergyCounter? CustomEnergyCounter =>
-        new CustomEnergyCounter(EnergyCounterPaths, new Color(0.1f, 0.4f, 0.5f), new Color(0.1f, 0.9f, 0.7f));
+    public override string CustomEnergyCounterPath => "res://ZephyrSquall/scenes/combat/energy_counters/zephyr_squall_energy_counter.tscn";
 
+    public override Color EnergyLabelOutlineColor => new Color(0.1f, 0.4f, 0.5f);
+    
     public override Color NameColor => Color;
     public override CharacterGender Gender => CharacterGender.Masculine;
     public override int StartingHp => 70;
@@ -42,11 +43,6 @@ public class ZephyrSquall : PlaceholderCharacterModel
     public override CardPoolModel CardPool => ModelDb.CardPool<ZephyrSquallCardPool>();
     public override RelicPoolModel RelicPool => ModelDb.RelicPool<ZephyrSquallRelicPool>();
     public override PotionPoolModel PotionPool => ModelDb.PotionPool<ZephyrSquallPotionPool>();
-    
-    private static string EnergyCounterPaths(int i)
-    {
-        return "res://ZephyrSquall/images/ui/combat/energy_counters/zephyr_squall_orb_layer_" + i + ".png";
-    }
 
     /*  PlaceholderCharacterModel will utilize placeholder basegame assets for most of your character assets until you
         override all the other methods that define those assets.
