@@ -3,8 +3,8 @@ using ZephyrSquall.ZephyrSquallCode.Extensions;
 using Godot;
 using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Relics;
 using ZephyrSquall.ZephyrSquallCode.Cards;
+using ZephyrSquall.ZephyrSquallCode.Relics;
 
 namespace ZephyrSquall.ZephyrSquallCode.Character;
 
@@ -37,7 +37,7 @@ public class ZephyrSquall : PlaceholderCharacterModel
 
     public override IReadOnlyList<RelicModel> StartingRelics =>
     [
-        ModelDb.Relic<BurningBlood>()
+        ModelDb.Relic<FieldJournal>()
     ];
 
     public override CardPoolModel CardPool => ModelDb.CardPool<ZephyrSquallCardPool>();

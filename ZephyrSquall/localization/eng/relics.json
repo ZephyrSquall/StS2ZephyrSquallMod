@@ -1,5 +1,11 @@
 {
   "ZEPHYRSQUALL-ANEMOMETER.description": "[gold]Tailwind[/gold] is now conserved between combats.",
   "ZEPHYRSQUALL-ANEMOMETER.flavor": "It's always spinning, measuring a wind that isn't there.",
-  "ZEPHYRSQUALL-ANEMOMETER.title": "Anemometer"
+  "ZEPHYRSQUALL-ANEMOMETER.title": "Anemometer",
+  "ZEPHYRSQUALL-FIELD_JOURNAL.description": "At the start of each combat, add [blue]{Cards}[/blue] [gold]{Cards:plural:Analysis|Analyses}[/gold] into your [gold]Hand[/gold].",
+  "ZEPHYRSQUALL-FIELD_JOURNAL.flavor": "\"Let's see what mysteries this Spire holds.\"",
+  "ZEPHYRSQUALL-FIELD_JOURNAL.title": "Field Journal",
+  "ZEPHYRSQUALL-SPIRE_ENCYCLOPEDIA.description": "At the start of each combat, add [blue]{Cards}[/blue] [gold]{Cards:plural:Analysis|Analyses}[/gold] into your [gold]Hand[/gold].",
+  "ZEPHYRSQUALL-SPIRE_ENCYCLOPEDIA.flavor": "\"Fascinating! I wonder who architected such a place?\"",
+  "ZEPHYRSQUALL-SPIRE_ENCYCLOPEDIA.title": "Spire Encyclopedia"
 }

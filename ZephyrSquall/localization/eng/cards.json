@@ -1,6 +1,8 @@
 {
   "ZEPHYRSQUALL-ALL_OUT.description": "Convert your [gold]Block[/gold] into [gold]Tailwind[/gold].\nYou cannot gain [gold]Block[/gold].",
   "ZEPHYRSQUALL-ALL_OUT.title": "All-Out",
+  "ZEPHYRSQUALL-ANALYSIS.description": "Draw cards equal to the turn number{IfUpgraded:show: +{CalculationBase}|}.{InCombat:\n(Draw {CalculatedCards:diff()} {CalculatedCards:plural:card|cards})|}",
+  "ZEPHYRSQUALL-ANALYSIS.title": "Analysis",
   "ZEPHYRSQUALL-BOOK.description": "{TargetType:choose(AnyEnemy):Deal {Damage:diff()} damage.\n|}Return {InCombat:{CardTitles.StringValue:cond:{}|nothing}|the [gold]Recorded[/gold] cards} to your [gold]Hand[/gold].",
   "ZEPHYRSQUALL-BOOK.title": "Book",
   "ZEPHYRSQUALL-BREATHE_DEEPLY.description": "Next turn, add a [gold]{IfUpgraded:show:Wind Blast+|Wind Blast}[/gold] into your [gold]Hand[/gold].",
