@@ -1,9 +1,11 @@
 using Godot;
 using HarmonyLib;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.Cards.Holders;
+using ZephyrSquall.ZephyrSquallCode.CardPiles;
 using ZephyrSquall.ZephyrSquallCode.Cards;
 
 namespace ZephyrSquall.ZephyrSquallCode.Patches;
@@ -93,5 +95,27 @@ public class HideRecordedCardsPatch
 
         RecordedCardPreviewTracker.RecordedCardsInPreview.Clear();
         return true;
+    }
+}
+
+// Sets up an event listener on each player's Record Pile to tell all of that player's Books to check their Recorded
+// cards anytime a card is removed from the Record Pile.
+[HarmonyPatch(typeof(CombatManager), nameof(CombatManager.AfterCombatRoomLoaded))]
+class WatchRecordPileForEscapingCardsPatch
+{
+    [HarmonyPostfix]
+    static void AddActionToRecordPileCardRemoveFinished(CombatManager __instance)
+    {
+        // Is there a better way to get a list of players with only access to the CombatManager?
+        foreach (var player in __instance.DebugOnlyGetState().Players)
+        {
+            RecordPile.Record.GetPile(player).CardRemoveFinished += () =>
+            {
+                foreach (var book in player.Creature.CombatState.IterateHookListeners().OfType<Book>() )
+                {
+                    book.CheckRecordedCards();
+                }
+            };
+        }
     }
 }

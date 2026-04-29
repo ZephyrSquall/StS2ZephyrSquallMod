@@ -2,6 +2,7 @@ using System.Text;
 using BaseLib.Abstracts;
 using BaseLib.Extensions;
 using BaseLib.Utils;
+using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -11,6 +12,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.CardPools;
+using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.ValueProps;
 using ZephyrSquall.ZephyrSquallCode.CardPiles;
@@ -45,9 +47,19 @@ public class Book() : CustomCardModel(1,
     {
         Book book = combatState.CreateCard<Book>(owner);
         book.RecordedCards = recordedCards.ToList();
-        await CardPileCmd.AddGeneratedCardToCombat(book, PileType.Hand, owner);
-        RecordPile.TargetBook = book;
+
+        // Ideally, BookPosition is set to where the Book ends up after it is generated. This is very tricky though, as
+        // for Recording to work properly, the Recorded cards must be moved to the Record Pile before the Book is added
+        // to combat (otherwise, if the player has a full hand when they're Recording (possible with Ink Bottle), the
+        // generated Book would go straight to the Discard Pile due to the hand having no room). But BookPosition is
+        // needed before the cards are moved to the Record Pile. So, it's impossible to set the BookPosition in time by
+        // just directly reading from the generated Book where it is on screen. I'm still not sure how to handle this,
+        // so for now I just set it to the bottom center of the screen.
+        ((RecordPile) RecordPile.Record.GetPile(owner)).BookPosition = 
+            new Vector2(NGame.Instance.GetViewportRect().Size.X / 2, NGame.Instance.GetViewportRect().Size.Y);
+        
         await CardPileCmd.Add(recordedCards, RecordPile.Record);
+        await CardPileCmd.AddGeneratedCardToCombat(book, PileType.Hand, owner);
 
         book.UpdateCardTitles();
         
@@ -56,6 +68,15 @@ public class Book() : CustomCardModel(1,
         book.ResetFrame();
         
         return book;
+    }
+
+    public void CheckRecordedCards()
+    {
+        // At the instant CardRemoveFinished is invoked (which is when this is called), the card getting moved has been
+        // removed from the Record Pile but not yet added to its new pile and thus its Pile is null. So it is critical
+        // to also check if the Pile is null first, otherwise the game will crash.
+        RecordedCards.RemoveAll(c => c.Pile is null || c.Pile.Type != RecordPile.Record);
+        UpdateCardTitles();
     }
 
     public override Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier,
@@ -76,10 +97,13 @@ public class Book() : CustomCardModel(1,
         if (HasPaperCut && play.Target is not null)
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(play.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
         
-        RecordPile.TargetBook = this;
+        // Update the Record Pile's BookPosition so the cards that are about to be returned to the hand appear to come
+        // from this Book.
+        var nCard = NCard.FindOnTable(this);
+        if (nCard is not null)
+            ((RecordPile) RecordPile.Record.GetPile(Owner)).BookPosition = nCard.GlobalPosition;
+
         await CardPileCmd.Add(RecordedCards, PileType.Hand);
-        RecordedCards.Clear();
-        UpdateCardTitles();
     }
 
     protected override void OnUpgrade() => EnergyCost.UpgradeBy(-1);
