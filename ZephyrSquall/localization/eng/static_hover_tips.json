@@ -9,7 +9,7 @@
   "HONED_DYNAMIC.title": "Honed",
   "HONED_STATIC.description": "This card deals additional damage.",
   "HONED_STATIC.title": "Honed",
-  "OVERFLOW.description": "An attempt to draw a card that fails for any reason.",
+  "OVERFLOW.description": "Attempt a card draw that fails or is skipped for any reason.",
   "OVERFLOW.title": "Overflow",
   "RECORD.description": "Store the cards in a new [gold]Book[/gold] and add it into your [gold]Hand[/gold]. Statuses, Curses, Quests, and [gold]Books[/gold] cannot be [gold]Recorded[/gold].",
   "RECORD.title": "Record",
