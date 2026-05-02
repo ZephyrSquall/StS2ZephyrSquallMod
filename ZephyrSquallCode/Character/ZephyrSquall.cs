@@ -16,7 +16,7 @@ public class ZephyrSquall : PlaceholderCharacterModel
     
     public override string CustomEnergyCounterPath => "res://ZephyrSquall/scenes/combat/energy_counters/zephyr_squall_energy_counter.tscn";
 
-    public override Color EnergyLabelOutlineColor => new Color(0.1f, 0.4f, 0.5f);
+    public override Color EnergyLabelOutlineColor => new Color(0.05f, 0.3f, 0.3f);
     
     public override Color NameColor => Color;
     public override CharacterGender Gender => CharacterGender.Masculine;

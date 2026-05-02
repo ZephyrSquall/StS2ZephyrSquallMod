@@ -27,11 +27,7 @@
             <Private>false</Private>
         </Reference>
     </ItemGroup>
-
-    <ItemGroup Condition="False"> <!--Allows access to originally private/protected members but may (unlikely to) cause errors.-->
-        <Publicize Include="sts2" IncludeVirtualMembers="false" IncludeCompilerGeneratedMembers="false"/>
-    </ItemGroup>
-
+    
     <ItemGroup>
         <PackageReference Include="Alchyr.Sts2.BaseLib" Version="3.1.0" PrivateAssets="All" />
         <PackageReference Include="Krafs.Publicizer" Version="2.3.0" PrivateAssets="All"/>
@@ -39,6 +35,10 @@
         <!-- Generates a .pck file when building if only using simple assets. May not work on all setups. Uncomment to test. -->
         <!-- <PackageReference Include="BSchneppe.StS2.PckPacker" Version="0.1.1" PrivateAssets="All" /> -->
         <AdditionalFiles Include="ZephyrSquall/localization/**/*.json"/> <!-- Used by analyzer -->
+    </ItemGroup>
+
+    <ItemGroup>
+        <Publicize Include="sts2:MegaCrit.Sts2.Core.Nodes.Combat.NEnergyCounter._player"/> <!--Needed by NCustomRotationLayers.cs-->
     </ItemGroup>
 
     <ItemGroup>
@@ -61,6 +61,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Folder Include="ZephyrSquallCode\Nodes\" />
         <Folder Include="ZephyrSquall\images\card_portraits\big\"/>
         <Folder Include="ZephyrSquall\images\powers\big\"/>
         <Folder Include="ZephyrSquall\images\relics\big\"/>

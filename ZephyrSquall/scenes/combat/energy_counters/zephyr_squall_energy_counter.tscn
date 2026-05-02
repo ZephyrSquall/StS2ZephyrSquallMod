@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://l8qpjwxa6jva"]
+[gd_scene load_steps=7 format=3 uid="uid://l8qpjwxa6jva"]
 
-[ext_resource type="Texture2D" uid="uid://c4r0xr3d3o6rh" path="res://ZephyrSquall/images/ui/combat/energy_counters/zephyr_squall_orb_layer_5.png" id="5_d221b"]
+[ext_resource type="Script" uid="uid://iyhlq5oc24vs" path="res://ZephyrSquallCode/Nodes/NCustomRotationLayers.cs" id="1_k3liq"]
+[ext_resource type="Texture2D" uid="uid://dei4if8bi3coo" path="res://ZephyrSquall/images/ui/combat/energy_counters/zephyr_squall_orb_layer_1.png" id="2_14j43"]
+[ext_resource type="Texture2D" uid="uid://caghtmr4opkpq" path="res://ZephyrSquall/images/ui/combat/energy_counters/zephyr_squall_orb_layer_2.png" id="3_2cfsl"]
+[ext_resource type="Texture2D" uid="uid://cksbj2dk5nqcx" path="res://ZephyrSquall/images/ui/combat/energy_counters/zephyr_squall_orb_layer_3.png" id="4_a8s4y"]
+[ext_resource type="Texture2D" uid="uid://c65h4s6s50v4d" path="res://ZephyrSquall/images/ui/combat/energy_counters/zephyr_squall_orb_layer_5.png" id="5_jv3ir"]
+[ext_resource type="Texture2D" uid="uid://beshcjd167r8y" path="res://ZephyrSquall/images/ui/combat/energy_counters/zephyr_squall_orb_layer_4.png" id="5_y54sm"]
 
 [node name="ZephyrSquallEnergyCounter" type="Control"]
 layout_mode = 3
@@ -11,9 +16,22 @@ pivot_offset = Vector2(64, 64)
 metadata/_edit_lock_ = true
 
 [node name="EnergyVfxBack" type="Node2D" parent="."]
+unique_name_in_owner = true
 position = Vector2(64, 64)
 
 [node name="Layers" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_k3liq")
+
+[node name="RotationLayers" type="Control" parent="Layers"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -29,20 +47,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("5_d221b")
+texture = ExtResource("2_14j43")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="RotationLayers" type="Control" parent="Layers"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="Layer2" type="TextureRect" parent="Layers/RotationLayers"]
+[node name="Layer2" type="TextureRect" parent="Layers"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -50,11 +59,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(64, 64)
-texture = ExtResource("5_d221b")
+texture = ExtResource("3_2cfsl")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="Layer3" type="TextureRect" parent="Layers/RotationLayers"]
+[node name="Layer3" type="TextureRect" parent="Layers"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -62,7 +71,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(64, 64)
-texture = ExtResource("5_d221b")
+texture = ExtResource("4_a8s4y")
 expand_mode = 1
 stretch_mode = 4
 
@@ -73,7 +82,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("5_d221b")
+texture = ExtResource("5_y54sm")
 expand_mode = 1
 stretch_mode = 4
 
@@ -84,11 +93,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("5_d221b")
+texture = ExtResource("5_jv3ir")
 expand_mode = 1
 stretch_mode = 4
 
 [node name="EnergyVfxFront" type="Node2D" parent="."]
+unique_name_in_owner = true
 position = Vector2(64, 64)
 
 [node name="Label" type="Label" parent="."]
