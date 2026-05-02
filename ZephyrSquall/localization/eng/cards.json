@@ -34,6 +34,8 @@
   "ZEPHYRSQUALL-KNOWLEDGE_SHIELD.title": "Knowledge Shield",
   "ZEPHYRSQUALL-LASER_FOCUS.description": "Deal {Damage:diff()} damage 3 times.\nSkip the next {LaserFocusPower:plural:time|{} times} you would draw a card.",
   "ZEPHYRSQUALL-LASER_FOCUS.title": "Laser Focus",
+  "ZEPHYRSQUALL-LIGHT_READING.description": "[gold]Well Read[/gold] triggers with {LightReadingPower:diff()} fewer {LightReadingPower:plural:card|cards} in your [gold]Hand[/gold].",
+  "ZEPHYRSQUALL-LIGHT_READING.title": "Light Reading",
   "ZEPHYRSQUALL-LOST_IN_THOUGHT.description": "",
   "ZEPHYRSQUALL-LOST_IN_THOUGHT.title": "Lost in Thought",
   "ZEPHYRSQUALL-MAELSTROM.description": "Whenever you deal attack damage, deal {MaelstromPower:diff()} damage to ALL enemies.",

@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Combat.History.Entries;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
+using ZephyrSquall.ZephyrSquallCode.Powers;
 
 namespace ZephyrSquall.ZephyrSquallCode.Utilities;
 
@@ -12,7 +13,7 @@ public static class ZephyrQueries
 {
     public static bool IsWellRead(Player player)
     {
-        return PileType.Hand.GetPile(player).Cards.Count == 10;
+        return PileType.Hand.GetPile(player).Cards.Count >= MaxHandSizePatch.GetMaxHandSize(player) - player.Creature.GetPowerAmount<LightReadingPower>();
     }
     
     public static int TimesDealtAttackDamageThisTurn(ICombatState combatState, Creature creature)
