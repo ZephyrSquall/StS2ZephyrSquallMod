@@ -28,9 +28,12 @@ class SkipIndividualDrawsPatch
         codeMatcher.End().MatchStartBackwards(CodeMatch.StoresLocal("V_8"))
             .ThrowIfInvalid("Could not find stloc instruction for V_8")
             .Advance(-2);
-        var labels = codeMatcher.Labels;
         Label skipIndividualDrawLabel = generator.DefineLabel();
-        labels.Add(skipIndividualDrawLabel);
+        codeMatcher.Labels.Add(skipIndividualDrawLabel);
+        
+        // Create new label for jump point after checking if a draw should be skipped, but don't add it yet as the
+        // instruction to jump to has not yet been created.
+        Label doNotSkipIndividualDrawLabel = generator.DefineLabel();
         
         // Get player field
         var method = AccessTools.Method(typeof(CardPileCmd), "CheckIfDrawIsPossibleAndShowThoughtBubbleIfNot");
@@ -50,14 +53,25 @@ class SkipIndividualDrawsPatch
             .InsertAndAdvance(CodeInstruction.LoadArgument(0))
             .InsertAndAdvance(new CodeInstruction(OpCodes.Ldfld, playerField))
             .InsertAndAdvance(CodeInstruction.Call(() => ShouldSkipIndividualDraw(default)))
-            
-            // This is the problematic instruction. If I replace the Pop instruction with this Brtrue instruction, the
-            // patch fails. This Brtrue instruction is intended to act like a continue statement that skips straight to
-            // the next for loop iteration.
-            //.InsertAndAdvance(new CodeInstruction(OpCodes.Brtrue, skipIndividualDrawLabel));
-            
-            // Use Pop to disregard boolean return value from ShouldSkipIndividualDraw while branching isn't working.
+            .InsertAndAdvance(new CodeInstruction(OpCodes.Brfalse, doNotSkipIndividualDrawLabel))
+
+            // These instructions are only accessed if ShouldSkipIndividualDraw returned true. These instructions are
+            // used to align the IL execution stack with what it should look like just before the "++i" statement and
+            // then jump to it.
+            // At least, that's the intention, but finding out exactly what the differences are in the IL execution
+            // stack between these two locations is proving to be extremely difficult, so I'm leaving this for another
+            // day. The following instructions are just demonstrative and ultimately make no difference to the execution
+            // stack. Hopefully in the future I find out exactly what needs to be added and/or removed from the
+            // execution stack so the branch instruction can be uncommented.
+            .InsertAndAdvance(CodeInstruction.LoadArgument(0))
+            .InsertAndAdvance(new CodeInstruction(OpCodes.Ldfld, playerField))
             .InsertAndAdvance(new CodeInstruction(OpCodes.Pop));
+            // .InsertAndAdvance(new CodeInstruction(OpCodes.Br, skipIndividualDrawLabel));
+        
+        
+        // Insert the doNotSkipIndividualDrawLabel here, so the code knows where to pick up from if this draw isn't to
+        // be skipped.
+        codeMatcher.Labels.Add(doNotSkipIndividualDrawLabel);
             
         var codeInstructions = codeMatcher.Instructions();
         
