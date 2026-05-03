@@ -3,6 +3,7 @@ using ZephyrSquall.ZephyrSquallCode.Extensions;
 using Godot;
 using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes.Vfx;
 using ZephyrSquall.ZephyrSquallCode.Cards;
 using ZephyrSquall.ZephyrSquallCode.Relics;
 
@@ -20,6 +21,8 @@ public class ZephyrSquall : PlaceholderCharacterModel
     
     public override Color NameColor => Color;
     public override CharacterGender Gender => CharacterGender.Masculine;
+    public override Color DialogueColor { get; } = new Color("6ceef5");
+    public override VfxColor SpeechBubbleColor => VfxColor.Cyan;
     public override int StartingHp => 70;
 
     public override IEnumerable<CardModel> StartingDeck =>
