@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 using ZephyrSquall.ZephyrSquallCode.Hooks;
 using ZephyrSquall.ZephyrSquallCode.Utilities;
@@ -14,9 +15,11 @@ namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
 public class FlowState() : ZephyrSquallCard(3,
         CardType.Attack, CardRarity.Rare,
-        TargetType.AllEnemies), IOnBecomeWellRead
+        TargetType.AnyEnemy)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(17M, ValueProp.Move)];
+    protected override bool ShouldGlowGoldInternal => ZephyrQueries.IsWellRead(Owner);
+    
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(12M, ValueProp.Move)];
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [ZephyrHoverTips.WellRead()];
     
@@ -24,29 +27,24 @@ public class FlowState() : ZephyrSquallCard(3,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).TargetingAllOpponents(CombatState).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+            .WithHitCount(2)
+            .FromCard(this)
+            .Targeting(play.Target)
+            .WithHitFx("vfx/vfx_attack_slash")
+            .Execute(choiceContext);
     }
 
-    public async Task OnBecomeWellRead(Player player)
+    public override bool TryModifyEnergyCostInCombatLate(CardModel card, decimal originalCost, out decimal modifiedCost)
     {
-        await HandleAutoplay(player);
-    }
-
-    // In case the player became Well Read during the enemy turn, do an extra check as soon as possible upon the player
-    // turn starting.
-    public override async Task AfterEnergyReset(Player player)
-    {
-        await HandleAutoplay(player);
-    }
-
-    private async Task HandleAutoplay(Player player)
-    {
-        if (player == Owner && Pile.Type == PileType.Hand && Owner.Creature.CombatState.CurrentSide == CombatSide.Player)
+        if (card == this && ZephyrQueries.IsWellRead(Owner))
         {
-            var choiceContext = new BlockingPlayerChoiceContext();
-            await CardCmd.AutoPlay(choiceContext, this, null);
+            modifiedCost = 0;
+            return true;
         }
+        modifiedCost = originalCost;
+        return false;
     }
 
-    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(5M);
+    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(3M);
 }
