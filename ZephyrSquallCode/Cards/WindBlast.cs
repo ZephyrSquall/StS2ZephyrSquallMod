@@ -10,7 +10,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
 [Pool(typeof(TokenCardPool))]
-public class WindBlast() : CustomCardModel(1,
+public class WindBlast() : ZephyrSquallCard(1,
     CardType.Attack, CardRarity.Token,
     TargetType.AllEnemies)
 {

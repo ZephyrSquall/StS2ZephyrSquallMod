@@ -9,6 +9,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.CardPools;
@@ -21,7 +22,7 @@ using ZephyrSquall.ZephyrSquallCode.Powers;
 namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
 [Pool(typeof(TokenCardPool))]
-public class Book() : CustomCardModel(1,
+public class Book() : ZephyrSquallCard(1,
     CardType.Skill, CardRarity.Token,
     TargetType.Self)
 {
@@ -48,15 +49,17 @@ public class Book() : CustomCardModel(1,
         Book book = combatState.CreateCard<Book>(owner);
         book.RecordedCards = recordedCards.ToList();
 
-        // Ideally, BookPosition is set to where the Book ends up after it is generated. This is very tricky though, as
+        // Set the Record Pile's BookPosition to where the Book will end up after it is generated. This is tricky, as
         // for Recording to work properly, the Recorded cards must be moved to the Record Pile before the Book is added
         // to combat (otherwise, if the player has a full hand when they're Recording (possible with Ink Bottle), the
-        // generated Book would go straight to the Discard Pile due to the hand having no room). But BookPosition is
-        // needed before the cards are moved to the Record Pile. So, it's impossible to set the BookPosition in time by
-        // just directly reading from the generated Book where it is on screen. I'm still not sure how to handle this,
-        // so for now I just set it to the bottom center of the screen.
-        ((RecordPile) RecordPile.Record.GetPile(owner)).BookPosition = 
-            new Vector2(NGame.Instance.GetViewportRect().Size.X / 2, NGame.Instance.GetViewportRect().Size.Y);
+        // generated Book would go straight to the Discard Pile due to the hand having no room). But BookPosition must
+        // be known at the time the Recorded cards are moved for the tween to work properly. Thus, we must predict where
+        // in the Hand the Book will end up by calculating what the Hand size will be after the Book is added to it, and
+        // getting the coordinates of where the last card in a Hand that big would be.
+        var cardsInHandAfterRecord = PileType.Hand.GetPile(owner).Cards.Count - book.RecordedCards.Count + 1;
+        ((RecordPile)RecordPile.Record.GetPile(owner)).BookPosition =
+            HandPosHelper.GetPosition(cardsInHandAfterRecord, cardsInHandAfterRecord - 1)
+            + new Vector2(NGame.Instance.GetViewportRect().Size.X / 2, NGame.Instance.GetViewportRect().Size.Y);;
         
         await CardPileCmd.Add(recordedCards, RecordPile.Record);
         await CardPileCmd.AddGeneratedCardToCombat(book, PileType.Hand, owner);

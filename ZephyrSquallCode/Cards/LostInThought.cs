@@ -6,7 +6,7 @@ using MegaCrit.Sts2.Core.Models.CardPools;
 namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
 [Pool(typeof(StatusCardPool))]
-public class LostInThought() : CustomCardModel(-1,
+public class LostInThought() : ZephyrSquallCard(-1,
     CardType.Status, CardRarity.Status,
     TargetType.None)
 {
