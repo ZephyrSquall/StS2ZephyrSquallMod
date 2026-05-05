@@ -15,6 +15,8 @@
   "ZEPHYRSQUALL-CONNECT_THE_DOTS.title": "Connect the Dots",
   "ZEPHYRSQUALL-DEFEND.description": "Gain {Block:diff()} [gold]Block[/gold].",
   "ZEPHYRSQUALL-DEFEND.title": "Defend",
+  "ZEPHYRSQUALL-ESCAPE_PLAN.description": "Gain {Block:diff()} [gold]Block[/gold].\nDraw {Cards:diff()} {Cards:plural:card|cards}.",
+  "ZEPHYRSQUALL-ESCAPE_PLAN.title": "Escape Plan",
   "ZEPHYRSQUALL-FAIR_WINDS.description": "The next time you take an extra turn, all allies take an extra turn as well.",
   "ZEPHYRSQUALL-FAIR_WINDS.title": "Fair Winds",
   "ZEPHYRSQUALL-FLOW_STATE.description": "Deal {Damage:diff()} damage twice.\n[gold]Well Read[/gold]: This costs 0 {energyPrefix:energyIcons(1)}.",

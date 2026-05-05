@@ -119,3 +119,34 @@ class WatchRecordPileForEscapingCardsPatch
         }
     }
 }
+
+
+// This is a failed attempt to patch the CardPileCmd.Add method to properly update an autoplayed card from the Record
+// pile. It's left here as a template for when I return to try again later.
+
+/*
+[HarmonyPatch(typeof(CardPileCmd), MethodType.Async, new Type[] {
+    typeof(IEnumerable<CardModel>),
+    typeof(CardPile),
+    typeof(CardPilePosition),
+    typeof(AbstractModel),
+    typeof(bool)
+})]
+[HarmonyPatch(nameof(CardPileCmd.Add))]
+class FixDisplayForNarratedCardsPatch
+{
+        [HarmonyTranspiler]
+    static IEnumerable<CodeInstruction> FixDisplayForNarratedCards(ILGenerator generator, IEnumerable<CodeInstruction> instructions, MethodBase original)
+    {
+        var codeMatcher = new CodeMatcher(instructions);
+
+        codeMatcher.MatchStartForward(new CodeMatch(OpCodes.Switch))
+            .MatchStartForward(new CodeMatch(OpCodes.Switch))
+            .Advance(7)
+            .InsertAndAdvance(new CodeInstruction(OpCodes.Ldc_I4_1))
+            .InsertAndAdvance(CodeInstruction.StoreLocal(25));
+            
+        return codeMatcher.Instructions();
+    }
+}
+*/

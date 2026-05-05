@@ -11,6 +11,7 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.Nodes;
@@ -18,6 +19,7 @@ using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.ValueProps;
 using ZephyrSquall.ZephyrSquallCode.CardPiles;
 using ZephyrSquall.ZephyrSquallCode.Powers;
+using ZephyrSquall.ZephyrSquallCode.Utilities;
 
 namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
@@ -102,11 +104,39 @@ public class Book() : ZephyrSquallCard(1,
         
         // Update the Record Pile's BookPosition so the cards that are about to be returned to the hand appear to come
         // from this Book.
-        var nCard = NCard.FindOnTable(this);
-        if (nCard is not null)
-            ((RecordPile) RecordPile.Record.GetPile(Owner)).BookPosition = nCard.GlobalPosition;
+        var nCardBook = NCard.FindOnTable(this);
+        if (nCardBook is not null)
+            ((RecordPile) RecordPile.Record.GetPile(Owner)).BookPosition = nCardBook.GlobalPosition;
 
-        await CardPileCmd.Add(RecordedCards, PileType.Hand);
+        List<CardModel> returnToHand = new List<CardModel>();
+        List<CardModel> autoPlay = new List<CardModel>();
+        foreach (var card in RecordedCards)
+        {
+            if (card.Keywords.Contains(ZephyrKeywords.Narrate))
+                autoPlay.Add(card);
+            else
+                returnToHand.Add(card);
+        }
+        await CardPileCmd.Add(returnToHand, PileType.Hand);
+        foreach (var card in autoPlay)
+            await CardCmd.AutoPlay(choiceContext, card, null);
+    }
+
+    // The following code is a bandaid fix for an issue that causes any card beyond the first Recorded card to appear as
+    // a "Broken Card" in the play pile after it is autoplayed. As best as I can tell, I've narrowed down the true issue
+    // to being that the CardPileCmd.Add method only checks to see if a card is in a hardcoded list of piles before
+    // updating the visuals. This ends up not working here case as the Narrated card is autoplayed from the Record pile,
+    // a custom pile outside the hardcoded list. However, the CardPileCmd.Add is an extremely huge and convoluted
+    // method, so patching it properly is going to be incredibly difficult, and I've left it for another day. The
+    // bandaid fix below doesn't stop the card from momentarily appearing as a "Broken Card", but at least causes it to
+    // eventually switch back to its proper appearance so it's easy to tell the right card was autoplayed.
+    public override (PileType, CardPilePosition) ModifyCardPlayResultPileTypeAndPosition(CardModel card, bool isAutoPlay,
+        ResourceInfo resources, PileType pileType, CardPilePosition position)
+    {
+        var nCardNarrate = NCard.FindOnTable(card);
+        if (nCardNarrate is not null)
+            nCardNarrate.UpdateVisuals(nCardNarrate.Model.Pile.Type, CardPreviewMode.Normal);
+        return (pileType, position);
     }
 
     protected override void OnUpgrade() => EnergyCost.UpgradeBy(-1);
