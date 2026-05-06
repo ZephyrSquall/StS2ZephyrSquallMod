@@ -1,10 +1,27 @@
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Models;
 
 namespace ZephyrSquall.ZephyrSquallCode.Hooks;
 
 public class ZephyrHooks
 {
+    public static async Task OnAddDeft(CardModel card, int amount, AbstractModel source)
+    {
+        foreach (var model in card.CombatState.IterateHookListeners().OfType<IOnAddDeft>() )
+        {
+            await model.OnAddDeft(card, amount, source);
+        }
+    }
+    
+    public static async Task OnAddHoned(CardModel card, int amount, AbstractModel source)
+    {
+        foreach (var model in card.CombatState.IterateHookListeners().OfType<IOnAddHoned>() )
+        {
+            await model.OnAddHoned(card, amount, source);
+        }
+    }
+    
     public static async Task OnBecomeWellRead(Player player)
     {
         foreach (var model in player.Creature.CombatState.IterateHookListeners().OfType<IOnBecomeWellRead>() )

@@ -1,10 +1,10 @@
-using HarmonyLib;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
+using ZephyrSquall.ZephyrSquallCode.Commands;
 using ZephyrSquall.ZephyrSquallCode.Patches;
 using ZephyrSquall.ZephyrSquallCode.Utilities;
 
@@ -41,9 +41,7 @@ public class KnowledgeShield() : ZephyrSquallCard(1,
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, play);
         if (WellReadTracker.WasWellReadAtStartOfCardPlay)
-        {
-            CardModifierTracker.DeftAmount[this] += DynamicVars["Deft"].IntValue;
-        }
+            await ModifierCmd.AddDeftToSpecific(this, DynamicVars["Deft"].IntValue, this);
     }
 
     protected override void OnUpgrade()
