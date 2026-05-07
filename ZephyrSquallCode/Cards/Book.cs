@@ -1,5 +1,4 @@
 using System.Text;
-using BaseLib.Abstracts;
 using BaseLib.Extensions;
 using BaseLib.Utils;
 using Godot;
@@ -11,7 +10,6 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.Nodes;
@@ -28,6 +26,8 @@ public class Book() : ZephyrSquallCard(1,
     CardType.Skill, CardRarity.Token,
     TargetType.Self)
 {
+    private bool _needsToCloneRecordedCards;
+    
     public List<CardModel> RecordedCards { get; private set; } = [];
     
     private bool HasPaperCut => IsInCombat && Owner.HasPower<PaperCutPower>();
@@ -49,7 +49,12 @@ public class Book() : ZephyrSquallCard(1,
         ICombatState combatState)
     {
         Book book = combatState.CreateCard<Book>(owner);
+        book._needsToCloneRecordedCards = false;
         book.RecordedCards = recordedCards.ToList();
+
+        // If a Book with no Recorded cards would be created, don't create the Book.
+        if (book.RecordedCards.Count == 0)
+            return null;
 
         // Set the Record Pile's BookPosition to where the Book will end up after it is generated. This is tricky, as
         // for Recording to work properly, the Recorded cards must be moved to the Record Pile before the Book is added
@@ -140,6 +145,28 @@ public class Book() : ZephyrSquallCard(1,
     }
 
     protected override void OnUpgrade() => EnergyCost.UpgradeBy(-1);
+
+    protected override void AfterCloned()
+    {
+        base.AfterCloned();
+        _needsToCloneRecordedCards = true;
+    }
+
+    // When a Book is generated, check if it was created via any of its factory methods like CreateInHand. If not, then
+    // the Book was copied, which means all of its Recorded cards need to be copied too.
+    public override async Task AfterCardGeneratedForCombat(CardModel card, Player? creator)
+    {
+        if (card == this && _needsToCloneRecordedCards)
+        {
+            List<CardModel> newRecordedCards = [];
+            foreach (var oldRecordedCard in RecordedCards)
+            {
+                var cardPileAddResult = await CardPileCmd.AddGeneratedCardToCombat(oldRecordedCard.CreateClone(), RecordPile.Record, Owner);
+                newRecordedCards.Add(cardPileAddResult.cardAdded);
+            }
+            RecordedCards = newRecordedCards;
+        }
+    }
 
     private void UpdateCardTitles()
     {
