@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
 using ZephyrSquall.ZephyrSquallCode.Cards;
+using ZephyrSquall.ZephyrSquallCode.Hooks;
 
 namespace ZephyrSquall.ZephyrSquallCode.Commands;
 
@@ -43,10 +44,11 @@ public static class RecordCmd
         ICombatState combatState,
         AbstractModel source)
     {
-        IEnumerable<CardModel> selectedCards = await CardSelectCmd.FromHand(choiceContext, player, prefs,
+        List<CardModel> selectedCards = (await CardSelectCmd.FromHand(choiceContext, player, prefs,
             (Func<CardModel, bool>)(c =>
                 c.Type != CardType.Status && c.Type != CardType.Curse && c.Type != CardType.Quest && c is not Book),
-            source);
+            source)).ToList();
         await Book.CreateInHand(player, selectedCards, combatState);
+        await ZephyrHooks.OnRecord(selectedCards, source);
     }
 }

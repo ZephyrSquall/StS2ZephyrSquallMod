@@ -37,4 +37,16 @@ public class ZephyrHooks
             await model.OnOverflow(choiceContext, player, fromHandDraw);
         }
     }
+    
+    public static async Task OnRecord(List<CardModel> cards, AbstractModel source)
+    {
+        if (cards.Count > 0)
+        {
+            foreach (var model in cards[0].CombatState.IterateHookListeners().OfType<IOnRecord>() )
+            {
+                await model.OnRecord(cards, source);
+            }
+        }
+
+    }
 }

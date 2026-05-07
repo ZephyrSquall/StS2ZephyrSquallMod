@@ -7,5 +7,8 @@
   "ZEPHYRSQUALL-FIELD_JOURNAL.title": "Field Journal",
   "ZEPHYRSQUALL-SPIRE_ENCYCLOPEDIA.description": "At the start of each combat, add [blue]{Cards}[/blue] [gold]{Cards:plural:Analysis|Analyses}[/gold] into your [gold]Hand[/gold].",
   "ZEPHYRSQUALL-SPIRE_ENCYCLOPEDIA.flavor": "\"Fascinating! I wonder who architected such a place?\"",
-  "ZEPHYRSQUALL-SPIRE_ENCYCLOPEDIA.title": "Spire Encyclopedia"
+  "ZEPHYRSQUALL-SPIRE_ENCYCLOPEDIA.title": "Spire Encyclopedia",
+  "ZEPHYRSQUALL-RESEARCH_PAPER.description": "Whenever you [gold]Record[/gold] a card, [gold]Upgrade[/gold] it for the remainder of combat.",
+  "ZEPHYRSQUALL-RESEARCH_PAPER.flavor": "",
+  "ZEPHYRSQUALL-RESEARCH_PAPER.title": "Research Paper"
 }
