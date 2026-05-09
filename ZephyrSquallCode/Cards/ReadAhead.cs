@@ -4,20 +4,16 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using ZephyrSquall.ZephyrSquallCode.Commands;
-using ZephyrSquall.ZephyrSquallCode.Powers;
 using ZephyrSquall.ZephyrSquallCode.Utilities;
 
 namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
-public class PaperCut() : ZephyrSquallCard(1,
-    CardType.Power, CardRarity.Uncommon,
+public class ReadAhead() : ZephyrSquallCard(1,
+    CardType.Skill, CardRarity.Common,
     TargetType.Self)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new PowerVar<PaperCutPower>(7),
-        new CardsVar(2)
-    ];
-
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2), new IntVar("RecordCards", 2)];
+    
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
         ZephyrHoverTips.Record(),
         HoverTipFactory.FromCard<Book>()
@@ -27,9 +23,9 @@ public class PaperCut() : ZephyrSquallCard(1,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        await PowerCmd.Apply<PaperCutPower>(choiceContext, Owner.Creature, DynamicVars["PaperCutPower"].IntValue, Owner.Creature, this);
-        await RecordCmd.Record(choiceContext, Owner, DynamicVars.Cards.IntValue, CombatState, this);
+        await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
+        await RecordCmd.Record(choiceContext, Owner, DynamicVars["RecordCards"].IntValue, CombatState, this);
     }
 
-    protected override void OnUpgrade() => DynamicVars["PaperCutPower"].UpgradeValueBy(3);
+    protected override void OnUpgrade() => DynamicVars.Cards.UpgradeValueBy(1);
 }

@@ -21,7 +21,7 @@ public class Plagiarize() : ZephyrSquallCard(1,
         get
         {
             List<IHoverTip> hoverTips = [HoverTipFactory.FromCard<Book>()];
-            if (IsUpgraded)
+            if (DynamicVars.Cards.IntValue > 0)
                 hoverTips.Add(ZephyrHoverTips.Record());
             return hoverTips;
         }
