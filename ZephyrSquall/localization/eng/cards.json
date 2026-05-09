@@ -32,6 +32,8 @@
   "ZEPHYRSQUALL-FORETHOUGHT.title": "Forethought",
   "ZEPHYRSQUALL-FLURRY.description": "Deal {Damage:diff()} damage {HitMultiplier:diff()} X times.",
   "ZEPHYRSQUALL-FLURRY.title": "Flurry",
+  "ZEPHYRSQUALL-GUST.description": "Deal {Damage:diff()} damage to ALL enemies.\nGain {TailwindPower:diff()} [gold]Tailwind[/gold].",
+  "ZEPHYRSQUALL-GUST.title": "Gust",
   "ZEPHYRSQUALL-HARRY.description": "If you have dealt attack damage 3 or more times this turn, gain {Block:diff()} [gold]Block[/gold].\nDeal {Damage:diff()} damage twice.{InCombat:\n(Dealt attack damage {TimesDealtAttackDamage:diff()} {TimesDealtAttackDamage:plural:time|times})|}",
   "ZEPHYRSQUALL-HARRY.title": "Harry",
   "ZEPHYRSQUALL-IMPROVISED_WEAPON.description": "Deal {Damage:diff()} damage.\nPermanently decrease this card's damage by {Decrease:diff()}.",
