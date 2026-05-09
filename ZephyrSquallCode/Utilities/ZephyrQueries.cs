@@ -5,6 +5,8 @@ using MegaCrit.Sts2.Core.Combat.History.Entries;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Models;
+using ZephyrSquall.ZephyrSquallCode.Cards;
 using ZephyrSquall.ZephyrSquallCode.Powers;
 
 namespace ZephyrSquall.ZephyrSquallCode.Utilities;
@@ -23,4 +25,7 @@ public static class ZephyrQueries
                 ? e.DamageResults.Count(d => d.Props.IsPoweredAttack_() && d.TotalDamage > 0)
                 : 0);
     }
+
+    public static bool CanBeRecorded(CardModel card) =>
+        card.Type != CardType.Status && card.Type != CardType.Curse && card.Type != CardType.Quest && card is not Book;
 }

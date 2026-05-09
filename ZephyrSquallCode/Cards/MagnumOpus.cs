@@ -25,7 +25,7 @@ public class MagnumOpus() : ZephyrSquallCard(4,
         HoverTipFactory.FromCard<Book>()
     ];
     
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust, ZephyrKeywords.Narrate];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [ZephyrKeywords.Narrate, CardKeyword.Exhaust];
     
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,

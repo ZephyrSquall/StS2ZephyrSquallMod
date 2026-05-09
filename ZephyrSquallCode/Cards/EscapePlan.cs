@@ -14,8 +14,6 @@ public class EscapePlan() : ZephyrSquallCard(2,
 {
     public override bool GainsBlock => true;
     
-    protected override HashSet<CardTag> CanonicalTags => [CardTag.Defend];
-    
     protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(7, ValueProp.Move), new CardsVar(1)];
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<Book>()];

@@ -1,13 +1,13 @@
 using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
 using ZephyrSquall.ZephyrSquallCode.Cards;
 using ZephyrSquall.ZephyrSquallCode.Hooks;
+using ZephyrSquall.ZephyrSquallCode.Utilities;
 
 namespace ZephyrSquall.ZephyrSquallCode.Commands;
 
@@ -45,9 +45,7 @@ public static class RecordCmd
         AbstractModel source)
     {
         List<CardModel> selectedCards = (await CardSelectCmd.FromHand(choiceContext, player, prefs,
-            (Func<CardModel, bool>)(c =>
-                c.Type != CardType.Status && c.Type != CardType.Curse && c.Type != CardType.Quest && c is not Book),
-            source)).ToList();
+            (Func<CardModel, bool>) ZephyrQueries.CanBeRecorded, source)).ToList();
         await Book.CreateInHand(player, selectedCards, combatState);
         await ZephyrHooks.OnRecord(selectedCards, source);
     }
