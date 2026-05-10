@@ -15,7 +15,7 @@ public class ReadAhead() : ZephyrSquallCard(1,
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2), new IntVar("RecordCards", 2)];
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-        ZephyrHoverTips.Record(),
+        IsMutable ? ZephyrHoverTips.Record(Owner) : ZephyrHoverTips.Record(),
         HoverTipFactory.FromCard<Book>()
     ];
     

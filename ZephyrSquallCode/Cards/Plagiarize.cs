@@ -22,7 +22,7 @@ public class Plagiarize() : ZephyrSquallCard(1,
         {
             List<IHoverTip> hoverTips = [HoverTipFactory.FromCard<Book>()];
             if (DynamicVars.Cards.IntValue > 0)
-                hoverTips.Add(ZephyrHoverTips.Record());
+                hoverTips.Add(IsMutable ? ZephyrHoverTips.Record(Owner) : ZephyrHoverTips.Record());
             return hoverTips;
         }
     }

@@ -13,10 +13,10 @@ public class TomeSmack() : ZephyrSquallCard(1,
     CardType.Attack, CardRarity.Common,
     TargetType.AnyEnemy)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(7M, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(7, ValueProp.Move), new CardsVar(1)];
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-        ZephyrHoverTips.Record(),
+        IsMutable ? ZephyrHoverTips.Record(Owner) : ZephyrHoverTips.Record(),
         HoverTipFactory.FromCard<Book>()
     ];
     
@@ -24,9 +24,9 @@ public class TomeSmack() : ZephyrSquallCard(1,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        await RecordCmd.Record(choiceContext, Owner, 1, CombatState, this);
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(play.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
+        await RecordCmd.Record(choiceContext, Owner, DynamicVars.Cards.IntValue, CombatState, this);
     }
 
-    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(3M);
+    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(3);
 }

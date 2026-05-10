@@ -19,7 +19,7 @@ public class PaperCut() : ZephyrSquallCard(1,
     ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-        ZephyrHoverTips.Record(),
+        IsMutable ? ZephyrHoverTips.Record(Owner) : ZephyrHoverTips.Record(),
         HoverTipFactory.FromCard<Book>()
     ];
     

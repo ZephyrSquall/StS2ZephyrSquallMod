@@ -22,7 +22,7 @@ public sealed class InkBottle : ZephyrSquallPotion
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<TailwindPower>(10M)];
     
     public override IEnumerable<IHoverTip> ExtraHoverTips => [
-        ZephyrHoverTips.Record(),
+        IsMutable ? ZephyrHoverTips.Record(Owner) : ZephyrHoverTips.Record(),
         HoverTipFactory.FromCard<Book>()
     ];
 

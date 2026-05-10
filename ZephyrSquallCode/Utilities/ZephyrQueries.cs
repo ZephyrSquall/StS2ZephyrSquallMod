@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models;
 using ZephyrSquall.ZephyrSquallCode.Cards;
 using ZephyrSquall.ZephyrSquallCode.Powers;
+using ZephyrSquall.ZephyrSquallCode.Relics;
 
 namespace ZephyrSquall.ZephyrSquallCode.Utilities;
 
@@ -27,5 +28,7 @@ public static class ZephyrQueries
     }
 
     public static bool CanBeRecorded(CardModel card) =>
-        card.Type != CardType.Status && card.Type != CardType.Curse && card.Type != CardType.Quest && card is not Book;
+        card is not Book && (card.Owner.GetRelic<CursedTome>() != null || (card.Type != CardType.Status &&
+                                                                           card.Type != CardType.Curse &&
+                                                                           card.Type != CardType.Quest));
 }

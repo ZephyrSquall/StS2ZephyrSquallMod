@@ -1,5 +1,7 @@
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
+using ZephyrSquall.ZephyrSquallCode.Relics;
 
 namespace ZephyrSquall.ZephyrSquallCode.Utilities;
 
@@ -27,6 +29,17 @@ public static class ZephyrHoverTips
     {
         return new HoverTip(new LocString("static_hover_tips", "RECORD.title"),
             new LocString("static_hover_tips", "RECORD.description"));
+    }
+    
+    public static IHoverTip Record(Player? player)
+    {
+        return player?.GetRelic<CursedTome>() == null ? Record() : RecordWithCursedTome();
+    }
+    
+    public static IHoverTip RecordWithCursedTome()
+    {
+        return new HoverTip(new LocString("static_hover_tips", "RECORD_WITH_CURSED_TOME.title"),
+            new LocString("static_hover_tips", "RECORD_WITH_CURSED_TOME.description"));
     }
     
     public static IHoverTip WellRead()

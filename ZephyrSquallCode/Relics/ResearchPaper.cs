@@ -13,7 +13,7 @@ public class ResearchPaper : ZephyrSquallRelic, IOnRecord
     public override RelicRarity Rarity => RelicRarity.Rare;
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-        ZephyrHoverTips.Record(),
+        IsMutable ? ZephyrHoverTips.Record(Owner) : ZephyrHoverTips.Record(),
         HoverTipFactory.FromCard<Book>()
     ];
 
