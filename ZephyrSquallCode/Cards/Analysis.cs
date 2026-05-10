@@ -10,26 +10,25 @@ using MegaCrit.Sts2.Core.Models.CardPools;
 namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
 [Pool(typeof(TokenCardPool))]
-public class Analysis() : ZephyrSquallCard(1,
-    CardType.Skill, CardRarity.Token,
-    TargetType.Self)
+public class Analysis() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Token, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new CalculationBaseVar(0M),
-        new CalculationExtraVar(1M),
-        new CalculatedVar("CalculatedCards").WithMultiplier((Func<CardModel, Creature, Decimal>)((card, _) =>
+        new CalculationBaseVar(0), new CalculationExtraVar(1),
+        new CalculatedVar("CalculatedCards").WithMultiplier((Func<CardModel, Creature, decimal>)((card, _) =>
             card.CombatState.RoundNumber))
     ];
-    
+
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust, CardKeyword.Retain];
-    
-    protected override async Task OnPlay(
-        PlayerChoiceContext choiceContext,
-        CardPlay play)
+
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
-        await CardPileCmd.Draw(choiceContext, ((CalculatedVar) DynamicVars["CalculatedCards"]).Calculate(play.Target), Owner);
+        await CardPileCmd.Draw(choiceContext, ((CalculatedVar)DynamicVars["CalculatedCards"]).Calculate(play.Target),
+            Owner);
     }
 
-    protected override void OnUpgrade() => DynamicVars.CalculationBase.UpgradeValueBy(1);
+    protected override void OnUpgrade()
+    {
+        DynamicVars.CalculationBase.UpgradeValueBy(1);
+    }
 }

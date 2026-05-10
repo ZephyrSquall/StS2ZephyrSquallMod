@@ -12,22 +12,15 @@ public sealed class WatchCloselyPower : ZephyrSquallPower
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    
-    public override async Task AfterDamageReceived(
-        PlayerChoiceContext choiceContext,
-        Creature target,
-        DamageResult _,
-        ValueProp props,
-        Creature? dealer,
-        CardModel? __)
+
+    public override async Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target,
+        DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource)
     {
-        if (target == Owner && props.IsPoweredAttack())
-            await CardPileCmd.Draw(choiceContext, Amount, Owner.Player);
+        if (target == Owner && props.IsPoweredAttack()) await CardPileCmd.Draw(choiceContext, Amount, Owner.Player);
     }
 
     public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
     {
-        if (Owner.Side != side)
-            await PowerCmd.Remove(this);
+        if (Owner.Side != side) await PowerCmd.Remove(this);
     }
 }

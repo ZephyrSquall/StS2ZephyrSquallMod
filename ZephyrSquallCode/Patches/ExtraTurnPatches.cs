@@ -12,10 +12,10 @@ public class ExtraTurnTracker
 }
 
 [HarmonyPatch(typeof(Hook), nameof(Hook.AfterTakingExtraTurn))]
-class ExtraTurnStartPatch
+internal class ExtraTurnStartPatch
 {
     [HarmonyPrefix]
-    static bool TrackExtraTurnExtraTurnStart(ICombatState combatState, Player player)
+    private static bool TrackExtraTurnExtraTurnStart(ICombatState combatState, Player player)
     {
         ExtraTurnTracker.PlayersTakingExtraTurn.Add(player);
         return true;
@@ -23,10 +23,10 @@ class ExtraTurnStartPatch
 }
 
 [HarmonyPatch(typeof(Hook), nameof(Hook.BeforeCombatStart))]
-class CombatStartPatch
+internal class CombatStartPatch
 {
     [HarmonyPrefix]
-    static bool TrackExtraTurnCombatStart(IRunState runState, ICombatState? combatState)
+    private static bool TrackExtraTurnCombatStart(IRunState runState, ICombatState? combatState)
     {
         ExtraTurnTracker.PlayersTakingExtraTurn.Clear();
         return true;
@@ -34,10 +34,10 @@ class CombatStartPatch
 }
 
 [HarmonyPatch(typeof(Hook), nameof(Hook.AfterTurnEnd))]
-class TurnEndPatch
+internal class TurnEndPatch
 {
     [HarmonyPrefix]
-    static bool TrackExtraTurnTurnEnd(ICombatState combatState, CombatSide side)
+    private static bool TrackExtraTurnTurnEnd(ICombatState combatState, CombatSide side)
     {
         ExtraTurnTracker.PlayersTakingExtraTurn.Clear();
         return true;

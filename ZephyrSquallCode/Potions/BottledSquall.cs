@@ -18,11 +18,12 @@ public sealed class BottledSquall : ZephyrSquallPotion
     public override TargetType TargetType => TargetType.AnyPlayer;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<TailwindPower>(10M)];
-    
+
     public override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<TailwindPower>()];
 
     protected override async Task OnUse(PlayerChoiceContext choiceContext, Creature? target)
     {
-        await PowerCmd.Apply<TailwindPower>(choiceContext, target, DynamicVars["TailwindPower"].BaseValue, Owner.Creature, null);
+        await PowerCmd.Apply<TailwindPower>(choiceContext, target, DynamicVars["TailwindPower"].BaseValue,
+            Owner.Creature, null);
     }
 }

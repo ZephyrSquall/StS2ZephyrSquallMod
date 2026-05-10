@@ -11,16 +11,12 @@ public sealed class AllOutPower : ZephyrSquallPower
 {
     public override PowerType Type => PowerType.Debuff;
     public override PowerStackType StackType => PowerStackType.Single;
-    
+
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Static(StaticHoverTip.Block)];
-    
-    public override Decimal ModifyBlockMultiplicative(
-        Creature target,
-        Decimal block,
-        ValueProp props,
-        CardModel? cardSource,
-        CardPlay? cardPlay)
+
+    public override decimal ModifyBlockMultiplicative(Creature target, decimal block, ValueProp props,
+        CardModel? cardSource, CardPlay? cardPlay)
     {
-        return this.Owner == target ? 0M : 1M;
+        return Owner == target ? 0 : 1;
     }
 }

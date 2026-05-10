@@ -20,10 +20,10 @@ public sealed class InkBottle : ZephyrSquallPotion
     public override TargetType TargetType => TargetType.Self;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<TailwindPower>(10M)];
-    
-    public override IEnumerable<IHoverTip> ExtraHoverTips => [
-        IsMutable ? ZephyrHoverTips.Record(Owner) : ZephyrHoverTips.Record(),
-        HoverTipFactory.FromCard<Book>()
+
+    public override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        IsMutable ? ZephyrHoverTips.Record(Owner) : ZephyrHoverTips.Record(), HoverTipFactory.FromCard<Book>()
     ];
 
     protected override async Task OnUse(PlayerChoiceContext choiceContext, Creature? target)

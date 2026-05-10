@@ -8,31 +8,27 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
-public class Wariness() : ZephyrSquallCard(1,
-    CardType.Skill, CardRarity.Common,
-    TargetType.Self)
+public class Wariness() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
     public override bool GainsBlock => true;
-    
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(6M, ValueProp.Move)];
-    
+
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(6, ValueProp.Move)];
+
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Ethereal];
-    
-    protected override async Task OnPlay(
-        PlayerChoiceContext choiceContext,
-        CardPlay cardPlay)
+
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
     }
-    
-    public override async Task BeforeHandDraw(
-        Player player,
-        PlayerChoiceContext choiceContext,
+
+    public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext,
         ICombatState combatState)
     {
-        if (Pile.Type == PileType.Discard && player == Owner)
-            await CardPileCmd.Add(this, PileType.Hand);
+        if (Pile.Type == PileType.Discard && player == Owner) await CardPileCmd.Add(this, PileType.Hand);
     }
 
-    protected override void OnUpgrade() => DynamicVars.Block.UpgradeValueBy(2M);
+    protected override void OnUpgrade()
+    {
+        DynamicVars.Block.UpgradeValueBy(2);
+    }
 }

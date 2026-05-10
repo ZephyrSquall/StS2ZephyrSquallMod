@@ -16,9 +16,10 @@ public static class ZephyrQueries
 {
     public static bool IsWellRead(Player player)
     {
-        return PileType.Hand.GetPile(player).Cards.Count >= MaxHandSizePatch.GetMaxHandSize(player) - player.Creature.GetPowerAmount<LightReadingPower>();
+        return PileType.Hand.GetPile(player).Cards.Count >= MaxHandSizePatch.GetMaxHandSize(player) -
+            player.Creature.GetPowerAmount<LightReadingPower>();
     }
-    
+
     public static int TimesDealtAttackDamageThisTurn(ICombatState combatState, Creature creature)
     {
         return CombatManager.Instance.History.Entries.OfType<CreatureAttackedEntry>()
@@ -27,8 +28,9 @@ public static class ZephyrQueries
                 : 0);
     }
 
-    public static bool CanBeRecorded(CardModel card) =>
-        card is not Book && (card.Owner.GetRelic<CursedTome>() != null || (card.Type != CardType.Status &&
-                                                                           card.Type != CardType.Curse &&
-                                                                           card.Type != CardType.Quest));
+    public static bool CanBeRecorded(CardModel card)
+    {
+        return card is not Book && (card.Owner.GetRelic<CursedTome>() != null || (card.Type != CardType.Status &&
+            card.Type != CardType.Curse && card.Type != CardType.Quest));
+    }
 }

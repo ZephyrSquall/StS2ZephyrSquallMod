@@ -8,13 +8,11 @@ using ZephyrSquall.ZephyrSquallCode.Powers;
 
 namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
-public class StormBrewing() : ZephyrSquallCard(1,
-    CardType.Skill, CardRarity.Rare,
-    TargetType.Self)
+public class StormBrewing() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
     private int _currentTailwind = 1;
     private int _increasedTailwind;
-    
+
     [SavedProperty]
     public int CurrentTailwind
     {
@@ -25,20 +23,16 @@ public class StormBrewing() : ZephyrSquallCard(1,
             DynamicVars["TailwindPower"].BaseValue = _currentTailwind;
         }
     }
-    protected override IEnumerable<DynamicVar> CanonicalVars => 
+
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new PowerVar<TailwindPower>("TailwindPower", CurrentTailwind),
-        new ("Increase", 1),
-        new ("Limit", 9)
+        new PowerVar<TailwindPower>("TailwindPower", CurrentTailwind), new("Increase", 1), new("Limit", 9)
     ];
-    
+
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<TailwindPower>()];
-    
-    public override IEnumerable<CardKeyword> CanonicalKeywords
-    {
-        get => [CardKeyword.Exhaust];
-    }
-    
+
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+
     [SavedProperty]
     public int IncreasedTailwind
     {
@@ -49,29 +43,33 @@ public class StormBrewing() : ZephyrSquallCard(1,
             _increasedTailwind = value;
         }
     }
-    
-    protected override async Task OnPlay(
-        PlayerChoiceContext choiceContext,
-        CardPlay cardPlay)
+
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<TailwindPower>(choiceContext, Owner.Creature, DynamicVars["TailwindPower"].BaseValue, Owner.Creature, this);
-        int extraTailwind = DynamicVars["Increase"].IntValue;
+        await PowerCmd.Apply<TailwindPower>(choiceContext, Owner.Creature, DynamicVars["TailwindPower"].BaseValue,
+            Owner.Creature, this);
+        var extraTailwind = DynamicVars["Increase"].IntValue;
         if (IsUpgraded || CurrentTailwind + extraTailwind <= DynamicVars["Limit"].IntValue)
         {
             BuffFromPlay(extraTailwind);
-            if (!(DeckVersion is StormBrewing deckVersion))
-                return;
+            if (!(DeckVersion is StormBrewing deckVersion)) return;
             deckVersion.BuffFromPlay(extraTailwind);
         }
     }
 
-    protected override void AfterDowngraded() => UpdateTailwind();
-    
+    protected override void AfterDowngraded()
+    {
+        UpdateTailwind();
+    }
+
     private void BuffFromPlay(int extraTailwind)
     {
         IncreasedTailwind += extraTailwind;
         UpdateTailwind();
     }
 
-    private void UpdateTailwind() => CurrentTailwind = 1 + IncreasedTailwind;
+    private void UpdateTailwind()
+    {
+        CurrentTailwind = 1 + IncreasedTailwind;
+    }
 }

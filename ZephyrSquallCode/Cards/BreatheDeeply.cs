@@ -6,19 +6,15 @@ using ZephyrSquall.ZephyrSquallCode.Powers;
 
 namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
-public class BreatheDeeply() : ZephyrSquallCard(2,
-    CardType.Skill, CardRarity.Uncommon,
-    TargetType.Self)
+public class BreatheDeeply() : ZephyrSquallCard(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<WindBlast>(IsUpgraded)];
-    
-    protected override async Task OnPlay(
-        PlayerChoiceContext choiceContext,
-        CardPlay cardPlay)
+
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         if (IsUpgraded)
-            await PowerCmd.Apply<BreathingVeryDeeplyPower>(choiceContext, Owner.Creature, 1M, Owner.Creature, this);
+            await PowerCmd.Apply<BreathingVeryDeeplyPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
         else
-            await PowerCmd.Apply<BreathingDeeplyPower>(choiceContext, Owner.Creature, 1M, Owner.Creature, this);
+            await PowerCmd.Apply<BreathingDeeplyPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
     }
 }

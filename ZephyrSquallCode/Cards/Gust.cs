@@ -8,24 +8,24 @@ using ZephyrSquall.ZephyrSquallCode.Powers;
 
 namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
-public class Gust() : ZephyrSquallCard(1,
-    CardType.Attack, CardRarity.Common,
-    TargetType.AllEnemies)
+public class Gust() : ZephyrSquallCard(1, CardType.Attack, CardRarity.Common, TargetType.AllEnemies)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(8, ValueProp.Move),
-        new PowerVar<TailwindPower>(1)
+        new DamageVar(8, ValueProp.Move), new PowerVar<TailwindPower>(1)
     ];
-    
+
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<TailwindPower>()];
-    
-    protected override async Task OnPlay(
-        PlayerChoiceContext choiceContext,
-        CardPlay play)
+
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).TargetingAllOpponents(CombatState).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
-        await PowerCmd.Apply<TailwindPower>(choiceContext, Owner.Creature, DynamicVars["TailwindPower"].BaseValue, Owner.Creature, this);
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+            .FromCard(this)
+            .TargetingAllOpponents(CombatState)
+            .WithHitFx("vfx/vfx_attack_slash")
+            .Execute(choiceContext);
+        await PowerCmd.Apply<TailwindPower>(choiceContext, Owner.Creature, DynamicVars["TailwindPower"].BaseValue,
+            Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

@@ -3,13 +3,16 @@
 A new character mod for Slay the Spire 2.
 
 ## Character overview:
+
 Zephyr Squall is an original character of mine. He is a wind dragon who takes advantage of his wind magic and his lithe
 body to move with incredible speed. He's also a highly intelligent dragon who craves knowledge so strongly that he
 hoards books in his own personal library. To him, the Spire is a strange structure filled with mysteries, and the
-prospect of solving them and sharing his findings with the world is far too alluring to pass up. When he fights, he draws upon his
+prospect of solving them and sharing his findings with the world is far too alluring to pass up. When he fights, he
+draws upon his
 vast knowledge to plan carefully and find an opening, then attacks decisively in a burst of speed.
 
 ## Main mechanics:
+
 **Deft and Honed:** Zephyr is quick to learn, adapt, and refine his techniques. These are effects that can be added to
 cards for the duration of combat (very similarly to Replay). Deft increases Block gained by a card, and Honed increases
 damage dealt by a card. Some cards will also get additional benefits from Deft or Honed.

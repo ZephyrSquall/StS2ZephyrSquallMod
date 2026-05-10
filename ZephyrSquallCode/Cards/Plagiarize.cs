@@ -10,12 +10,10 @@ using ZephyrSquall.ZephyrSquallCode.Utilities;
 
 namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
-public class Plagiarize() : ZephyrSquallCard(1,
-    CardType.Skill, CardRarity.Rare,
-    TargetType.Self)
+public class Plagiarize() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(0)];
-    
+
     protected override IEnumerable<IHoverTip> ExtraHoverTips
     {
         get
@@ -28,19 +26,20 @@ public class Plagiarize() : ZephyrSquallCard(1,
     }
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-    
-    protected override async Task OnPlay(
-        PlayerChoiceContext choiceContext,
-        CardPlay play)
+
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
         if (DynamicVars.Cards.IntValue > 0)
             await RecordCmd.Record(choiceContext, Owner, DynamicVars.Cards.IntValue, CombatState, this);
-        
-        CardSelectorPrefs prefs = new CardSelectorPrefs(SelectionScreenPrompt, 1);
-        CardModel? book = (await CardSelectCmd.FromHand(choiceContext, Owner, prefs, (Func<CardModel, bool>) (c => c is Book ), this)).FirstOrDefault();
-        if (book != null)
-            await CardPileCmd.AddGeneratedCardToCombat(book.CreateClone(), PileType.Hand, Owner);
+
+        var prefs = new CardSelectorPrefs(SelectionScreenPrompt, 1);
+        var book = (await CardSelectCmd.FromHand(choiceContext, Owner, prefs, (Func<CardModel, bool>)(c => c is Book),
+            this)).FirstOrDefault();
+        if (book != null) await CardPileCmd.AddGeneratedCardToCombat(book.CreateClone(), PileType.Hand, Owner);
     }
-    
-    protected override void OnUpgrade() => DynamicVars.Cards.UpgradeValueBy(1);
+
+    protected override void OnUpgrade()
+    {
+        DynamicVars.Cards.UpgradeValueBy(1);
+    }
 }

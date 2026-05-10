@@ -7,20 +7,20 @@ using ZephyrSquall.ZephyrSquallCode.Powers;
 
 namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
-public class OneWithTheWind() : ZephyrSquallCard(1,
-    CardType.Power, CardRarity.Rare,
-    TargetType.Self)
+public class OneWithTheWind() : ZephyrSquallCard(1, CardType.Power, CardRarity.Rare, TargetType.Self)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<OneWithTheWindPower>(1M)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<OneWithTheWindPower>(1)];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<TailwindPower>()];
-    
-    protected override async Task OnPlay(
-        PlayerChoiceContext choiceContext,
-        CardPlay cardPlay)
+
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<OneWithTheWindPower>(choiceContext, Owner.Creature, DynamicVars["OneWithTheWindPower"].BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<OneWithTheWindPower>(choiceContext, Owner.Creature,
+            DynamicVars["OneWithTheWindPower"].BaseValue, Owner.Creature, this);
     }
 
-    protected override void OnUpgrade() => DynamicVars["OneWithTheWindPower"].UpgradeValueBy(1M);
+    protected override void OnUpgrade()
+    {
+        DynamicVars["OneWithTheWindPower"].UpgradeValueBy(1);
+    }
 }

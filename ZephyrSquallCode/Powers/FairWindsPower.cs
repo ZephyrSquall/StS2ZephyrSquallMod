@@ -8,7 +8,7 @@ public sealed class FairWindsPower : ZephyrSquallPower
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    
+
     public override async Task AfterTakingExtraTurn(Player player)
     {
         if (Owner.Player == player)

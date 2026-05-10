@@ -6,18 +6,18 @@ using ZephyrSquall.ZephyrSquallCode.Powers;
 
 namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
-public class Maelstrom() : ZephyrSquallCard(1,
-    CardType.Power, CardRarity.Uncommon,
-    TargetType.Self)
+public class Maelstrom() : ZephyrSquallCard(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<MaelstromPower>(1M)];
-    
-    protected override async Task OnPlay(
-        PlayerChoiceContext choiceContext,
-        CardPlay cardPlay)
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<MaelstromPower>(1)];
+
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<MaelstromPower>(choiceContext, Owner.Creature, DynamicVars["MaelstromPower"].IntValue, Owner.Creature, this);
+        await PowerCmd.Apply<MaelstromPower>(choiceContext, Owner.Creature, DynamicVars["MaelstromPower"].IntValue,
+            Owner.Creature, this);
     }
 
-    protected override void OnUpgrade() => DynamicVars["MaelstromPower"].UpgradeValueBy(1M);
+    protected override void OnUpgrade()
+    {
+        DynamicVars["MaelstromPower"].UpgradeValueBy(1);
+    }
 }

@@ -8,20 +8,20 @@ using ZephyrSquall.ZephyrSquallCode.Utilities;
 
 namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
-public class Crescendo() : ZephyrSquallCard(1,
-    CardType.Power, CardRarity.Rare,
-    TargetType.Self)
+public class Crescendo() : ZephyrSquallCard(1, CardType.Power, CardRarity.Rare, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<CrescendoPower>(2)];
-    
+
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [ZephyrHoverTips.Honed()];
-    
-    protected override async Task OnPlay(
-        PlayerChoiceContext choiceContext,
-        CardPlay play)
+
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
-        await PowerCmd.Apply<CrescendoPower>(choiceContext, Owner.Creature, DynamicVars["CrescendoPower"].IntValue, Owner.Creature, this);
+        await PowerCmd.Apply<CrescendoPower>(choiceContext, Owner.Creature, DynamicVars["CrescendoPower"].IntValue,
+            Owner.Creature, this);
     }
 
-    protected override void OnUpgrade() => DynamicVars["CrescendoPower"].UpgradeValueBy(1);
+    protected override void OnUpgrade()
+    {
+        DynamicVars["CrescendoPower"].UpgradeValueBy(1);
+    }
 }

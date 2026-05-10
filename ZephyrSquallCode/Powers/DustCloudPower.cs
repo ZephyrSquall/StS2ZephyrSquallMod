@@ -16,33 +16,26 @@ public sealed class DustCloudPower : ZephyrSquallPower
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    
+
     public override PowerInstanceType InstanceType => PowerInstanceType.Instanced;
-    
-    protected override object InitInternalData() => new Data();
-    
-    private class Data
-    {
-        public CardModel? SelectedCard;
-    }
-    
+
     protected override IEnumerable<DynamicVar> CanonicalVars => [new StringVar("Card")];
-    
+
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [ZephyrHoverTips.Deft()];
-    
+
+    protected override object InitInternalData()
+    {
+        return new Data();
+    }
+
     public void SetSelectedCard(CardModel card)
     {
         GetInternalData<Data>().SelectedCard = card;
-        ((StringVar) DynamicVars["Card"]).StringValue = card.Title;
+        ((StringVar)DynamicVars["Card"]).StringValue = card.Title;
     }
 
-    public override async Task AfterDamageGiven(
-        PlayerChoiceContext choiceContext,
-        Creature? dealer,
-        DamageResult result,
-        ValueProp props,
-        Creature target,
-        CardModel? cardSource)
+    public override async Task AfterDamageGiven(PlayerChoiceContext choiceContext, Creature? dealer,
+        DamageResult result, ValueProp props, Creature target, CardModel? cardSource)
     {
         var selectedCard = GetInternalData<Data>().SelectedCard;
         if (selectedCard != null && dealer == Owner && props.IsPoweredAttack() && result.TotalDamage > 0)
@@ -51,10 +44,14 @@ public sealed class DustCloudPower : ZephyrSquallPower
             await ModifierCmd.AddDeftToSpecific(selectedCard, Amount, this);
         }
     }
-    
+
     public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
     {
-        if (side == Owner.Side)
-            await PowerCmd.Remove(this);
+        if (side == Owner.Side) await PowerCmd.Remove(this);
+    }
+
+    private class Data
+    {
+        public CardModel? SelectedCard;
     }
 }

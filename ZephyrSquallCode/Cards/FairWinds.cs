@@ -8,21 +8,17 @@ using ZephyrSquall.ZephyrSquallCode.Powers;
 namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
 [Pool(typeof(ZephyrSquallCardPool))]
-public class FairWinds() : ZephyrSquallCard(2,
-    CardType.Power, CardRarity.Uncommon,
-    TargetType.Self)
+public class FairWinds() : ZephyrSquallCard(2, CardType.Power, CardRarity.Uncommon, TargetType.Self)
 {
-    public override CardMultiplayerConstraint MultiplayerConstraint
+    public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
+
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        get => CardMultiplayerConstraint.MultiplayerOnly;
-    }
-    
-    protected override async Task OnPlay(
-        PlayerChoiceContext choiceContext,
-        CardPlay cardPlay)
-    {
-        await PowerCmd.Apply<FairWindsPower>(choiceContext, Owner.Creature, 1M, Owner.Creature, this);
+        await PowerCmd.Apply<FairWindsPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
     }
 
-    protected override void OnUpgrade() => EnergyCost.UpgradeBy(-1);
+    protected override void OnUpgrade()
+    {
+        EnergyCost.UpgradeBy(-1);
+    }
 }

@@ -11,11 +11,10 @@ namespace ZephyrSquall.ZephyrSquallCode.CardPiles;
 // Book that returns them is played.
 public class RecordPile() : CustomPile(Record)
 {
+    [CustomEnum] public static PileType Record;
+
     public Vector2 BookPosition { get; set; } = Vector2.Zero;
 
-    [CustomEnum]
-    public static PileType Record;
-    
     public override bool CardShouldBeVisible(CardModel card)
     {
         return true;
@@ -31,7 +30,7 @@ public class RecordPile() : CustomPile(Record)
 
     public override NCard? GetNCard(CardModel card)
     {
-        NCard nCard = NCard.Create(card);
+        var nCard = NCard.Create(card);
         // Setting the global position here ensures that the card animation for getting placed back in the hand starts
         // from the Book's position. Without this line, the animation always shows the cards coming from the top-left
         // corner of the screen, presumably coming from a default position of 0, 0.

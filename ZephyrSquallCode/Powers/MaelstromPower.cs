@@ -12,14 +12,9 @@ public sealed class MaelstromPower : ZephyrSquallPower
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    
-    public override async Task AfterDamageGiven(
-        PlayerChoiceContext context,
-        Creature? dealer,
-        DamageResult result,
-        ValueProp props,
-        Creature target,
-        CardModel? cardSource)
+
+    public override async Task AfterDamageGiven(PlayerChoiceContext context, Creature? dealer, DamageResult result,
+        ValueProp props, Creature target, CardModel? cardSource)
     {
         if (dealer == Owner && props.IsPoweredAttack_() && result.TotalDamage > 0)
         {

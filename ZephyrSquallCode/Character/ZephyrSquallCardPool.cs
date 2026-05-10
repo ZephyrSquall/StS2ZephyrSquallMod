@@ -26,7 +26,10 @@ public class ZephyrSquallCardPool : CustomCardPoolModel
     public override Color DeckEntryCardColor => new("6ceef5");
 
     public override bool IsColorless => false;
-    
-    public override string? BigEnergyIconPath => "res://ZephyrSquall/images/ui/combat/zephyr_squall_energy_icon_big.png";
-    public override string? TextEnergyIconPath => "res://ZephyrSquall/images/ui/combat/zephyr_squall_energy_icon_text.png";
+
+    public override string? BigEnergyIconPath =>
+        "res://ZephyrSquall/images/ui/combat/zephyr_squall_energy_icon_big.png";
+
+    public override string? TextEnergyIconPath =>
+        "res://ZephyrSquall/images/ui/combat/zephyr_squall_energy_icon_text.png";
 }

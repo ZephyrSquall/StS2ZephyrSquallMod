@@ -20,32 +20,29 @@ public static class RecordCmd
     public static async Task Record(PlayerChoiceContext choiceContext, Player player, int amount,
         ICombatState combatState, AbstractModel source)
     {
-        CardSelectorPrefs prefs = new CardSelectorPrefs(RecordSelectionPrompt, amount);
+        var prefs = new CardSelectorPrefs(RecordSelectionPrompt, amount);
         await RecordWithPrefs(choiceContext, player, prefs, combatState, source);
     }
 
     public static async Task RecordUpTo(PlayerChoiceContext choiceContext, Player player, int maxAmount,
         ICombatState combatState, AbstractModel source)
     {
-        CardSelectorPrefs prefs = new CardSelectorPrefs(RecordUpToSelectionPrompt, 0, maxAmount);
+        var prefs = new CardSelectorPrefs(RecordUpToSelectionPrompt, 0, maxAmount);
         await RecordWithPrefs(choiceContext, player, prefs, combatState, source);
     }
 
     public static async Task RecordAny(PlayerChoiceContext choiceContext, Player player, ICombatState combatState,
         AbstractModel source)
     {
-        CardSelectorPrefs prefs = new CardSelectorPrefs(RecordAnySelectionPrompt, 0, int.MaxValue);
+        var prefs = new CardSelectorPrefs(RecordAnySelectionPrompt, 0, int.MaxValue);
         await RecordWithPrefs(choiceContext, player, prefs, combatState, source);
     }
 
-    private static async Task RecordWithPrefs(PlayerChoiceContext choiceContext,
-        Player player,
-        CardSelectorPrefs prefs,
-        ICombatState combatState,
-        AbstractModel source)
+    private static async Task RecordWithPrefs(PlayerChoiceContext choiceContext, Player player, CardSelectorPrefs prefs,
+        ICombatState combatState, AbstractModel source)
     {
-        List<CardModel> selectedCards = (await CardSelectCmd.FromHand(choiceContext, player, prefs,
-            (Func<CardModel, bool>) ZephyrQueries.CanBeRecorded, source)).ToList();
+        var selectedCards = (await CardSelectCmd.FromHand(choiceContext, player, prefs,
+            (Func<CardModel, bool>)ZephyrQueries.CanBeRecorded, source)).ToList();
         await Book.CreateInHand(player, selectedCards, combatState);
         await ZephyrHooks.OnRecord(selectedCards, source);
     }

@@ -10,23 +10,24 @@ using ZephyrSquall.ZephyrSquallCode.Utilities;
 
 namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
-
-public class OverthinkIt() : ZephyrSquallCard(2,
-    CardType.Skill, CardRarity.Uncommon,
-    TargetType.Self), IOnOverflow
+public class OverthinkIt() : ZephyrSquallCard(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self), IOnOverflow
 {
-    private bool _isPlaying;
     private CardPlay? _currentPlay;
-    
+    private bool _isPlaying;
+
     public override bool GainsBlock => true;
-    
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(4M, ValueProp.Move), new CardsVar(6)];
-    
+
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(4, ValueProp.Move), new CardsVar(6)];
+
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [ZephyrHoverTips.Overflow()];
-    
-    protected override async Task OnPlay(
-        PlayerChoiceContext choiceContext,
-        CardPlay play)
+
+    public async Task OnOverflow(PlayerChoiceContext choiceContext, Player player, bool fromHandDraw)
+    {
+        if (_isPlaying && _currentPlay != null && player == Owner)
+            await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, _currentPlay);
+    }
+
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
         _isPlaying = true;
         _currentPlay = play;
@@ -35,13 +36,8 @@ public class OverthinkIt() : ZephyrSquallCard(2,
         _isPlaying = false;
     }
 
-    public async Task OnOverflow(PlayerChoiceContext choiceContext, Player player, bool fromHandDraw)
+    protected override void OnUpgrade()
     {
-        if (_isPlaying && _currentPlay != null && player == Owner)
-        {
-            await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, _currentPlay);
-        }
+        DynamicVars.Cards.UpgradeValueBy(2);
     }
-
-    protected override void OnUpgrade() => DynamicVars.Cards.UpgradeValueBy(2M);
 }

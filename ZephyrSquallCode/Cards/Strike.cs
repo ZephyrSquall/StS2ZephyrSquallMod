@@ -12,13 +12,20 @@ namespace ZephyrSquall.ZephyrSquallCode.Cards;
 public class Strike() : ZephyrSquallCard(1, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy)
 {
     protected override HashSet<CardTag> CanonicalTags => [CardTag.Strike];
-    
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6M, ValueProp.Move)];
+
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6, ValueProp.Move)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+            .FromCard(this)
+            .Targeting(cardPlay.Target)
+            .WithHitFx("vfx/vfx_attack_slash")
+            .Execute(choiceContext);
     }
 
-    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(3M);
+    protected override void OnUpgrade()
+    {
+        DynamicVars.Damage.UpgradeValueBy(3);
+    }
 }

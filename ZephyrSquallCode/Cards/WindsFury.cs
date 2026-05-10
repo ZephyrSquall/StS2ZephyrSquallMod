@@ -5,16 +5,15 @@ using ZephyrSquall.ZephyrSquallCode.Powers;
 
 namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
-public class WindsFury() : ZephyrSquallCard(3,
-    CardType.Power, CardRarity.Rare,
-    TargetType.Self)
+public class WindsFury() : ZephyrSquallCard(3, CardType.Power, CardRarity.Rare, TargetType.Self)
 {
-    protected override async Task OnPlay(
-        PlayerChoiceContext choiceContext,
-        CardPlay cardPlay)
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<WindsFuryPower>(choiceContext, Owner.Creature, 1M, Owner.Creature, this);
+        await PowerCmd.Apply<WindsFuryPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
     }
 
-    protected override void OnUpgrade() => EnergyCost.UpgradeBy(-1);
+    protected override void OnUpgrade()
+    {
+        EnergyCost.UpgradeBy(-1);
+    }
 }

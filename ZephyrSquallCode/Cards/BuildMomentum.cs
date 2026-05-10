@@ -1,8 +1,5 @@
-using System.Collections.ObjectModel;
 using BaseLib.Utils;
-using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Commands.Builders;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -14,26 +11,27 @@ using ZephyrSquall.ZephyrSquallCode.Character;
 namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
 [Pool(typeof(ZephyrSquallCardPool))]
-public class BuildMomentum() : ZephyrSquallCard(1,
-    CardType.Attack, CardRarity.Uncommon,
-    TargetType.AnyEnemy)
+public class BuildMomentum() : ZephyrSquallCard(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(4M, ValueProp.Move),
-        new CalculationBaseVar(0M),
-        new CalculationExtraVar(1M),
-        new CalculatedVar("CalculatedHits").WithMultiplier((Func<CardModel, Creature, Decimal>)((card, _) =>
+        new DamageVar(4, ValueProp.Move), new CalculationBaseVar(0), new CalculationExtraVar(1),
+        new CalculatedVar("CalculatedHits").WithMultiplier((Func<CardModel, Creature, decimal>)((card, _) =>
             card.CombatState.RoundNumber))
     ];
 
-    
-    protected override async Task OnPlay(
-        PlayerChoiceContext choiceContext,
-        CardPlay play)
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue).WithHitCount((int) ((CalculatedVar) DynamicVars["CalculatedHits"]).Calculate(play.Target)).FromCard(this).Targeting(play.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+            .WithHitCount((int)((CalculatedVar)DynamicVars["CalculatedHits"]).Calculate(play.Target))
+            .FromCard(this)
+            .Targeting(play.Target)
+            .WithHitFx("vfx/vfx_attack_slash")
+            .Execute(choiceContext);
     }
 
-    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(2M);
+    protected override void OnUpgrade()
+    {
+        DynamicVars.Damage.UpgradeValueBy(2);
+    }
 }

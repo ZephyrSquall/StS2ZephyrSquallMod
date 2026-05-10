@@ -2,15 +2,15 @@
 using BaseLib.Extensions;
 using BaseLib.Utils;
 using Godot;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using ZephyrSquall.ZephyrSquallCode.Character;
 using ZephyrSquall.ZephyrSquallCode.Extensions;
-using MegaCrit.Sts2.Core.Entities.Cards;
 
 namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
 [Pool(typeof(ZephyrSquallCardPool))]
-public abstract class ZephyrSquallCard(int cost, CardType type, CardRarity rarity, TargetType target) :
-    CustomCardModel(cost, type, rarity, target)
+public abstract class ZephyrSquallCard(int cost, CardType type, CardRarity rarity, TargetType target)
+    : CustomCardModel(cost, type, rarity, target)
 {
     //Image size:
     //Normal art: 1000x760 (Using 500x380 should also work, it will simply be scaled.)
@@ -37,5 +37,6 @@ public abstract class ZephyrSquallCard(int cost, CardType type, CardRarity rarit
             return ResourceLoader.Exists(path) ? path : "beta.png".CardImagePath();
         }
     }
+
     public override string BetaPortraitPath => $"beta/{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".CardImagePath();
 }

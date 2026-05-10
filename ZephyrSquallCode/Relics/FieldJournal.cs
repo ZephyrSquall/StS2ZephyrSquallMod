@@ -14,23 +14,24 @@ namespace ZephyrSquall.ZephyrSquallCode.Relics;
 public class FieldJournal : ZephyrSquallRelic
 {
     public override RelicRarity Rarity => RelicRarity.Starter;
-    
-    public override RelicModel? GetUpgradeReplacement() => ModelDb.Relic<SpireEncyclopedia>();
-    
+
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
-    
+
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<Analysis>()];
-    
-    public override async Task BeforeHandDraw(
-        Player player,
-        PlayerChoiceContext choiceContext,
+
+    public override RelicModel? GetUpgradeReplacement()
+    {
+        return ModelDb.Relic<SpireEncyclopedia>();
+    }
+
+    public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext,
         ICombatState combatState)
     {
         if (player == Owner && combatState.RoundNumber == 1)
         {
-            List<CardModel> cards = new List<CardModel>();
-            for (int index = 0; index < DynamicVars.Cards.IntValue; ++index)
-                cards.Add( Owner.Creature.CombatState.CreateCard<Analysis>(Owner));
+            var cards = new List<CardModel>();
+            for (var index = 0; index < DynamicVars.Cards.IntValue; ++index)
+                cards.Add(Owner.Creature.CombatState.CreateCard<Analysis>(Owner));
             await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Hand, Owner);
         }
     }

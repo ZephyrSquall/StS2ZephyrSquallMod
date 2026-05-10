@@ -13,18 +13,16 @@ public sealed class BreathingDeeplyPower : ZephyrSquallPower
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    
+
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<WindBlast>()];
 
-    public override async Task BeforeHandDraw(
-        Player player,
-        PlayerChoiceContext choiceContext,
+    public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext,
         ICombatState combatState)
     {
         if (Owner.Player == player)
         {
-            List<WindBlast> windBlastList = new List<WindBlast>();
-            for (int index = 0; index < Amount; ++index)
+            var windBlastList = new List<WindBlast>();
+            for (var index = 0; index < Amount; ++index)
                 windBlastList.Add(combatState.CreateCard<WindBlast>(Owner.Player));
             await CardPileCmd.AddGeneratedCardsToCombat(windBlastList, PileType.Hand, Owner.Player);
             await PowerCmd.Remove(this);

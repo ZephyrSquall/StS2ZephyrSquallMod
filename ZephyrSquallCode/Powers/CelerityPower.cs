@@ -12,9 +12,12 @@ public sealed class CelerityPower : ZephyrSquallPower, IOnAddDeft
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [ZephyrHoverTips.Deft(), HoverTipFactory.Static(StaticHoverTip.Block)];
-    
+
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        ZephyrHoverTips.Deft(), HoverTipFactory.Static(StaticHoverTip.Block)
+    ];
+
     public async Task OnAddDeft(CardModel card, int honedAmount, AbstractModel source)
     {
         if (card.Owner == Owner.Player)

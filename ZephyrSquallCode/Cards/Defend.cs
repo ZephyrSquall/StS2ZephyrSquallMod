@@ -9,22 +9,19 @@ using ZephyrSquall.ZephyrSquallCode.Character;
 namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
 [Pool(typeof(ZephyrSquallCardPool))]
-public class Defend() : ZephyrSquallCard(1,
-    CardType.Skill, CardRarity.Basic,
-    TargetType.Self)
+public class Defend() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Basic, TargetType.Self)
 {
     public override bool GainsBlock => true;
-    
     protected override HashSet<CardTag> CanonicalTags => [CardTag.Defend];
-    
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(5M, ValueProp.Move)];
-    
-    protected override async Task OnPlay(
-        PlayerChoiceContext choiceContext,
-        CardPlay cardPlay)
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(5, ValueProp.Move)];
+
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
     }
 
-    protected override void OnUpgrade() => DynamicVars.Block.UpgradeValueBy(3M);
+    protected override void OnUpgrade()
+    {
+        DynamicVars.Block.UpgradeValueBy(3);
+    }
 }

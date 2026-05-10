@@ -8,21 +8,17 @@ using ZephyrSquall.ZephyrSquallCode.Utilities;
 
 namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
-public class EscapePlan() : ZephyrSquallCard(2,
-    CardType.Skill, CardRarity.Common,
-    TargetType.Self)
+public class EscapePlan() : ZephyrSquallCard(2, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
     public override bool GainsBlock => true;
-    
+
     protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(7, ValueProp.Move), new CardsVar(1)];
-    
+
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<Book>()];
-    
+
     public override IEnumerable<CardKeyword> CanonicalKeywords => [ZephyrKeywords.Narrate];
-    
-    protected override async Task OnPlay(
-        PlayerChoiceContext choiceContext,
-        CardPlay play)
+
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, play);
         await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);

@@ -5,6 +5,6 @@ namespace ZephyrSquall.ZephyrSquallCode.Utilities;
 
 public class ZephyrKeywords
 {
-    [CustomEnum, KeywordProperties(AutoKeywordPosition.Before)]
+    [CustomEnum] [KeywordProperties(AutoKeywordPosition.Before)]
     public static CardKeyword Narrate;
 }

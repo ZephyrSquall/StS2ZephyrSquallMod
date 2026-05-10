@@ -11,22 +11,22 @@ using ZephyrSquall.ZephyrSquallCode.Powers;
 namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
 [Pool(typeof(ZephyrSquallCardPool))]
-public class BurstOfSpeed() : ZephyrSquallCard(1,
-    CardType.Skill, CardRarity.Common,
-    TargetType.Self)
+public class BurstOfSpeed() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<TailwindPower>(4M)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<TailwindPower>(4)];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<TailwindPower>()];
 
     protected override bool IsPlayable => ExtraTurnTracker.PlayersTakingExtraTurn.Count == 0;
-    
-    protected override async Task OnPlay(
-        PlayerChoiceContext choiceContext,
-        CardPlay play)
+
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
-        await PowerCmd.Apply<TailwindPower>(choiceContext, Owner.Creature, DynamicVars["TailwindPower"].BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<TailwindPower>(choiceContext, Owner.Creature, DynamicVars["TailwindPower"].BaseValue,
+            Owner.Creature, this);
     }
 
-    protected override void OnUpgrade() => DynamicVars["TailwindPower"].UpgradeValueBy(2M);
+    protected override void OnUpgrade()
+    {
+        DynamicVars["TailwindPower"].UpgradeValueBy(2);
+    }
 }

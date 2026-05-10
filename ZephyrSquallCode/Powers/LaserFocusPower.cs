@@ -6,10 +6,9 @@ namespace ZephyrSquall.ZephyrSquallCode.Powers;
 
 public sealed class LaserFocusPower : ZephyrSquallPower
 {
+    private int _unhandledSkips;
     public override PowerType Type => PowerType.Debuff;
     public override PowerStackType StackType => PowerStackType.Counter;
-
-    private int _unhandledSkips = 0;
 
     public bool ShouldSkipIndividualDraw(Player player)
     {
@@ -24,7 +23,7 @@ public sealed class LaserFocusPower : ZephyrSquallPower
 
     public async Task DecrementUnhandledSkips()
     {
-        for (int i = 0; i < _unhandledSkips; i++)
+        for (var i = 0; i < _unhandledSkips; i++)
         {
             Flash();
             await PowerCmd.Decrement(this);

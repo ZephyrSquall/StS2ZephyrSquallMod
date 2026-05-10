@@ -8,20 +8,20 @@ using ZephyrSquall.ZephyrSquallCode.Utilities;
 
 namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
-public class KnowledgeIsPower() : ZephyrSquallCard(1,
-    CardType.Power, CardRarity.Uncommon,
-    TargetType.Self)
+public class KnowledgeIsPower() : ZephyrSquallCard(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<KnowledgeIsPowerPower>(5M)];
-    
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<KnowledgeIsPowerPower>(5)];
+
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [ZephyrHoverTips.Overflow()];
-    
-    protected override async Task OnPlay(
-        PlayerChoiceContext choiceContext,
-        CardPlay cardPlay)
+
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<KnowledgeIsPowerPower>(choiceContext, Owner.Creature, DynamicVars["KnowledgeIsPowerPower"].IntValue, Owner.Creature, this);
+        await PowerCmd.Apply<KnowledgeIsPowerPower>(choiceContext, Owner.Creature,
+            DynamicVars["KnowledgeIsPowerPower"].IntValue, Owner.Creature, this);
     }
 
-    protected override void OnUpgrade() => DynamicVars["KnowledgeIsPowerPower"].UpgradeValueBy(2M);
+    protected override void OnUpgrade()
+    {
+        DynamicVars["KnowledgeIsPowerPower"].UpgradeValueBy(2);
+    }
 }

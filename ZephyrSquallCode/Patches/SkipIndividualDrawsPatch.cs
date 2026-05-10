@@ -9,17 +9,14 @@ using ZephyrSquall.ZephyrSquallCode.Powers;
 
 namespace ZephyrSquall.ZephyrSquallCode.Patches;
 
-[HarmonyPatch(typeof(CardPileCmd), MethodType.Async, new Type[] {
-    typeof(PlayerChoiceContext),
-    typeof(Decimal),
-    typeof(Player),
-    typeof(bool)
-})]
+[HarmonyPatch(typeof(CardPileCmd), MethodType.Async, typeof(PlayerChoiceContext), typeof(decimal), typeof(Player),
+    typeof(bool))]
 [HarmonyPatch(nameof(CardPileCmd.Draw))]
-class SkipIndividualDrawsPatch
+internal class SkipIndividualDrawsPatch
 {
     [HarmonyTranspiler]
-    static IEnumerable<CodeInstruction> SkipDraws(ILGenerator generator, IEnumerable<CodeInstruction> instructions, MethodBase original)
+    private static IEnumerable<CodeInstruction> SkipDraws(ILGenerator generator,
+        IEnumerable<CodeInstruction> instructions, MethodBase original)
     {
         var codeMatcher = new CodeMatcher(instructions);
 
@@ -30,32 +27,33 @@ class SkipIndividualDrawsPatch
         // return value from the ShouldSkipIndividualDraw check gives this method an extra local variable that offsets
         // everything, so "V_8" operands are actually somewhere else. In any case, matching on the Add instruction
         // instead has proven far more reliable.
-        codeMatcher.End().MatchStartBackwards(new CodeMatch(OpCodes.Add))
+        codeMatcher.End()
+            .MatchStartBackwards(new CodeMatch(OpCodes.Add))
             .ThrowIfInvalid("Could not find add instruction")
             .Advance(-6);
-        Label skipIndividualDrawLabel = generator.DefineLabel();
+        var skipIndividualDrawLabel = generator.DefineLabel();
         codeMatcher.Labels.Add(skipIndividualDrawLabel);
-        
+
         // Get player field
         var method = AccessTools.Method(typeof(CardPileCmd), "CheckIfDrawIsPossibleAndShowThoughtBubbleIfNot");
-        codeMatcher.Start().MatchStartForward(CodeMatch.Calls(method))
+        codeMatcher.Start()
+            .MatchStartForward(CodeMatch.Calls(method))
             .ThrowIfInvalid("Could not find call to CardPileCmd.CheckIfDrawIsPossibleAndShowThoughtBubbleIfNot")
             .Advance(-1);
-        var playerField  = codeMatcher.Operand;
-        if (playerField == null)
-        {
-            Log.Error("player is NULL");
-        };
+        var playerField = codeMatcher.Operand;
+        if (playerField == null) Log.Error("player is NULL");
+        ;
 
         // Check if the current card draw should be skipped immediately at the start of the for loop.
-        codeMatcher.Start().MatchStartForward(CodeMatch.Calls(() => CardPileCmd.ShuffleIfNecessary(default, default)))
+        codeMatcher.Start()
+            .MatchStartForward(CodeMatch.Calls(() => CardPileCmd.ShuffleIfNecessary(default, default)))
             .ThrowIfInvalid("Could not find call to List.Add")
             .Advance(-4)
             .InsertAndAdvance(CodeInstruction.LoadArgument(0))
             .InsertAndAdvance(new CodeInstruction(OpCodes.Ldfld, playerField))
             .InsertAndAdvance(CodeInstruction.Call(() => ShouldSkipIndividualDraw(default)))
             .InsertAndAdvance(new CodeInstruction(OpCodes.Brtrue, skipIndividualDrawLabel));
-            
+
         return codeMatcher.Instructions();
     }
 
@@ -63,11 +61,8 @@ class SkipIndividualDrawsPatch
     {
         var willSkip = false;
         var laserFocusPower = player.Creature.GetPower<LaserFocusPower>();
-        if (laserFocusPower != null)
-        {
-            willSkip = laserFocusPower.ShouldSkipIndividualDraw(player);
-        }
-        
+        if (laserFocusPower != null) willSkip = laserFocusPower.ShouldSkipIndividualDraw(player);
+
         return willSkip;
     }
 }

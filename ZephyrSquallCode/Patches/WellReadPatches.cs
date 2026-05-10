@@ -11,20 +11,15 @@ namespace ZephyrSquall.ZephyrSquallCode.Patches;
 
 public class WellReadTracker
 {
-    public static bool WasWellReadAtStartOfCardPlay = false;
+    public static bool WasWellReadAtStartOfCardPlay;
 }
 
 [HarmonyPatch(typeof(CardModel), nameof(CardModel.OnPlayWrapper))]
-class PlayStartPatch
+internal class PlayStartPatch
 {
     [HarmonyPrefix]
-    static bool TrackWellReadCardPlayStartPatch(
-        PlayerChoiceContext choiceContext,
-        Creature? target,
-        bool isAutoPlay,
-        ResourceInfo resources,
-        bool skipCardPileVisuals,
-        CardModel __instance)
+    private static bool TrackWellReadCardPlayStartPatch(PlayerChoiceContext choiceContext, Creature? target,
+        bool isAutoPlay, ResourceInfo resources, bool skipCardPileVisuals, CardModel __instance)
     {
         WellReadTracker.WasWellReadAtStartOfCardPlay = ZephyrQueries.IsWellRead(__instance.Owner);
         return true;
@@ -32,18 +27,15 @@ class PlayStartPatch
 }
 
 [HarmonyPatch(typeof(CombatManager), nameof(CombatManager.AfterCombatRoomLoaded))]
-class SetUpOnBecomeWellReadHookPatch
+internal class SetUpOnBecomeWellReadHookPatch
 {
     [HarmonyPostfix]
-    static void AddActionToHandContentsChangedPatch(CombatManager __instance)
+    private static void AddActionToHandContentsChangedPatch(CombatManager __instance)
     {
         foreach (var player in __instance.DebugOnlyGetState().Players)
-        {
-            PileType.Hand.GetPile(player).ContentsChanged += async() =>
+            PileType.Hand.GetPile(player).ContentsChanged += async () =>
             {
-                if (ZephyrQueries.IsWellRead(player))
-                    await ZephyrHooks.OnBecomeWellRead(player);
+                if (ZephyrQueries.IsWellRead(player)) await ZephyrHooks.OnBecomeWellRead(player);
             };
-        }
     }
 }
