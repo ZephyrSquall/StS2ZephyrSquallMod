@@ -36,6 +36,8 @@
   "ZEPHYRSQUALL-EXPLOIT_AN_OPENING.title": "Exploit an Opening",
   "ZEPHYRSQUALL-FAIR_WINDS.description": "The next time you take an extra turn, all allies take an extra turn as well.",
   "ZEPHYRSQUALL-FAIR_WINDS.title": "Fair Winds",
+  "ZEPHYRSQUALL-FEINT.description": "Apply {VulnerablePower:diff()} [gold]Vulnerable[/gold].",
+  "ZEPHYRSQUALL-FEINT.title": "Feint",
   "ZEPHYRSQUALL-FLOW_STATE.description": "Deal {Damage:diff()} damage twice.\n[gold]Well Read[/gold]: This costs 0 {energyPrefix:energyIcons(1)}.",
   "ZEPHYRSQUALL-FLOW_STATE.title": "Flow State",
   "ZEPHYRSQUALL-FORETHOUGHT.description": "Gain {Block:diff()} [gold]Block[/gold].\nAdd [gold]Deft[/gold] {Deft:diff()} to a [gold]Block[/gold] card in your [gold]Draw Pile[/gold].",

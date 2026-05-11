@@ -40,7 +40,7 @@ public class MagnumOpus() : ZephyrSquallCard(4, CardType.Attack, CardRarity.Rare
     protected override void OnUpgrade()
     {
         DynamicVars.Damage.UpgradeValueBy(4);
-        DynamicVars["WeakPower"].UpgradeValueBy(1);
-        DynamicVars["VulnerablePower"].UpgradeValueBy(1);
+        DynamicVars.Weak.UpgradeValueBy(1);
+        DynamicVars.Vulnerable.UpgradeValueBy(1);
     }
 }
