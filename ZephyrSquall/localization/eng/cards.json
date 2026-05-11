@@ -19,6 +19,8 @@
   "ZEPHYRSQUALL-COMBO_FINISHER.title": "Combo Finisher",
   "ZEPHYRSQUALL-COMBO_STARTER.description": "Deal {Damage:diff()} damage {Repeat:cond:=2?twice|{Repeat:diff()} times}.\nIf you have not played any other Attacks this turn, hits an additional time.",
   "ZEPHYRSQUALL-COMBO_STARTER.title": "Combo Starter",
+  "ZEPHYRSQUALL-CONFOUND.description": "Gain {Block:diff()} [gold]Block[/gold].\nApply {WeakPower:diff()} [gold]Weak[/gold].\n[gold]Well Read[/gold]: Apply 1 additional [gold]Weak[/gold].",
+  "ZEPHYRSQUALL-CONFOUND.title": "Confound",
   "ZEPHYRSQUALL-CONNECT_THE_DOTS.description": "Deal {Damage:diff()} damage.\nAdd [gold]Honed[/gold] equal to this card's [gold]Honed[/gold] to an Attack in your [gold]Hand[/gold].",
   "ZEPHYRSQUALL-CONNECT_THE_DOTS.title": "Connect the Dots",
   "ZEPHYRSQUALL-CRESCENDO.description": "Whenever you play an Attack, it gains [gold]Honed[/gold] {CrescendoPower:diff()}.",
