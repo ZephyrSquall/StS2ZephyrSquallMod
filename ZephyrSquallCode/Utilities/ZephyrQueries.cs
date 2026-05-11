@@ -20,11 +20,20 @@ public static class ZephyrQueries
             player.Creature.GetPowerAmount<LightReadingPower>();
     }
 
-    public static int TimesDealtAttackDamageThisTurn(ICombatState combatState, Creature creature)
+    public static int TimesDealtAttackDamageThisTurn(ICombatState combatState, Creature dealer)
     {
         return CombatManager.Instance.History.Entries.OfType<CreatureAttackedEntry>()
-            .Sum(e => e.HappenedThisTurn(combatState) && e.Actor == creature
+            .Sum(e => e.HappenedThisTurn(combatState) && e.Actor == dealer
                 ? e.DamageResults.Count(d => d.Props.IsPoweredAttack_() && d.TotalDamage > 0)
+                : 0);
+    }
+
+    public static int TimesDealtAttackDamageToSpecificEnemyThisTurn(ICombatState combatState, Creature dealer,
+        Creature target)
+    {
+        return CombatManager.Instance.History.Entries.OfType<CreatureAttackedEntry>()
+            .Sum(e => e.HappenedThisTurn(combatState) && e.Actor == dealer
+                ? e.DamageResults.Count(d => d.Props.IsPoweredAttack_() && d.TotalDamage > 0 && d.Receiver == target)
                 : 0);
     }
 
