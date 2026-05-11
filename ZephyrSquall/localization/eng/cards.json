@@ -13,6 +13,8 @@
   "ZEPHYRSQUALL-BURST_OF_SPEED.title": "Burst of Speed",
   "ZEPHYRSQUALL-CELERITY.description": "Whenever a card gains [gold]Deft[/gold], gain that much [gold]Block[/gold].",
   "ZEPHYRSQUALL-CELERITY.title": "Celerity",
+  "ZEPHYRSQUALL-COMBO_STARTER.description": "Deal {Damage:diff()} damage {Repeat:cond:=2?twice|{Repeat:diff()} times}.\nIf you have not played any other Attacks this turn, hits an additional time.",
+  "ZEPHYRSQUALL-COMBO_STARTER.title": "Combo Starter",
   "ZEPHYRSQUALL-CONNECT_THE_DOTS.description": "Deal {Damage:diff()} damage.\nAdd [gold]Honed[/gold] equal to this card's [gold]Honed[/gold] to an Attack in your [gold]Hand[/gold].",
   "ZEPHYRSQUALL-CONNECT_THE_DOTS.title": "Connect the Dots",
   "ZEPHYRSQUALL-CRESCENDO.description": "Whenever you play an Attack, it gains [gold]Honed[/gold] {CrescendoPower:diff()}.",

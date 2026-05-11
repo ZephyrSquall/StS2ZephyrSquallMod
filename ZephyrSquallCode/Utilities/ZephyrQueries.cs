@@ -28,6 +28,14 @@ public static class ZephyrQueries
                 : 0);
     }
 
+    public static int AttacksPlayedThisTurn(ICombatState combatState, Creature creature)
+    {
+        return CombatManager.Instance.History.Entries.OfType<CardPlayStartedEntry>()
+            .Count((Func<CardPlayStartedEntry, bool>)(e =>
+                e.CardPlay.Card.Type == CardType.Attack && e.CardPlay.Card.Owner.Creature == creature &&
+                e.HappenedThisTurn(combatState)));
+    }
+
     public static bool CanBeRecorded(CardModel card)
     {
         return card is not Book && (card.Owner.GetRelic<CursedTome>() != null || (card.Type != CardType.Status &&
