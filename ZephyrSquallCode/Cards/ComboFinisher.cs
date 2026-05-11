@@ -11,13 +11,14 @@ namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
 public class ComboFinisher() : ZephyrSquallCard(1, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
 {
+    protected override HashSet<CardTag> CanonicalTags => [ZephyrCardTags.Combo];
+
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new CalculationBaseVar(6), new ExtraDamageVar(6),
         new CalculatedDamageVar(ValueProp.Move).WithMultiplier(
             (Func<CardModel, Creature, Decimal>)((card, target) =>
-                ZephyrQueries.TimesDealtAttackDamageToSpecificEnemyThisTurn(card.CombatState, card.Owner.Creature,
-                    target)))
+                ZephyrQueries.TimesDealtAttackDamageThisTurn(card.CombatState, card.Owner.Creature)))
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)

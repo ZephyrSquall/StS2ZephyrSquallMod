@@ -9,6 +9,8 @@ namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
 public class ComboStarter() : ZephyrSquallCard(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
 {
+    protected override HashSet<CardTag> CanonicalTags => [ZephyrCardTags.Combo];
+    
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(3, ValueProp.Move), new RepeatVar(2)];
 
     protected override bool ShouldGlowGoldInternal =>
