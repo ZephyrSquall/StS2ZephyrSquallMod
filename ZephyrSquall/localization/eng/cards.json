@@ -13,6 +13,8 @@
   "ZEPHYRSQUALL-BURST_OF_SPEED.title": "Burst of Speed",
   "ZEPHYRSQUALL-CELERITY.description": "Whenever a card gains [gold]Deft[/gold], gain that much [gold]Block[/gold].",
   "ZEPHYRSQUALL-CELERITY.title": "Celerity",
+  "ZEPHYRSQUALL-COMBO_EXTENDER.description": "Deal {Damage:diff()} damage {Repeat:cond:=2?twice|{Repeat:diff()} times}.",
+  "ZEPHYRSQUALL-COMBO_EXTENDER.title": "Combo Extender",
   "ZEPHYRSQUALL-COMBO_FINISHER.description": "Deal {CalculatedDamage:diff()} damage.\nDeals {ExtraDamage:diff()} additional damage for each other time you have dealt Attack damage this turn.",
   "ZEPHYRSQUALL-COMBO_FINISHER.title": "Combo Finisher",
   "ZEPHYRSQUALL-COMBO_STARTER.description": "Deal {Damage:diff()} damage {Repeat:cond:=2?twice|{Repeat:diff()} times}.\nIf you have not played any other Attacks this turn, hits an additional time.",
