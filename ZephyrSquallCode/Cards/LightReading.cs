@@ -8,7 +8,7 @@ using ZephyrSquall.ZephyrSquallCode.Utilities;
 
 namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
-public class LightReading() : ZephyrSquallCard(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
+public class LightReading() : ZephyrSquallCard(1, CardType.Power, CardRarity.Rare, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<LightReadingPower>(1)];
 

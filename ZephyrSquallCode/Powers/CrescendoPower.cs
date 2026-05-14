@@ -14,9 +14,9 @@ public sealed class CrescendoPower : ZephyrSquallPower
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [ZephyrHoverTips.Honed()];
 
-    public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay play)
     {
-        var card = cardPlay.Card;
+        var card = play.Card;
         if (card.Owner.Creature == Owner && card.Type == CardType.Attack)
         {
             Flash();

@@ -14,7 +14,7 @@ public class KnowledgeIsPower() : ZephyrSquallCard(1, CardType.Power, CardRarity
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [ZephyrHoverTips.Overflow()];
 
-    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
         await PowerCmd.Apply<KnowledgeIsPowerPower>(choiceContext, Owner.Creature,
             DynamicVars["KnowledgeIsPowerPower"].IntValue, Owner.Creature, this);

@@ -1,39 +1,27 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.ValueProps;
-using ZephyrSquall.ZephyrSquallCode.Hooks;
+using ZephyrSquall.ZephyrSquallCode.Powers;
 using ZephyrSquall.ZephyrSquallCode.Utilities;
 
 namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
-public class OverthinkIt() : ZephyrSquallCard(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self), IOnOverflow
+public class OverthinkIt() : ZephyrSquallCard(2, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
-    private CardPlay? _currentPlay;
-    private bool _isPlaying;
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<OverthinkItPower>(4), new CardsVar(6)];
 
-    public override bool GainsBlock => true;
-
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(4, ValueProp.Move), new CardsVar(6)];
-
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [ZephyrHoverTips.Overflow()];
-
-    public async Task OnOverflow(PlayerChoiceContext choiceContext, Player player, bool fromHandDraw)
-    {
-        if (_isPlaying && _currentPlay != null && player == Owner)
-            await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, _currentPlay);
-    }
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        ZephyrHoverTips.Overflow(), HoverTipFactory.Static(StaticHoverTip.Block)
+    ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
-        _isPlaying = true;
-        _currentPlay = play;
+        await PowerCmd.Apply<OverthinkItPower>(choiceContext, Owner.Creature, DynamicVars["OverthinkItPower"].BaseValue,
+            Owner.Creature, this);
         await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
-        _currentPlay = null;
-        _isPlaying = false;
     }
 
     protected override void OnUpgrade()

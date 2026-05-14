@@ -1,4 +1,3 @@
-using BaseLib.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
@@ -16,7 +15,7 @@ public sealed class MaelstromPower : ZephyrSquallPower
     public override async Task AfterDamageGiven(PlayerChoiceContext context, Creature? dealer, DamageResult result,
         ValueProp props, Creature target, CardModel? cardSource)
     {
-        if (dealer == Owner && props.IsPoweredAttack_() && result.TotalDamage > 0)
+        if (dealer == Owner && props.IsPoweredAttack() && result.TotalDamage > 0)
         {
             Flash();
             await Cmd.Wait(0.2f);

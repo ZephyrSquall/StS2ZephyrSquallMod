@@ -15,13 +15,13 @@ public class Flurry() : ZephyrSquallCard(0, CardType.Attack, CardRarity.Uncommon
         new DamageVar(3M, ValueProp.Move), new("HitMultiplier", 2)
     ];
 
-    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
         var xValue = ResolveEnergyXValue();
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(xValue * DynamicVars["HitMultiplier"].IntValue)
             .FromCard(this)
-            .Targeting(cardPlay.Target)
+            .Targeting(play.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
     }

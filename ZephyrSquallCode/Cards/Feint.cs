@@ -7,7 +7,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
-public class Feint() : ZephyrSquallCard(0, CardType.Skill, CardRarity.Common, TargetType.AnyEnemy)
+public class Feint() : ZephyrSquallCard(0, CardType.Skill, CardRarity.Uncommon, TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<VulnerablePower>(1)];
 

@@ -7,7 +7,7 @@ using ZephyrSquall.ZephyrSquallCode.Utilities;
 
 namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
-public class ComboExtender() : ZephyrSquallCard(0, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
+public class ComboExtender() : ZephyrSquallCard(0, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
 {
     protected override HashSet<CardTag> CanonicalTags => [ZephyrCardTags.Combo];
 

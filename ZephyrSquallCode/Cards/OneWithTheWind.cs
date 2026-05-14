@@ -13,7 +13,7 @@ public class OneWithTheWind() : ZephyrSquallCard(1, CardType.Power, CardRarity.R
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<TailwindPower>()];
 
-    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
         await PowerCmd.Apply<OneWithTheWindPower>(choiceContext, Owner.Creature,
             DynamicVars["OneWithTheWindPower"].BaseValue, Owner.Creature, this);

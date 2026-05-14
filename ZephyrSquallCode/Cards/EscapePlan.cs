@@ -8,7 +8,7 @@ using ZephyrSquall.ZephyrSquallCode.Utilities;
 
 namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
-public class EscapePlan() : ZephyrSquallCard(2, CardType.Skill, CardRarity.Common, TargetType.Self)
+public class EscapePlan() : ZephyrSquallCard(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     public override bool GainsBlock => true;
 

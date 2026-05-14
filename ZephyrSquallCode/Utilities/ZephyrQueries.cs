@@ -1,4 +1,3 @@
-using BaseLib.Extensions;
 using BaseLib.Patches.Hooks;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Combat.History.Entries;
@@ -6,6 +5,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.ValueProps;
 using ZephyrSquall.ZephyrSquallCode.Cards;
 using ZephyrSquall.ZephyrSquallCode.Powers;
 using ZephyrSquall.ZephyrSquallCode.Relics;
@@ -24,7 +24,7 @@ public static class ZephyrQueries
     {
         return CombatManager.Instance.History.Entries.OfType<CreatureAttackedEntry>()
             .Sum(e => e.HappenedThisTurn(combatState) && e.Actor == dealer
-                ? e.DamageResults.Count(d => d.Props.IsPoweredAttack_() && d.TotalDamage > 0)
+                ? e.DamageResults.Count(d => d.Props.IsPoweredAttack() && d.TotalDamage > 0)
                 : 0);
     }
 
@@ -33,7 +33,7 @@ public static class ZephyrQueries
     {
         return CombatManager.Instance.History.Entries.OfType<CreatureAttackedEntry>()
             .Sum(e => e.HappenedThisTurn(combatState) && e.Actor == dealer
-                ? e.DamageResults.Count(d => d.Props.IsPoweredAttack_() && d.TotalDamage > 0 && d.Receiver == target)
+                ? e.DamageResults.Count(d => d.Props.IsPoweredAttack() && d.TotalDamage > 0 && d.Receiver == target)
                 : 0);
     }
 

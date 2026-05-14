@@ -7,7 +7,7 @@ namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
 public class WindsFury() : ZephyrSquallCard(3, CardType.Power, CardRarity.Rare, TargetType.Self)
 {
-    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
         await PowerCmd.Apply<WindsFuryPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
     }

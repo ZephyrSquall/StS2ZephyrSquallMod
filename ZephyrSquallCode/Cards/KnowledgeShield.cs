@@ -4,7 +4,6 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
-using ZephyrSquall.ZephyrSquallCode.Commands;
 using ZephyrSquall.ZephyrSquallCode.Patches;
 using ZephyrSquall.ZephyrSquallCode.Utilities;
 
@@ -16,31 +15,16 @@ public class KnowledgeShield() : ZephyrSquallCard(1, CardType.Skill, CardRarity.
 
     protected override bool ShouldGlowGoldInternal => ZephyrQueries.IsWellRead(Owner);
 
-    protected override IEnumerable<DynamicVar> CanonicalVars =>
-    [
-        new BlockVar(7, ValueProp.Move), new IntVar("Deft", 3)
-    ];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(7, ValueProp.Move)];
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips
-    {
-        get
-        {
-            List<IHoverTip> extraHoverTips = [ZephyrHoverTips.WellRead()];
-            if (CardModifierTracker.DeftAmount[this] == 0) extraHoverTips.Add(ZephyrHoverTips.Deft());
-            return extraHoverTips;
-        }
-    }
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [ZephyrHoverTips.WellRead()];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, play);
         if (WellReadTracker.WasWellReadAtStartOfCardPlay)
-            await ModifierCmd.AddDeftToSpecific(this, DynamicVars["Deft"].IntValue, this);
+            await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, play);
     }
 
-    protected override void OnUpgrade()
-    {
-        DynamicVars.Block.UpgradeValueBy(3);
-        DynamicVars["Deft"].UpgradeValueBy(1);
-    }
+    protected override void OnUpgrade() => DynamicVars.Block.UpgradeValueBy(3);
 }

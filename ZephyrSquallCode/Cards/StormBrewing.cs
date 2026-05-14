@@ -44,7 +44,7 @@ public class StormBrewing() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Rar
         }
     }
 
-    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
         await PowerCmd.Apply<TailwindPower>(choiceContext, Owner.Creature, DynamicVars["TailwindPower"].BaseValue,
             Owner.Creature, this);

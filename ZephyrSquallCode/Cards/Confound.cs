@@ -10,10 +10,10 @@ using ZephyrSquall.ZephyrSquallCode.Utilities;
 
 namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
-public class Confound() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Common, TargetType.AnyEnemy)
+public class Confound() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.AnyEnemy)
 {
     public override bool GainsBlock => true;
-    
+
     protected override bool ShouldGlowGoldInternal => ZephyrQueries.IsWellRead(Owner);
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>

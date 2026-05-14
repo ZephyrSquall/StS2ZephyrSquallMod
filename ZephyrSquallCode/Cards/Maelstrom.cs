@@ -10,7 +10,7 @@ public class Maelstrom() : ZephyrSquallCard(1, CardType.Power, CardRarity.Uncomm
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<MaelstromPower>(1)];
 
-    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
         await PowerCmd.Apply<MaelstromPower>(choiceContext, Owner.Creature, DynamicVars["MaelstromPower"].IntValue,
             Owner.Creature, this);
