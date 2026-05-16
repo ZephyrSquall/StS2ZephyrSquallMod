@@ -30,7 +30,7 @@ public class ZephyrSquall : PlaceholderCharacterModel
     [
         ModelDb.Card<Strike>(), ModelDb.Card<Strike>(), ModelDb.Card<Strike>(), ModelDb.Card<Strike>(),
         ModelDb.Card<Defend>(), ModelDb.Card<Defend>(), ModelDb.Card<Defend>(), ModelDb.Card<Defend>(),
-        ModelDb.Card<Whet>()
+        ModelDb.Card<Whet>(), ModelDb.Card<MakeANote>()
     ];
 
     public override IReadOnlyList<RelicModel> StartingRelics => [ModelDb.Relic<FieldJournal>()];

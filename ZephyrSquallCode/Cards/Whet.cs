@@ -9,7 +9,7 @@ using ZephyrSquall.ZephyrSquallCode.Utilities;
 
 namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
-public class Whet() : ZephyrSquallCard(1, CardType.Attack, CardRarity.Basic, TargetType.Self)
+public class Whet() : ZephyrSquallCard(1, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [

@@ -64,6 +64,8 @@
   "ZEPHYRSQUALL-MAELSTROM.title": "Maelstrom",
   "ZEPHYRSQUALL-MAGNUM_OPUS.description": "Deal {Damage:diff()} damage, apply {WeakPower:diff()} [gold]Weak[/gold], and apply {VulnerablePower:diff()} [gold]Vulnerable[/gold] to ALL enemies.",
   "ZEPHYRSQUALL-MAGNUM_OPUS.title": "Magnum Opus",
+  "ZEPHYRSQUALL-MAKE_A_NOTE.description": "[gold]Record[/gold] {Cards:diff()} {Cards:plural:card|cards}.",
+  "ZEPHYRSQUALL-MAKE_A_NOTE.title": "Make a Note",
   "ZEPHYRSQUALL-OBSESSIVE_RESEARCH.description": "Add a [gold]Lost in Thought[/gold] into your [gold]Hand[/gold].\nGain {Energy:energyIcons()}.",
   "ZEPHYRSQUALL-OBSESSIVE_RESEARCH.title": "Obsessive Research",
   "ZEPHYRSQUALL-ONE_WITH_THE_WIND.description": "Whenever you gain [gold]Tailwind[/gold], gain an additional {OneWithTheWindPower:diff()} [gold]Tailwind[/gold].",
