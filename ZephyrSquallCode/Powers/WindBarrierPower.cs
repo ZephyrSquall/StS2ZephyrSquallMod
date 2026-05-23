@@ -22,14 +22,14 @@ public sealed class WindBarrierPower : ZephyrSquallPower
 
     public override Task AfterPreventingBlockClear(AbstractModel preventer, Creature creature)
     {
-        if (this == preventer)
-            Flash();
+        if (this == preventer) Flash();
         return Task.CompletedTask;
     }
 
-    public override async Task AfterSideTurnStart(CombatSide side, ICombatState combatState)
+    public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants,
+        ICombatState combatState)
     {
-        if (ExtraTurnTracker.PlayersTakingExtraTurn.Contains(Owner.Player))
+        if (participants.Contains(Owner) && ExtraTurnTracker.PlayersTakingExtraTurn.Contains(Owner.Player))
             await PowerCmd.Decrement(this);
     }
 }

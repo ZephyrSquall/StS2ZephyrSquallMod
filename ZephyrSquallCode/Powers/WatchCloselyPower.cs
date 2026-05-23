@@ -19,7 +19,8 @@ public sealed class WatchCloselyPower : ZephyrSquallPower
         if (target == Owner && props.IsPoweredAttack()) await CardPileCmd.Draw(choiceContext, Amount, Owner.Player);
     }
 
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side,
+        IEnumerable<Creature> participants)
     {
         if (Owner.Side != side) await PowerCmd.Remove(this);
     }
