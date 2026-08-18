@@ -33,7 +33,7 @@ internal class CombatStartPatch
     }
 }
 
-[HarmonyPatch(typeof(Hook), nameof(Hook.AfterTurnEnd))]
+[HarmonyPatch(typeof(Hook), nameof(Hook.BeforeSideTurnEnd))]
 internal class TurnEndPatch
 {
     [HarmonyPrefix]

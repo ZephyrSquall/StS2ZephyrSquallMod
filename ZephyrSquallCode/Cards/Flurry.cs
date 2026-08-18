@@ -20,7 +20,7 @@ public class Flurry() : ZephyrSquallCard(0, CardType.Attack, CardRarity.Uncommon
         var xValue = ResolveEnergyXValue();
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(xValue * DynamicVars["HitMultiplier"].IntValue)
-            .FromCard(this)
+            .FromCard(this, play)
             .Targeting(play.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);

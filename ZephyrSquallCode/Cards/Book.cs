@@ -100,7 +100,7 @@ public class Book() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Token, Targ
     {
         if (HasPaperCut && play.Target is not null)
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-                .FromCard(this)
+                .FromCard(this, play)
                 .Targeting(play.Target)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
@@ -131,12 +131,12 @@ public class Book() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Token, Targ
     // method, so patching it properly is going to be incredibly difficult, and I've left it for another day. The
     // bandaid fix below doesn't stop the card from momentarily appearing as a "Broken Card", but at least causes it to
     // eventually switch back to its proper appearance so it's easy to tell the right card was autoplayed.
-    public override (PileType, CardPilePosition) ModifyCardPlayResultPileTypeAndPosition(CardModel card,
-        bool isAutoPlay, ResourceInfo resources, PileType pileType, CardPilePosition position)
+    public override CardLocation ModifyCardPlayResultLocation(CardModel card,
+        bool isAutoPlay, ResourceInfo resources, CardLocation cardLocation)
     {
         var nCardNarrate = NCard.FindOnTable(card);
         if (nCardNarrate is not null) nCardNarrate.UpdateVisuals(nCardNarrate.Model.Pile.Type, CardPreviewMode.Normal);
-        return (pileType, position);
+        return cardLocation;
     }
 
     protected override void OnUpgrade()

@@ -30,7 +30,7 @@ public class Harry() : ZephyrSquallCard(1, CardType.Attack, CardRarity.Common, T
         if (CanGainBlock) await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, play);
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(2)
-            .FromCard(this)
+            .FromCard(this, play)
             .Targeting(play.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);

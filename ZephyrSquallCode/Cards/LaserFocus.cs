@@ -18,7 +18,7 @@ public class LaserFocus() : ZephyrSquallCard(1, CardType.Attack, CardRarity.Unco
     {
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(3)
-            .FromCard(this)
+            .FromCard(this, play)
             .Targeting(play.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);

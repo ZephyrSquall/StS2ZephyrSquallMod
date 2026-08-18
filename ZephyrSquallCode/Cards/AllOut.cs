@@ -16,7 +16,7 @@ public class AllOut() : ZephyrSquallCard(1, CardType.Power, CardRarity.Rare, Tar
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
         var tailwindAmount = Owner.Creature.Block;
-        await CreatureCmd.LoseBlock(Owner.Creature, Owner.Creature.Block);
+        await CreatureCmd.LoseBlock(choiceContext, Owner.Creature, Owner.Creature.Block, Owner.Creature);
         await PowerCmd.Apply<TailwindPower>(choiceContext, Owner.Creature, tailwindAmount, Owner.Creature, this);
         await PowerCmd.Apply<AllOutPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
     }

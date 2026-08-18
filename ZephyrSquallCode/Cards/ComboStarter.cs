@@ -22,7 +22,7 @@ public class ComboStarter() : ZephyrSquallCard(1, CardType.Attack, CardRarity.Un
         if (ZephyrQueries.AttacksPlayedThisTurn(CombatState, Owner.Creature) <= 1) hitCount++;
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(hitCount)
-            .FromCard(this)
+            .FromCard(this, play)
             .Targeting(play.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);

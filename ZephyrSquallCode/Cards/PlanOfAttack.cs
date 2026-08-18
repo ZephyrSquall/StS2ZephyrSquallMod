@@ -13,7 +13,7 @@ public class PlanOfAttack() : ZephyrSquallCard(-1, CardType.Skill, CardRarity.Un
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Unplayable];
 
     public override decimal ModifyDamageAdditive(Creature? target, decimal amount, ValueProp props, Creature? dealer,
-        CardModel? cardSource)
+        CardModel? cardSource, CardPlay? cardPlay)
     {
         return Owner.Creature == dealer && props.IsPoweredAttack() && Pile.Type == PileType.Hand
             ? DynamicVars["AdditionalDamage"].BaseValue

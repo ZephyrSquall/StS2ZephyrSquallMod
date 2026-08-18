@@ -21,7 +21,7 @@ public class FlowState() : ZephyrSquallCard(3, CardType.Attack, CardRarity.Rare,
     {
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(2)
-            .FromCard(this)
+            .FromCard(this, play)
             .Targeting(play.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
