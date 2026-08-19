@@ -9,8 +9,7 @@ public class MidnightOil() : ZephyrSquallCard(1, CardType.Power, CardRarity.Rare
 {
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
-        await PowerCmd.Apply<MidnightOilPower>(choiceContext, Owner.Creature, 1,
-            Owner.Creature, this);
+        await PowerCmd.Apply<MidnightOilPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
