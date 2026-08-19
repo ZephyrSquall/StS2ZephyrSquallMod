@@ -20,8 +20,5 @@ public class PlanOfAttack() : ZephyrSquallCard(-1, CardType.Skill, CardRarity.Un
             : 0;
     }
 
-    protected override void OnUpgrade()
-    {
-        DynamicVars["AdditionalDamage"].UpgradeValueBy(1);
-    }
+    protected override void OnUpgrade() => DynamicVars["AdditionalDamage"].UpgradeValueBy(1);
 }

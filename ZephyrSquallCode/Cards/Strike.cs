@@ -21,8 +21,5 @@ public class Strike() : ZephyrSquallCard(1, CardType.Attack, CardRarity.Basic, T
             .Execute(choiceContext);
     }
 
-    protected override void OnUpgrade()
-    {
-        DynamicVars.Damage.UpgradeValueBy(3);
-    }
+    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(3);
 }

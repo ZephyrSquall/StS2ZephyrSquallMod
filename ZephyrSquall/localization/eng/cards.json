@@ -25,6 +25,8 @@
   "ZEPHYRSQUALL-CONNECT_THE_DOTS.title": "Connect the Dots",
   "ZEPHYRSQUALL-CRESCENDO.description": "Whenever you play an Attack, it gains [gold]Honed[/gold] {CrescendoPower:diff()}.",
   "ZEPHYRSQUALL-CRESCENDO.title": "Crescendo",
+  "ZEPHYRSQUALL-CULMINATION.description": "Deal {Damage:diff()} damage.\nThis card is affected by [gold]Honed[/gold] on ALL your cards.",
+  "ZEPHYRSQUALL-CULMINATION.title": "Culmination",
   "ZEPHYRSQUALL-DEFEND.description": "Gain {Block:diff()} [gold]Block[/gold].",
   "ZEPHYRSQUALL-DEFEND.title": "Defend",
   "ZEPHYRSQUALL-DUST_CLOUD.description": "Choose a [gold]Block[/gold] card. Whenever you deal Attack damage this turn, that card gains [gold]Deft[/gold] {DustCloudPower:diff()}.\nDeal {Damage:diff()} damage {Repeat:cond:=2?twice|{Repeat:diff()} times}.",
