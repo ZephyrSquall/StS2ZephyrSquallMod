@@ -11,7 +11,7 @@ namespace ZephyrSquall.ZephyrSquallCode.Patches;
 
 [HarmonyPatch(typeof(CardPileCmd), MethodType.Async, typeof(PlayerChoiceContext), typeof(decimal), typeof(Player),
     typeof(bool))]
-[HarmonyPatch(nameof(CardPileCmd.Draw))]
+[HarmonyPatch("DrawInternal")]
 internal class SkipIndividualDrawsPatch
 {
     [HarmonyTranspiler]

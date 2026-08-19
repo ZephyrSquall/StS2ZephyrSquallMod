@@ -120,9 +120,10 @@ public class DeftBlockPatch
         var codeMatcher = new CodeMatcher(instructions);
 
         // Jumps to immediately before the foreach loop that calls ModifyBlockMultiplicative on each hook listener (this
-        // is immediately before the final call to IterateHookListeners in the IL)
+        // is immediately before the final call to IterateCombatHookListeners in the IL)
+        var method = AccessTools.Method(typeof(Hook), "IterateCombatHookListeners");
         codeMatcher.End()
-            .MatchStartBackwards(CodeMatch.Calls(() => default(ICombatState).IterateHookListeners()))
+            .MatchStartBackwards(CodeMatch.Calls(method))
             .ThrowIfInvalid("Could not find call to IterateHookListeners")
             // Load current block amount "num1" (local index 1) and card source (argument index 4)
             .InsertAndAdvance(CodeInstruction.LoadArgument(4))

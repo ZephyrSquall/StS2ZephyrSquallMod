@@ -8,7 +8,7 @@ using ZephyrSquall.ZephyrSquallCode.Powers;
 
 namespace ZephyrSquall.ZephyrSquallCode.Patches;
 
-[HarmonyPatch(typeof(CardPileCmd), nameof(CardPileCmd.Draw), typeof(PlayerChoiceContext), typeof(decimal),
+[HarmonyPatch(typeof(CardPileCmd), "DrawInternal", typeof(PlayerChoiceContext), typeof(decimal),
     typeof(Player), typeof(bool))]
 internal class SetUpOverflowHookPatch
 {
