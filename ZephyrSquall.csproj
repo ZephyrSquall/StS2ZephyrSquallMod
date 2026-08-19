@@ -29,13 +29,21 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Alchyr.Sts2.BaseLib" Version="3.4.5" PrivateAssets="All" />
+        <PackageReference Include="Alchyr.Sts2.BaseLib" Version="3.4.5" PrivateAssets="All"/>
         <PackageReference Include="Krafs.Publicizer" Version="2.3.0" PrivateAssets="All"/>
         <PackageReference Include="Alchyr.Sts2.ModAnalyzers" Version="0.1.9"/>
         <!-- Generates a .pck file when building if only using simple assets. May not work on all setups. Uncomment to test. -->
         <!-- <PackageReference Include="BSchneppe.StS2.PckPacker" Version="0.1.1" PrivateAssets="All" /> -->
         <AdditionalFiles Include="ZephyrSquall/localization/**/*.json"/> <!-- Used by analyzer -->
     </ItemGroup>
+
+    <PropertyGroup>
+        <!-- Somewhere between v0.106.0 and v0.111.0 of Slay the Spire seems to have made a change that broke the mod
+             analyzer, as it now incorrectly reports that everything is missing localization. This error is still useful
+             for auto-genning localization, so I downgrade it to a warning to keep it without flooding my IDE with
+             errors -->
+        <WarningsNotAsErrors>STS001</WarningsNotAsErrors>
+    </PropertyGroup>
 
     <ItemGroup>
         <Publicize Include="sts2:MegaCrit.Sts2.Core.Nodes.Combat.NEnergyCounter._player"/> <!--Needed by NCustomRotationLayers.cs-->

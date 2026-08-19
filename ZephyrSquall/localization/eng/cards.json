@@ -66,6 +66,8 @@
   "ZEPHYRSQUALL-MAGNUM_OPUS.title": "Magnum Opus",
   "ZEPHYRSQUALL-MAKE_A_NOTE.description": "[gold]Record[/gold] {Cards:diff()} {Cards:plural:card|cards}.",
   "ZEPHYRSQUALL-MAKE_A_NOTE.title": "Make a Note",
+  "ZEPHYRSQUALL-MIDNIGHT_OIL.description": "Energy is now conserved between turns.\nInstead of drawing 5 cards each turn, draw cards equal to your energy each turn.",
+  "ZEPHYRSQUALL-MIDNIGHT_OIL.title": "Midnight Oil",
   "ZEPHYRSQUALL-OBSESSIVE_RESEARCH.description": "Add a [gold]Lost in Thought[/gold] into your [gold]Hand[/gold].\nGain {Energy:energyIcons()}.",
   "ZEPHYRSQUALL-OBSESSIVE_RESEARCH.title": "Obsessive Research",
   "ZEPHYRSQUALL-ONE_WITH_THE_WIND.description": "Whenever you gain [gold]Tailwind[/gold], gain an additional {OneWithTheWindPower:diff()} [gold]Tailwind[/gold].",
