@@ -41,8 +41,5 @@ public class DustCloud() : ZephyrSquallCard(1, CardType.Attack, CardRarity.Uncom
             .Execute(choiceContext);
     }
 
-    protected override void OnUpgrade()
-    {
-        DynamicVars.Repeat.UpgradeValueBy(1);
-    }
+    protected override void OnUpgrade() => DynamicVars.Repeat.UpgradeValueBy(1);
 }

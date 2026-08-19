@@ -19,8 +19,5 @@ public class Celerity() : ZephyrSquallCard(2, CardType.Power, CardRarity.Uncommo
         await PowerCmd.Apply<CelerityPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
     }
 
-    protected override void OnUpgrade()
-    {
-        EnergyCost.UpgradeBy(-1);
-    }
+    protected override void OnUpgrade() => EnergyCost.UpgradeBy(-1);
 }

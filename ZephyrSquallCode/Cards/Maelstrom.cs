@@ -16,8 +16,5 @@ public class Maelstrom() : ZephyrSquallCard(1, CardType.Power, CardRarity.Uncomm
             Owner.Creature, this);
     }
 
-    protected override void OnUpgrade()
-    {
-        DynamicVars["MaelstromPower"].UpgradeValueBy(1);
-    }
+    protected override void OnUpgrade() => DynamicVars["MaelstromPower"].UpgradeValueBy(1);
 }

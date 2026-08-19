@@ -96,6 +96,8 @@
   "ZEPHYRSQUALL-STRIKE.title": "Strike",
   "ZEPHYRSQUALL-TOME_SMACK.description": "Deal {Damage:diff()} damage.\n[gold]Record[/gold] {Cards:diff()} {Cards:plural:card|cards}.",
   "ZEPHYRSQUALL-TOME_SMACK.title": "Tome Smack",
+  "ZEPHYRSQUALL-TRIED_AND_TRUE.description": "Add [gold]Deft[/gold] {Deft:diff()} to a [gold]Block[/gold] card in your [gold]Draw Pile[/gold].\nDraw {Cards:diff()} {Cards:plural:card|cards}.\nDiscard all cards drawn this way without [gold]Deft[/gold] or [gold]Honed[/gold].",
+  "ZEPHYRSQUALL-TRIED_AND_TRUE.title": "Tried and True",
   "ZEPHYRSQUALL-WARINESS.description": "Gain {Block:diff()} [gold]Block[/gold].\nAt the start of your turn, if this is in your [gold]Discard Pile[/gold], put this into your [gold]Hand[/gold].",
   "ZEPHYRSQUALL-WARINESS.title": "Wariness",
   "ZEPHYRSQUALL-WATCH_CLOSELY.description": "Gain {Block:diff()} [gold]Block[/gold].\nWhenever you are attacked this turn, draw {WatchCloselyPower:diff()} {WatchCloselyPower:plural:card|cards}.",

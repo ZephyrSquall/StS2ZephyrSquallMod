@@ -21,8 +21,5 @@ public class SiftThrough() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Unco
         await CardCmd.Discard(choiceContext, drawnCards);
     }
 
-    protected override void OnUpgrade()
-    {
-        DynamicVars.Cards.UpgradeValueBy(2);
-    }
+    protected override void OnUpgrade() => DynamicVars.Cards.UpgradeValueBy(2);
 }

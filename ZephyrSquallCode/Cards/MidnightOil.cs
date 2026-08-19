@@ -12,8 +12,5 @@ public class MidnightOil() : ZephyrSquallCard(1, CardType.Power, CardRarity.Rare
         await PowerCmd.Apply<MidnightOilPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
     }
 
-    protected override void OnUpgrade()
-    {
-        EnergyCost.UpgradeBy(-1);
-    }
+    protected override void OnUpgrade() => EnergyCost.UpgradeBy(-1);
 }
