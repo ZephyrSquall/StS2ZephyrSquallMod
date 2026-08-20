@@ -20,8 +20,5 @@ public class KnowledgeIsPower() : ZephyrSquallCard(1, CardType.Power, CardRarity
             DynamicVars["KnowledgeIsPowerPower"].IntValue, Owner.Creature, this);
     }
 
-    protected override void OnUpgrade()
-    {
-        DynamicVars["KnowledgeIsPowerPower"].UpgradeValueBy(2);
-    }
+    protected override void OnUpgrade() => DynamicVars["KnowledgeIsPowerPower"].UpgradeValueBy(2);
 }

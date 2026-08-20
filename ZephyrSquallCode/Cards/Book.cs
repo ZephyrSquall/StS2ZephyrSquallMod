@@ -139,10 +139,7 @@ public class Book() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Token, Targ
         return cardLocation;
     }
 
-    protected override void OnUpgrade()
-    {
-        EnergyCost.UpgradeBy(-1);
-    }
+    protected override void OnUpgrade() => EnergyCost.UpgradeBy(-1);
 
     protected override void AfterCloned()
     {

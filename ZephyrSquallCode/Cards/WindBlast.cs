@@ -24,8 +24,5 @@ public class WindBlast() : ZephyrSquallCard(1, CardType.Attack, CardRarity.Token
             .Execute(choiceContext);
     }
 
-    protected override void OnUpgrade()
-    {
-        DynamicVars.Damage.UpgradeValueBy(7);
-    }
+    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(7);
 }

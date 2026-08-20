@@ -26,8 +26,5 @@ public class Flurry() : ZephyrSquallCard(0, CardType.Attack, CardRarity.Uncommon
             .Execute(choiceContext);
     }
 
-    protected override void OnUpgrade()
-    {
-        DynamicVars["HitMultiplier"].UpgradeValueBy(1);
-    }
+    protected override void OnUpgrade() => DynamicVars["HitMultiplier"].UpgradeValueBy(1);
 }

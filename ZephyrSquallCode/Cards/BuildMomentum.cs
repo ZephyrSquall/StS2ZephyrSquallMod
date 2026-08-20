@@ -27,8 +27,5 @@ public class BuildMomentum() : ZephyrSquallCard(1, CardType.Attack, CardRarity.U
             .Execute(choiceContext);
     }
 
-    protected override void OnUpgrade()
-    {
-        DynamicVars.Damage.UpgradeValueBy(2);
-    }
+    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(2);
 }

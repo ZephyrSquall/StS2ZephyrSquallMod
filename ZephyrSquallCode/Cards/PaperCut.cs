@@ -25,8 +25,5 @@ public class PaperCut() : ZephyrSquallCard(1, CardType.Power, CardRarity.Uncommo
         await RecordCmd.Record(choiceContext, Owner, DynamicVars.Cards.IntValue, CombatState, this);
     }
 
-    protected override void OnUpgrade()
-    {
-        DynamicVars["PaperCutPower"].UpgradeValueBy(3);
-    }
+    protected override void OnUpgrade() => DynamicVars["PaperCutPower"].UpgradeValueBy(3);
 }

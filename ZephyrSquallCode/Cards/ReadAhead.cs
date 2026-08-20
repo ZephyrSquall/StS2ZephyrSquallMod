@@ -23,8 +23,5 @@ public class ReadAhead() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Common
         await RecordCmd.Record(choiceContext, Owner, DynamicVars["RecordCards"].IntValue, CombatState, this);
     }
 
-    protected override void OnUpgrade()
-    {
-        DynamicVars.Cards.UpgradeValueBy(1);
-    }
+    protected override void OnUpgrade() => DynamicVars.Cards.UpgradeValueBy(1);
 }

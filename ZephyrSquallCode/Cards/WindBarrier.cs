@@ -17,7 +17,10 @@ public class WindBarrier() : ZephyrSquallCard(2, CardType.Skill, CardRarity.Unco
         new BlockVar(10M, ValueProp.Move), new PowerVar<TailwindPower>(3)
     ];
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<TailwindPower>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        HoverTipFactory.Static(StaticHoverTip.Block), HoverTipFactory.FromPower<TailwindPower>()
+    ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {

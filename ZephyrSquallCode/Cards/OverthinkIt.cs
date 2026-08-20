@@ -24,8 +24,5 @@ public class OverthinkIt() : ZephyrSquallCard(2, CardType.Skill, CardRarity.Rare
         await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
     }
 
-    protected override void OnUpgrade()
-    {
-        DynamicVars.Cards.UpgradeValueBy(2);
-    }
+    protected override void OnUpgrade() => DynamicVars.Cards.UpgradeValueBy(2);
 }

@@ -38,8 +38,5 @@ public class Plagiarize() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Rare,
         if (book != null) await CardPileCmd.AddGeneratedCardToCombat(book.CreateClone(), PileType.Hand, Owner);
     }
 
-    protected override void OnUpgrade()
-    {
-        DynamicVars.Cards.UpgradeValueBy(1);
-    }
+    protected override void OnUpgrade() => DynamicVars.Cards.UpgradeValueBy(1);
 }

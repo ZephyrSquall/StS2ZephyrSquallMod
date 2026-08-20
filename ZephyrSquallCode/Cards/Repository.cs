@@ -16,8 +16,5 @@ public class Repository() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Uncom
         await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
     }
 
-    protected override void OnUpgrade()
-    {
-        DynamicVars.Cards.UpgradeValueBy(CurrentUpgradeLevel);
-    }
+    protected override void OnUpgrade() => DynamicVars.Cards.UpgradeValueBy(CurrentUpgradeLevel);
 }

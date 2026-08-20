@@ -20,8 +20,5 @@ public class LightReading() : ZephyrSquallCard(1, CardType.Power, CardRarity.Rar
             DynamicVars["LightReadingPower"].IntValue, Owner.Creature, this);
     }
 
-    protected override void OnUpgrade()
-    {
-        DynamicVars["LightReadingPower"].UpgradeValueBy(1);
-    }
+    protected override void OnUpgrade() => DynamicVars["LightReadingPower"].UpgradeValueBy(1);
 }

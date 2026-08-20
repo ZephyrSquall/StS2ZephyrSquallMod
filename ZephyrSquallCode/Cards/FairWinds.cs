@@ -14,8 +14,5 @@ public class FairWinds() : ZephyrSquallCard(2, CardType.Power, CardRarity.Uncomm
         await PowerCmd.Apply<FairWindsPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
     }
 
-    protected override void OnUpgrade()
-    {
-        EnergyCost.UpgradeBy(-1);
-    }
+    protected override void OnUpgrade() => EnergyCost.UpgradeBy(-1);
 }

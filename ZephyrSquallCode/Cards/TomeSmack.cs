@@ -28,8 +28,5 @@ public class TomeSmack() : ZephyrSquallCard(1, CardType.Attack, CardRarity.Commo
         await RecordCmd.Record(choiceContext, Owner, DynamicVars.Cards.IntValue, CombatState, this);
     }
 
-    protected override void OnUpgrade()
-    {
-        DynamicVars.Damage.UpgradeValueBy(3);
-    }
+    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(3);
 }

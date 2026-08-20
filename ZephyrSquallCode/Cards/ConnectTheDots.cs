@@ -33,13 +33,7 @@ public class ConnectTheDots : ZephyrSquallCard
         if (thisHoned > 0) await ModifierCmd.AddHoned(choiceContext, Owner, thisHoned, 1, this);
     }
 
-    protected override void OnUpgrade()
-    {
-        CardModifierTracker.HonedAmount[this] += 2;
-    }
+    protected override void OnUpgrade() => CardModifierTracker.HonedAmount[this] += 2;
 
-    protected override void AfterDowngraded()
-    {
-        CardModifierTracker.HonedAmount[this] -= 2;
-    }
+    protected override void AfterDowngraded() => CardModifierTracker.HonedAmount[this] -= 2;
 }

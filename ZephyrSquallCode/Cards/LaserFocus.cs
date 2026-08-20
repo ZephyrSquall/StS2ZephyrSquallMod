@@ -26,8 +26,5 @@ public class LaserFocus() : ZephyrSquallCard(1, CardType.Attack, CardRarity.Unco
             Owner.Creature, this);
     }
 
-    protected override void OnUpgrade()
-    {
-        DynamicVars.Damage.UpgradeValueBy(2);
-    }
+    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(2);
 }

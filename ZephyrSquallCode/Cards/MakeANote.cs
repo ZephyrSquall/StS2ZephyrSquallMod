@@ -21,5 +21,5 @@ public class MakeANote() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Basic,
         await RecordCmd.Record(choiceContext, Owner, DynamicVars.Cards.IntValue, CombatState, this);
     }
 
-    protected override void OnUpgrade() => DynamicVars.Cards.UpgradeValueBy(1);
+    protected override void OnUpgrade() => EnergyCost.UpgradeBy(-1);
 }

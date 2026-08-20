@@ -33,8 +33,5 @@ public class Reshelve() : ZephyrSquallCard(0, CardType.Skill, CardRarity.Rare, T
         if (DynamicVars.Cards.IntValue > 0) await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
     }
 
-    protected override void OnUpgrade()
-    {
-        DynamicVars.Cards.UpgradeValueBy(1);
-    }
+    protected override void OnUpgrade() => DynamicVars.Cards.UpgradeValueBy(1);
 }

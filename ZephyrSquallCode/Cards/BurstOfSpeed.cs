@@ -22,8 +22,5 @@ public class BurstOfSpeed() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Com
             Owner.Creature, this);
     }
 
-    protected override void OnUpgrade()
-    {
-        DynamicVars["TailwindPower"].UpgradeValueBy(2);
-    }
+    protected override void OnUpgrade() => DynamicVars["TailwindPower"].UpgradeValueBy(2);
 }

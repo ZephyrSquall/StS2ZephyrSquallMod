@@ -39,8 +39,5 @@ public class FlowState() : ZephyrSquallCard(3, CardType.Attack, CardRarity.Rare,
         return false;
     }
 
-    protected override void OnUpgrade()
-    {
-        DynamicVars.Damage.UpgradeValueBy(3);
-    }
+    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(3);
 }

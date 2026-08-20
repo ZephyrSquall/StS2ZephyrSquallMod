@@ -21,8 +21,5 @@ public class ObsessiveResearch() : ZephyrSquallCard(0, CardType.Skill, CardRarit
         await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, Owner);
     }
 
-    protected override void OnUpgrade()
-    {
-        DynamicVars.Energy.UpgradeValueBy(1);
-    }
+    protected override void OnUpgrade() => DynamicVars.Energy.UpgradeValueBy(1);
 }

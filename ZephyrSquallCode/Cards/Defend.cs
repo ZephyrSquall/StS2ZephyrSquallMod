@@ -17,8 +17,5 @@ public class Defend() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Basic, Ta
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, play);
     }
 
-    protected override void OnUpgrade()
-    {
-        DynamicVars.Block.UpgradeValueBy(3);
-    }
+    protected override void OnUpgrade() => DynamicVars.Block.UpgradeValueBy(3);
 }

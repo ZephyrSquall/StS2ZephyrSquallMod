@@ -27,8 +27,5 @@ public class Analysis() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Token, 
             Owner);
     }
 
-    protected override void OnUpgrade()
-    {
-        DynamicVars.CalculationBase.UpgradeValueBy(1);
-    }
+    protected override void OnUpgrade() => DynamicVars.CalculationBase.UpgradeValueBy(1);
 }

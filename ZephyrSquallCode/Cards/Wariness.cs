@@ -27,8 +27,5 @@ public class Wariness() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Common,
         if (Pile.Type == PileType.Discard && player == Owner) await CardPileCmd.Add(this, PileType.Hand);
     }
 
-    protected override void OnUpgrade()
-    {
-        DynamicVars.Block.UpgradeValueBy(2);
-    }
+    protected override void OnUpgrade() => DynamicVars.Block.UpgradeValueBy(2);
 }

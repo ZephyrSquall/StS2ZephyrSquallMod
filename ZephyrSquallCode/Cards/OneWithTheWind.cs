@@ -19,8 +19,5 @@ public class OneWithTheWind() : ZephyrSquallCard(1, CardType.Power, CardRarity.R
             DynamicVars["OneWithTheWindPower"].BaseValue, Owner.Creature, this);
     }
 
-    protected override void OnUpgrade()
-    {
-        DynamicVars["OneWithTheWindPower"].UpgradeValueBy(1);
-    }
+    protected override void OnUpgrade() => DynamicVars["OneWithTheWindPower"].UpgradeValueBy(1);
 }
