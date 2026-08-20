@@ -22,7 +22,7 @@ public class SpireEncyclopedia : ZephyrSquallRelic
     public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext,
         ICombatState combatState)
     {
-        if (player == Owner && combatState.RoundNumber == 1)
+        if (player == Owner && Owner.PlayerCombatState.TurnNumber == 1)
         {
             var cards = new List<CardModel>();
             for (var index = 0; index < DynamicVars.Cards.IntValue; ++index)

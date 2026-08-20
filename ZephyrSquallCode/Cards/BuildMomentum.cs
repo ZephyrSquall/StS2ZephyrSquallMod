@@ -14,7 +14,7 @@ public class BuildMomentum() : ZephyrSquallCard(1, CardType.Attack, CardRarity.U
     [
         new DamageVar(4, ValueProp.Move), new CalculationBaseVar(0), new CalculationExtraVar(1),
         new CalculatedVar("CalculatedHits").WithMultiplier((Func<CardModel, Creature, decimal>)((card, _) =>
-            card.CombatState.RoundNumber))
+            card.Owner.PlayerCombatState.TurnNumber))
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
