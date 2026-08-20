@@ -70,6 +70,8 @@
   "ZEPHYRSQUALL-MAKE_A_NOTE.title": "Make a Note",
   "ZEPHYRSQUALL-MIDNIGHT_OIL.description": "Energy is now conserved between turns.\nInstead of drawing 5 cards each turn, draw cards equal to your energy each turn.",
   "ZEPHYRSQUALL-MIDNIGHT_OIL.title": "Midnight Oil",
+  "ZEPHYRSQUALL-NEXUS.description": "Deal {Damage:diff()} damage for ALL your Nexus cards.{CombatsRemaining:cond:>0?\nAfter {CombatsRemaining:plural:{} combat|{} combats}, add a Nexus to your card rewards.|}{InCombat:\n(Hits {CalculatedHits:diff()} {CalculatedHits:plural:time|times})|}",
+  "ZEPHYRSQUALL-NEXUS.title": "Nexus",
   "ZEPHYRSQUALL-OBSESSIVE_RESEARCH.description": "Add a [gold]Lost in Thought[/gold] into your [gold]Hand[/gold].\nGain {Energy:energyIcons()}.",
   "ZEPHYRSQUALL-OBSESSIVE_RESEARCH.title": "Obsessive Research",
   "ZEPHYRSQUALL-ONE_WITH_THE_WIND.description": "Whenever you gain [gold]Tailwind[/gold], gain an additional {OneWithTheWindPower:diff()} [gold]Tailwind[/gold].",
