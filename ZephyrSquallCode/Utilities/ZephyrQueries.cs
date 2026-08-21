@@ -14,40 +14,31 @@ namespace ZephyrSquall.ZephyrSquallCode.Utilities;
 
 public static class ZephyrQueries
 {
-    public static bool IsWellRead(Player player)
-    {
-        return PileType.Hand.GetPile(player).Cards.Count >= MaxHandSizePatch.GetMaxHandSize(player) -
-            player.Creature.GetPowerAmount<LightReadingPower>();
-    }
+    public static bool IsWellRead(Player player) =>
+        PileType.Hand.GetPile(player).Cards.Count >= MaxHandSizePatch.GetMaxHandSize(player, CardPile.MaxCardsInHand) -
+        player.Creature.GetPowerAmount<LightReadingPower>();
 
-    public static int TimesDealtAttackDamageThisTurn(ICombatState combatState, Creature dealer)
-    {
-        return CombatManager.Instance.History.Entries.OfType<CreatureAttackedEntry>()
+    public static int TimesDealtAttackDamageThisTurn(ICombatState combatState, Creature dealer) =>
+        CombatManager.Instance.History.Entries.OfType<CreatureAttackedEntry>()
             .Sum(e => e.HappenedThisTurn(combatState) && e.Actor == dealer
                 ? e.DamageResults.Count(d => d.Props.IsPoweredAttack() && d.TotalDamage > 0)
                 : 0);
-    }
 
     public static int TimesDealtAttackDamageToSpecificEnemyThisTurn(ICombatState combatState, Creature dealer,
-        Creature target)
-    {
-        return CombatManager.Instance.History.Entries.OfType<CreatureAttackedEntry>()
+        Creature target) =>
+        CombatManager.Instance.History.Entries.OfType<CreatureAttackedEntry>()
             .Sum(e => e.HappenedThisTurn(combatState) && e.Actor == dealer
                 ? e.DamageResults.Count(d => d.Props.IsPoweredAttack() && d.TotalDamage > 0 && d.Receiver == target)
                 : 0);
-    }
 
-    public static int AttacksPlayedThisTurn(ICombatState combatState, Creature creature)
-    {
-        return CombatManager.Instance.History.Entries.OfType<CardPlayStartedEntry>()
+    public static int AttacksPlayedThisTurn(ICombatState combatState, Creature creature) =>
+        CombatManager.Instance.History.Entries.OfType<CardPlayStartedEntry>()
             .Count((Func<CardPlayStartedEntry, bool>)(e =>
                 e.CardPlay.Card.Type == CardType.Attack && e.CardPlay.Card.Owner.Creature == creature &&
                 e.HappenedThisTurn(combatState)));
-    }
 
-    public static bool CanBeRecorded(CardModel card)
-    {
-        return card is not Book && (card.Owner.GetRelic<CursedTome>() != null || (card.Type != CardType.Status &&
-            card.Type != CardType.Curse && card.Type != CardType.Quest));
-    }
+    public static bool CanBeRecorded(CardModel card) =>
+        card is not Book && (card.Owner.GetRelic<CursedTome>() != null || (card.Type != CardType.Status &&
+                                                                           card.Type != CardType.Curse &&
+                                                                           card.Type != CardType.Quest));
 }

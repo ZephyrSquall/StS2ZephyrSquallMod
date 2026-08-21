@@ -40,6 +40,8 @@
   "ZEPHYRSQUALL-FAIR_WINDS.title": "Fair Winds",
   "ZEPHYRSQUALL-FEINT.description": "Apply {VulnerablePower:diff()} [gold]Vulnerable[/gold].",
   "ZEPHYRSQUALL-FEINT.title": "Feint",
+  "ZEPHYRSQUALL-FLEETING_MEMORY.description": "Gain {Block:diff()} [gold]Block[/gold].\n[gold]Exhaust[/gold] this card unless you have played a [gold]Book[/gold] this turn.",
+  "ZEPHYRSQUALL-FLEETING_MEMORY.title": "Fleeting Memory",
   "ZEPHYRSQUALL-FLOW_STATE.description": "Deal {Damage:diff()} damage twice.\n[gold]Well Read[/gold]: This costs 0 {energyPrefix:energyIcons(1)}.",
   "ZEPHYRSQUALL-FLOW_STATE.title": "Flow State",
   "ZEPHYRSQUALL-FORETHOUGHT.description": "Gain {Block:diff()} [gold]Block[/gold].\nAdd [gold]Deft[/gold] {Deft:diff()} to a [gold]Block[/gold] card in your [gold]Draw Pile[/gold].",
