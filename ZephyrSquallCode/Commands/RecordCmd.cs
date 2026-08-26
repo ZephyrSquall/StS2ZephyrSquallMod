@@ -17,33 +17,34 @@ public static class RecordCmd
     private static LocString RecordUpToSelectionPrompt => new("card_selection", "TO_RECORD_UP_TO");
     private static LocString RecordAnySelectionPrompt => new("card_selection", "TO_RECORD_ANY");
 
-    public static async Task Record(PlayerChoiceContext choiceContext, Player player, int amount,
+    public static async Task<Book?> Record(PlayerChoiceContext choiceContext, Player player, int amount,
         ICombatState combatState, AbstractModel source)
     {
         var prefs = new CardSelectorPrefs(RecordSelectionPrompt, amount);
-        await RecordWithPrefs(choiceContext, player, prefs, combatState, source);
+        return await RecordWithPrefs(choiceContext, player, prefs, combatState, source);
     }
 
-    public static async Task RecordUpTo(PlayerChoiceContext choiceContext, Player player, int maxAmount,
+    public static async Task<Book?> RecordUpTo(PlayerChoiceContext choiceContext, Player player, int maxAmount,
         ICombatState combatState, AbstractModel source)
     {
         var prefs = new CardSelectorPrefs(RecordUpToSelectionPrompt, 0, maxAmount);
-        await RecordWithPrefs(choiceContext, player, prefs, combatState, source);
+        return await RecordWithPrefs(choiceContext, player, prefs, combatState, source);
     }
 
-    public static async Task RecordAny(PlayerChoiceContext choiceContext, Player player, ICombatState combatState,
+    public static async Task<Book?> RecordAny(PlayerChoiceContext choiceContext, Player player, ICombatState combatState,
         AbstractModel source)
     {
         var prefs = new CardSelectorPrefs(RecordAnySelectionPrompt, 0, int.MaxValue);
-        await RecordWithPrefs(choiceContext, player, prefs, combatState, source);
+        return await RecordWithPrefs(choiceContext, player, prefs, combatState, source);
     }
 
-    private static async Task RecordWithPrefs(PlayerChoiceContext choiceContext, Player player, CardSelectorPrefs prefs,
+    private static async Task<Book?> RecordWithPrefs(PlayerChoiceContext choiceContext, Player player, CardSelectorPrefs prefs,
         ICombatState combatState, AbstractModel source)
     {
         var selectedCards = (await CardSelectCmd.FromHand(choiceContext, player, prefs,
             (Func<CardModel, bool>)ZephyrQueries.CanBeRecorded, source)).ToList();
-        await Book.CreateInHand(player, selectedCards, combatState);
+        Book? book = await Book.CreateInHand(player, selectedCards, combatState);
         await ZephyrHooks.OnRecord(selectedCards, source);
+        return book;
     }
 }

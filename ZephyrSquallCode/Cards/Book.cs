@@ -131,8 +131,8 @@ public class Book() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Token, Targ
     // method, so patching it properly is going to be incredibly difficult, and I've left it for another day. The
     // bandaid fix below doesn't stop the card from momentarily appearing as a "Broken Card", but at least causes it to
     // eventually switch back to its proper appearance so it's easy to tell the right card was autoplayed.
-    public override CardLocation ModifyCardPlayResultLocation(CardModel card,
-        bool isAutoPlay, ResourceInfo resources, CardLocation cardLocation)
+    public override CardLocation ModifyCardPlayResultLocation(CardModel card, bool isAutoPlay, ResourceInfo resources,
+        CardLocation cardLocation)
     {
         var nCardNarrate = NCard.FindOnTable(card);
         if (nCardNarrate is not null) nCardNarrate.UpdateVisuals(nCardNarrate.Model.Pile.Type, CardPreviewMode.Normal);
@@ -156,8 +156,11 @@ public class Book() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Token, Targ
             List<CardModel> newRecordedCards = [];
             foreach (var oldRecordedCard in RecordedCards)
             {
+                // The card Transcribe creates the possibility that the Recorded cards to be cloned belong to another
+                // player, so explicitly create clones of them for the owner of this Book.
                 var cardPileAddResult =
-                    await CardPileCmd.AddGeneratedCardToCombat(oldRecordedCard.CreateClone(), RecordPile.Record, Owner);
+                    await CardPileCmd.AddGeneratedCardToCombat(oldRecordedCard.CreateCloneForPlayer(Owner),
+                        RecordPile.Record, Owner);
                 newRecordedCards.Add(cardPileAddResult.cardAdded);
             }
 
