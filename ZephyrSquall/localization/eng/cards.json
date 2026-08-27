@@ -91,6 +91,8 @@
   "ZEPHYRSQUALL-PLAGIARIZE.title": "Plagiarize",
   "ZEPHYRSQUALL-PLAN_OF_ATTACK.description": "While in [gold]Hand[/gold], your Attacks deal {AdditionalDamage:diff()} additional damage.",
   "ZEPHYRSQUALL-PLAN_OF_ATTACK.title": "Plan of Attack",
+  "ZEPHYRSQUALL-QUICK_REFLEXES.description": "Gain {Block:diff()} [gold]Block[/gold].\nWhenever you draw this card during your turn, play it.",
+  "ZEPHYRSQUALL-QUICK_REFLEXES.title": "Quick Reflexes",
   "ZEPHYRSQUALL-READ_AHEAD.description": "Draw {Cards:diff()} {Cards:plural:card|cards}.\n[gold]Record[/gold] {RecordCards:diff()} {RecordCards:plural:card|cards}.",
   "ZEPHYRSQUALL-READ_AHEAD.title": "Read Ahead",
   "ZEPHYRSQUALL-REPOSITORY.description": "Draw {Cards:diff()} {Cards:plural:card|cards}.\nCan be [gold]Upgraded[/gold] any number of times.",
