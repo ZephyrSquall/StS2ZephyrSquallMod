@@ -32,7 +32,8 @@ public class Culmination() : ZephyrSquallCard(1, CardType.Attack, CardRarity.Rar
         // Add the value of all Honed on all cards, except Honed from this card itself as this is already added by the
         // Honed patch.
         return this == cardSource
-            ? Owner.PlayerCombatState.AllCards.Sum(c => c == cardSource ? 0 : CardModifierTracker.HonedAmount[c])
+            ? Owner.PlayerCombatState.AllCards.Where(c => c.Type == CardType.Attack && c != cardSource)
+                .Sum(c => CardModifierTracker.HonedAmount[c])
             : 0;
     }
 

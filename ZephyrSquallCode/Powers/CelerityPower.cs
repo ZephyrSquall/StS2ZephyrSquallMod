@@ -1,4 +1,5 @@
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
@@ -8,19 +9,19 @@ using ZephyrSquall.ZephyrSquallCode.Utilities;
 
 namespace ZephyrSquall.ZephyrSquallCode.Powers;
 
-public sealed class CelerityPower : ZephyrSquallPower, IOnAddDeft
+public sealed class CelerityPower : ZephyrSquallPower, IOnAddHoned
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        ZephyrHoverTips.Deft(), HoverTipFactory.Static(StaticHoverTip.Block)
+        ZephyrHoverTips.Honed(), HoverTipFactory.Static(StaticHoverTip.Block)
     ];
 
-    public async Task OnAddDeft(CardModel card, int honedAmount, AbstractModel source)
+    public async Task OnAddHoned(CardModel card, int honedAmount, AbstractModel source)
     {
-        if (card.Owner == Owner.Player)
+        if (card.Owner == Owner.Player && card.Type == CardType.Skill)
         {
             Flash();
             await CreatureCmd.GainBlock(Owner, Amount * honedAmount, ValueProp.Unpowered, null);

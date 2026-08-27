@@ -11,21 +11,21 @@ namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
 public class TriedAndTrue() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(5), new IntVar("Deft", 2)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(5), new IntVar("Honed", 2)];
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [ZephyrHoverTips.Deft(), ZephyrHoverTips.Honed()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [ZephyrHoverTips.Honed()];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
-        await ModifierCmd.AddDeft(choiceContext, Owner, DynamicVars["Deft"].IntValue, 1, this, PileType.Draw);
+        await HonedCmd.AddHoned(choiceContext, Owner, DynamicVars["Honed"].IntValue, 1, this, PileType.Draw);
         await CardCmd.Discard(choiceContext,
             (await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner)).Where(c =>
-                CardModifierTracker.DeftAmount[c] == 0 && CardModifierTracker.HonedAmount[c] == 0));
+                CardModifierTracker.HonedAmount[c] == 0));
     }
 
     protected override void OnUpgrade()
     {
         DynamicVars.Cards.UpgradeValueBy(1);
-        DynamicVars["Deft"].UpgradeValueBy(1);
+        DynamicVars["Honed"].UpgradeValueBy(1);
     }
 }

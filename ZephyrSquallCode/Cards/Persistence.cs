@@ -18,7 +18,7 @@ public class Persistence() : ZephyrSquallCard(1, CardType.Power, CardRarity.Rare
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
         await PowerCmd.Apply<PersistencePower>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
-        await ModifierCmd.AddHoned(choiceContext, Owner, DynamicVars["Honed"].IntValue, 1, this);
+        await HonedCmd.AddHoned(choiceContext, Owner, DynamicVars["Honed"].IntValue, 1, this);
     }
 
     protected override void OnUpgrade() => DynamicVars["Honed"].UpgradeValueBy(4);

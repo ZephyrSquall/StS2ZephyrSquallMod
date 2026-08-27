@@ -1,7 +1,4 @@
 {
-  "TO_ADD_DEFT": "Choose {Amount:plural:a card|[blue]{}[/blue] cards} to add [gold]Deft[/gold] {Deft} to.",
-  "TO_ADD_DEFT_TO_ANY": "Choose any number of cards to add [gold]Deft[/gold] {Deft} to.",
-  "TO_ADD_DEFT_TO_UP_TO": "Choose up to {Amount:plural:[blue]{}[/blue] card|[blue]{}[/blue] cards} to add [gold]Deft[/gold] {Deft} to.",
   "TO_ADD_HONED": "Choose {Amount:plural:a card|[blue]{}[/blue] cards} to add [gold]Honed[/gold] {Honed} to.",
   "TO_ADD_HONED_TO_ANY": "Choose any number of cards to add [gold]Honed[/gold] {Honed} to.",
   "TO_ADD_HONED_TO_UP_TO": "Choose up to {Amount:plural:[blue]{}[/blue] card|[blue]{}[/blue] cards} to add [gold]Honed[/gold] {Honed} to.",

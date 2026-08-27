@@ -15,20 +15,20 @@ public class Forethought() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Comm
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(5, ValueProp.Move), new IntVar("Deft", 3)
+        new BlockVar(5, ValueProp.Move), new IntVar("Honed", 3)
     ];
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [ZephyrHoverTips.Deft()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [ZephyrHoverTips.Honed()];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, play);
-        await ModifierCmd.AddDeft(choiceContext, Owner, DynamicVars["Deft"].IntValue, 1, this, PileType.Draw);
+        await HonedCmd.AddHoned(choiceContext, Owner, DynamicVars["Honed"].IntValue, 1, this, PileType.Draw);
     }
 
     protected override void OnUpgrade()
     {
         DynamicVars.Block.UpgradeValueBy(2);
-        DynamicVars["Deft"].UpgradeValueBy(1);
+        DynamicVars["Honed"].UpgradeValueBy(1);
     }
 }

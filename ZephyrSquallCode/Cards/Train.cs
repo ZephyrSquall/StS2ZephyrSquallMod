@@ -18,7 +18,7 @@ public class Train() : ZephyrSquallCard(0, CardType.Skill, CardRarity.Token, Tar
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
-        await ModifierCmd.AddHoned(choiceContext, Owner, DynamicVars["Honed"].IntValue, 1, this);
+        await HonedCmd.AddHoned(choiceContext, Owner, DynamicVars["Honed"].IntValue, 1, this);
     }
 
     protected override void OnUpgrade() => DynamicVars["Honed"].UpgradeValueBy(2);

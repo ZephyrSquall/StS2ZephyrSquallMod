@@ -13,9 +13,9 @@ vast knowledge to plan carefully and find an opening, then attacks decisively in
 
 ## Main mechanics:
 
-**Deft and Honed:** Zephyr is quick to learn, adapt, and refine his techniques. These are effects that can be added to
-cards for the duration of combat (very similarly to Replay). Deft increases Block gained by a card, and Honed increases
-damage dealt by a card. Some cards will also get additional benefits from Deft or Honed.
+**Honed:** Zephyr is quick to learn, adapt, and refine his techniques. Honed is an effect that can be added to
+cards for the duration of combat (very similarly to Replay). It increases both the Block gained and the damage dealt by
+a card. Some cards will also get additional benefits from having Honed.
 
 **Multihit attacks:** Zephyr's incredible speed is represented by most of his Attacks hitting multiple times. He has
 several cards that care about how many times he has dealt attack damage which scale well with these multihits, and his

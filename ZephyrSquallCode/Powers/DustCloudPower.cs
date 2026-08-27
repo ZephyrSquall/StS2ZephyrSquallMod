@@ -21,7 +21,7 @@ public sealed class DustCloudPower : ZephyrSquallPower
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new StringVar("Card")];
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [ZephyrHoverTips.Deft()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [ZephyrHoverTips.Honed()];
 
     protected override object InitInternalData()
     {
@@ -41,7 +41,7 @@ public sealed class DustCloudPower : ZephyrSquallPower
         if (selectedCard != null && dealer == Owner && props.IsPoweredAttack() && result.TotalDamage > 0)
         {
             Flash();
-            await ModifierCmd.AddDeftToSpecific(selectedCard, Amount, this);
+            await HonedCmd.AddHonedToSpecific(selectedCard, Amount, this);
         }
     }
 

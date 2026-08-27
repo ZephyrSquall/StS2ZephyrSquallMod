@@ -17,7 +17,7 @@ public sealed class PersistencePower : ZephyrSquallPower
     public override CardLocation ModifyCardPlayResultLocation(CardModel card, bool isAutoPlay, ResourceInfo resources,
         CardLocation location)
     {
-        if (card.Owner.Creature == Owner && location.pileType == PileType.Discard &&
+        if (card.Owner.Creature == Owner && card.Type == CardType.Attack && location.pileType == PileType.Discard &&
             CardModifierTracker.HonedAmount[card] > 0)
         {
             location.pileType = PileType.Draw;

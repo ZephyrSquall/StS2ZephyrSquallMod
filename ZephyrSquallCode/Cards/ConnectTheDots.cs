@@ -30,7 +30,7 @@ public class ConnectTheDots : ZephyrSquallCard
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
         var thisHoned = CardModifierTracker.HonedAmount[this];
-        if (thisHoned > 0) await ModifierCmd.AddHoned(choiceContext, Owner, thisHoned, 1, this);
+        if (thisHoned > 0) await HonedCmd.AddHoned(choiceContext, Owner, thisHoned, 1, this);
     }
 
     protected override void OnUpgrade() => CardModifierTracker.HonedAmount[this] += 2;

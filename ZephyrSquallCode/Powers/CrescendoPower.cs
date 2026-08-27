@@ -20,7 +20,7 @@ public sealed class CrescendoPower : ZephyrSquallPower
         if (card.Owner.Creature == Owner && card.Type == CardType.Attack)
         {
             Flash();
-            await ModifierCmd.AddHonedToSpecific(card, Amount, this);
+            await HonedCmd.AddHonedToSpecific(card, Amount, this);
         }
     }
 }

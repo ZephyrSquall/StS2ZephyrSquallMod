@@ -18,17 +18,13 @@ public class DustCloud() : ZephyrSquallCard(1, CardType.Attack, CardRarity.Uncom
         new PowerVar<DustCloudPower>(1), new DamageVar(2, ValueProp.Move), new RepeatVar(2)
     ];
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
-    [
-        HoverTipFactory.Static(StaticHoverTip.Block), ZephyrHoverTips.Deft()
-    ];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [ZephyrHoverTips.Honed()];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
         var prefs = new CardSelectorPrefs(SelectionScreenPrompt, 1);
-        var selectedCard =
-            (await CardSelectCmd.FromHand(choiceContext, Owner, prefs, (Func<CardModel, bool>)(c => c.GainsBlock),
-                this)).FirstOrDefault();
+        var selectedCard = (await CardSelectCmd.FromHand(choiceContext, Owner, prefs,
+            (Func<CardModel, bool>)(c => c.Type == CardType.Skill), this)).FirstOrDefault();
         if (selectedCard != null)
             (await PowerCmd.Apply<DustCloudPower>(choiceContext, Owner.Creature, DynamicVars["DustCloudPower"].IntValue,
                 Owner.Creature, this)).SetSelectedCard(selectedCard);

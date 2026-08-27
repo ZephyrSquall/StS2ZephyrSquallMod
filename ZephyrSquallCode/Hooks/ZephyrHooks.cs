@@ -6,12 +6,6 @@ namespace ZephyrSquall.ZephyrSquallCode.Hooks;
 
 public class ZephyrHooks
 {
-    public static async Task OnAddDeft(CardModel card, int amount, AbstractModel source)
-    {
-        foreach (var model in card.CombatState.IterateHookListeners().OfType<IOnAddDeft>())
-            await model.OnAddDeft(card, amount, source);
-    }
-
     public static async Task OnAddHoned(CardModel card, int amount, AbstractModel source)
     {
         foreach (var model in card.CombatState.IterateHookListeners().OfType<IOnAddHoned>())

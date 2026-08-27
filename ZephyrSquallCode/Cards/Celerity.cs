@@ -11,7 +11,7 @@ public class Celerity() : ZephyrSquallCard(2, CardType.Power, CardRarity.Uncommo
 {
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        ZephyrHoverTips.Deft(), HoverTipFactory.Static(StaticHoverTip.Block)
+        ZephyrHoverTips.Honed(), HoverTipFactory.Static(StaticHoverTip.Block)
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)

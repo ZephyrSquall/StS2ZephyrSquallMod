@@ -25,7 +25,7 @@ public class Whet() : ZephyrSquallCard(1, CardType.Attack, CardRarity.Basic, Tar
             .Targeting(play.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
-        await ModifierCmd.AddHoned(choiceContext, Owner, DynamicVars["Honed"].IntValue, 1, this);
+        await HonedCmd.AddHoned(choiceContext, Owner, DynamicVars["Honed"].IntValue, 1, this);
     }
 
     protected override void OnUpgrade()

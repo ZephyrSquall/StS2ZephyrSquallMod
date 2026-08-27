@@ -45,14 +45,6 @@ public class CardModifierDescriptionPatch
 
     public static List<string> AddCardModifierDescriptionsHelper(CardModel cardModel, List<string> source)
     {
-        var deft = CardModifierTracker.DeftAmount[cardModel];
-        if (deft > 0)
-        {
-            var locString = new LocString("static_hover_tips", "DEFT.extraText");
-            locString.Add("Deft", deft);
-            source.Add(locString.GetFormattedText());
-        }
-
         var honed = CardModifierTracker.HonedAmount[cardModel];
         if (honed > 0)
         {
@@ -91,14 +83,6 @@ public class CardModifierHoverTipPatch
 
     public static List<IHoverTip> AddCardModifierHoverTipsHelper(CardModel cardModel, List<IHoverTip> list)
     {
-        var deft = CardModifierTracker.DeftAmount[cardModel];
-        if (deft > 0)
-        {
-            var description = new LocString("static_hover_tips", "DEFT_DYNAMIC.description");
-            description.Add("Deft", deft);
-            list.Add(new HoverTip(new LocString("static_hover_tips", "DEFT_DYNAMIC.title"), description));
-        }
-
         var honed = CardModifierTracker.HonedAmount[cardModel];
         if (honed > 0)
         {
@@ -112,7 +96,7 @@ public class CardModifierHoverTipPatch
 }
 
 [HarmonyPatch(typeof(Hook), nameof(Hook.ModifyBlock))]
-public class DeftBlockPatch
+public class HonedBlockPatch
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> IncreaseBlock(IEnumerable<CodeInstruction> instructions)
@@ -137,7 +121,7 @@ public class DeftBlockPatch
 
     public static decimal IncreaseBlockHelper(CardModel? cardSource, decimal block)
     {
-        if (cardSource != null) block += CardModifierTracker.DeftAmount[cardSource];
+        if (cardSource != null) block += CardModifierTracker.HonedAmount[cardSource];
 
         return block;
     }
@@ -165,7 +149,6 @@ public class ModifierClonePatch
     {
         if (__result is CardModel resultCardModel && __instance is CardModel instanceCardModel)
         {
-            CardModifierTracker.DeftAmount[resultCardModel] = CardModifierTracker.DeftAmount[instanceCardModel];
             CardModifierTracker.HonedAmount[resultCardModel] = CardModifierTracker.HonedAmount[instanceCardModel];
         }
     }
@@ -173,6 +156,5 @@ public class ModifierClonePatch
 
 public class CardModifierTracker
 {
-    public static readonly SpireField<CardModel, int> DeftAmount = new(() => 0);
     public static readonly SpireField<CardModel, int> HonedAmount = new(() => 0);
 }
