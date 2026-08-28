@@ -54,6 +54,8 @@
   "ZEPHYRSQUALL-GUST.title": "Gust",
   "ZEPHYRSQUALL-HARRY.description": "If you have dealt Attack damage 3 or more times this turn, gain {Block:diff()} [gold]Block[/gold].\nDeal {Damage:diff()} damage twice.{InCombat:\n(Dealt Atk. damage {TimesDealtAttackDamage:diff()} {TimesDealtAttackDamage:plural:time|times})|}",
   "ZEPHYRSQUALL-HARRY.title": "Harry",
+  "ZEPHYRSQUALL-HYPERFIXATION.description": "At the end of combat, [gold]Downgrade[/gold] {DowngradeCards:diff()} random {DowngradeCards:plural:card|cards}, then [gold]Upgrade[/gold] {UpgradeCards:diff()} other random {UpgradeCards:plural:card|cards}.",
+  "ZEPHYRSQUALL-HYPERFIXATION.title": "Hyperfixation",
   "ZEPHYRSQUALL-IMPROVISED_WEAPON.description": "Deal {Damage:diff()} damage.\nPermanently decrease this card's damage by {Decrease:diff()}.",
   "ZEPHYRSQUALL-IMPROVISED_WEAPON.title": "Improvised Weapon",
   "ZEPHYRSQUALL-KNOWLEDGE_IS_POWER.description": "Whenever you [gold]Overflow[/gold], deal {KnowledgeIsPowerPower:diff()} damage to a random enemy.",

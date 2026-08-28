@@ -10,8 +10,6 @@ public sealed class WindsFuryPower : ZephyrSquallPower
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Static(StaticHoverTip.Block)];
-
     public override int ModifyAttackHitCount(AttackCommand attack, int hitCount)
     {
         if (attack.Attacker == Owner && ZephyrQueries.AttacksPlayedThisTurn(CombatState, Owner) <= 1)
