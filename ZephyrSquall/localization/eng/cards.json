@@ -1,4 +1,6 @@
 {
+  "ZEPHYRSQUALL-ACUATE.description": "Deal {Damage:diff()} damage.\nAdd [gold]Honed[/gold] {Honed:diff()} to a card in your [gold]Hand[/gold], then double its [gold]Honed[/gold].",
+  "ZEPHYRSQUALL-ACUATE.title": "Acuate",
   "ZEPHYRSQUALL-ALL_OUT.description": "Convert your [gold]Block[/gold] into [gold]Tailwind[/gold].\nYou cannot gain [gold]Block[/gold].",
   "ZEPHYRSQUALL-ALL_OUT.title": "All-Out",
   "ZEPHYRSQUALL-ANALYSIS.description": "Draw cards equal to the turn number{IfUpgraded:show: +{CalculationBase}|}.{InCombat:\n(Draw {CalculatedCards:diff()} {CalculatedCards:plural:card|cards})|}",
