@@ -33,6 +33,8 @@
   "ZEPHYRSQUALL-CULMINATION.title": "Culmination",
   "ZEPHYRSQUALL-DEFEND.description": "Gain {Block:diff()} [gold]Block[/gold].",
   "ZEPHYRSQUALL-DEFEND.title": "Defend",
+  "ZEPHYRSQUALL-DEFT.description": "Gain {Block:diff()} [gold]Block[/gold].\n[gold]Honed[/gold] affects this card {HonedMultiplier:cond:=2?twice|{HonedMultiplier:diff()} times}.",
+  "ZEPHYRSQUALL-DEFT.title": "Deft",
   "ZEPHYRSQUALL-DUST_CLOUD.description": "Choose a Skill. Whenever you deal Attack damage this turn, that card gains [gold]Honed[/gold] {DustCloudPower:diff()}.\nDeal {Damage:diff()} damage {Repeat:cond:=2?twice|{Repeat:diff()} times}.",
   "ZEPHYRSQUALL-DUST_CLOUD.selectionScreenPrompt": "Choose a card to gain [gold]Honed[/gold] {DustCloudPower:diff()} whenever you deal Attack damage this turn.",
   "ZEPHYRSQUALL-DUST_CLOUD.title": "Dust Cloud",
