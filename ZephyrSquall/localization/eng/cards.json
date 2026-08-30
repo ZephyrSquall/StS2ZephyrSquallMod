@@ -36,6 +36,8 @@
   "ZEPHYRSQUALL-DUST_CLOUD.description": "Choose a Skill. Whenever you deal Attack damage this turn, that card gains [gold]Honed[/gold] {DustCloudPower:diff()}.\nDeal {Damage:diff()} damage {Repeat:cond:=2?twice|{Repeat:diff()} times}.",
   "ZEPHYRSQUALL-DUST_CLOUD.selectionScreenPrompt": "Choose a card to gain [gold]Honed[/gold] {DustCloudPower:diff()} whenever you deal Attack damage this turn.",
   "ZEPHYRSQUALL-DUST_CLOUD.title": "Dust Cloud",
+  "ZEPHYRSQUALL-EXIT_STRATEGY.description": "You cannot lose more than {ExitStrategyPower:diff()} HP for the rest of this turn.",
+  "ZEPHYRSQUALL-EXIT_STRATEGY.title": "Exit Strategy",
   "ZEPHYRSQUALL-EXPLOIT_AN_OPENING.description": "Deal {Damage:diff()} damage.\nIf the enemy does not intend to attack, hits 2 additional times.",
   "ZEPHYRSQUALL-EXPLOIT_AN_OPENING.title": "Exploit an Opening",
   "ZEPHYRSQUALL-FAIR_WINDS.description": "The next time you take an extra turn, all allies take an extra turn as well.",
