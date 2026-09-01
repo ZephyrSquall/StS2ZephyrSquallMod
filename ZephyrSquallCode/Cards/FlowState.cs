@@ -9,7 +9,7 @@ using ZephyrSquall.ZephyrSquallCode.Utilities;
 
 namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
-public class FlowState() : ZephyrSquallCard(3, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
+public class FlowState() : ZephyrSquallCard(3, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
 {
     protected override bool ShouldGlowGoldInternal => ZephyrQueries.IsWellRead(Owner);
 
@@ -39,5 +39,8 @@ public class FlowState() : ZephyrSquallCard(3, CardType.Attack, CardRarity.Rare,
         return false;
     }
 
-    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(3);
+    protected override void OnUpgrade()
+    {
+        DynamicVars.Damage.UpgradeValueBy(3);
+    }
 }

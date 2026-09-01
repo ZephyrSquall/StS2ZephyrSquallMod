@@ -15,7 +15,7 @@ public class Forethought() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Comm
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(5, ValueProp.Move), new IntVar("Honed", 3)
+        new BlockVar(6, ValueProp.Move), new IntVar("Honed", 3)
     ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [ZephyrHoverTips.Honed()];

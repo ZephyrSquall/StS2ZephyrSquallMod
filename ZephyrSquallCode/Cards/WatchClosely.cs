@@ -13,7 +13,7 @@ public class WatchClosely() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Com
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(6, ValueProp.Move), new PowerVar<WatchCloselyPower>(1)
+        new BlockVar(7, ValueProp.Move), new PowerVar<WatchCloselyPower>(1)
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
@@ -23,5 +23,8 @@ public class WatchClosely() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Com
             DynamicVars["WatchCloselyPower"].BaseValue, Owner.Creature, this);
     }
 
-    protected override void OnUpgrade() => DynamicVars.Block.UpgradeValueBy(3);
+    protected override void OnUpgrade()
+    {
+        DynamicVars.Block.UpgradeValueBy(3);
+    }
 }

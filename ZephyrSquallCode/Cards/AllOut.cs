@@ -21,8 +21,5 @@ public class AllOut() : ZephyrSquallCard(1, CardType.Power, CardRarity.Rare, Tar
         await PowerCmd.Apply<AllOutPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
     }
 
-    protected override void OnUpgrade()
-    {
-        EnergyCost.UpgradeBy(-1);
-    }
+    protected override void OnUpgrade() => EnergyCost.UpgradeBy(-1);
 }

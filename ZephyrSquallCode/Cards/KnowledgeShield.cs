@@ -15,7 +15,7 @@ public class KnowledgeShield() : ZephyrSquallCard(1, CardType.Skill, CardRarity.
 
     protected override bool ShouldGlowGoldInternal => ZephyrQueries.IsWellRead(Owner);
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(7, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(8, ValueProp.Move)];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [ZephyrHoverTips.WellRead()];
 

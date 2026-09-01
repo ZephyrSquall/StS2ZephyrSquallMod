@@ -8,7 +8,7 @@ using ZephyrSquall.ZephyrSquallCode.Utilities;
 
 namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
-public class OverthinkIt() : ZephyrSquallCard(2, CardType.Skill, CardRarity.Rare, TargetType.Self)
+public class OverthinkIt() : ZephyrSquallCard(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<OverthinkItPower>(4), new CardsVar(6)];
 
@@ -24,5 +24,8 @@ public class OverthinkIt() : ZephyrSquallCard(2, CardType.Skill, CardRarity.Rare
         await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
     }
 
-    protected override void OnUpgrade() => DynamicVars.Cards.UpgradeValueBy(2);
+    protected override void OnUpgrade()
+    {
+        DynamicVars.Cards.UpgradeValueBy(2);
+    }
 }
