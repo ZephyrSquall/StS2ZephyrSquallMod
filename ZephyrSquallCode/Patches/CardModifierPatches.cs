@@ -2,6 +2,7 @@ using System.Reflection;
 using BaseLib.Utils;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -49,7 +50,10 @@ public class CardModifierDescriptionPatch
         if (honed > 0)
         {
             var locString = new LocString("static_hover_tips", "HONED.extraText");
-            locString.Add("Honed", honed);
+            string formattedHoned;
+            if (cardModel.UpgradePreviewType == CardUpgradePreviewType.None) formattedHoned = honed.ToString();
+            else formattedHoned = $"[green]{honed}[/green]";
+            locString.Add("Honed", formattedHoned);
             source.Add(locString.GetFormattedText());
         }
 
@@ -150,6 +154,7 @@ public class ModifierClonePatch
         if (__result is CardModel resultCardModel && __instance is CardModel instanceCardModel)
         {
             CardModifierTracker.HonedAmount[resultCardModel] = CardModifierTracker.HonedAmount[instanceCardModel];
+            CardModifierTracker.IsHonedIncreasedOnUpgrade[resultCardModel] = CardModifierTracker.IsHonedIncreasedOnUpgrade[instanceCardModel];
         }
     }
 }
@@ -157,4 +162,5 @@ public class ModifierClonePatch
 public class CardModifierTracker
 {
     public static readonly SpireField<CardModel, int> HonedAmount = new(() => 0);
+    public static readonly SpireField<CardModel, bool> IsHonedIncreasedOnUpgrade = new(() => false);
 }

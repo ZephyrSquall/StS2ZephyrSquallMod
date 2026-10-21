@@ -15,6 +15,7 @@ public class ConnectTheDots : ZephyrSquallCard
     public ConnectTheDots() : base(1, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
     {
         CardModifierTracker.HonedAmount[this] = 4;
+        CardModifierTracker.IsHonedIncreasedOnUpgrade[this] = true;
     }
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(3, ValueProp.Move)];
