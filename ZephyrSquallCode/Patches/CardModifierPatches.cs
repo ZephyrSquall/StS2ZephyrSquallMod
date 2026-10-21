@@ -35,7 +35,10 @@ public class CardModifierDescriptionPatch
             // Note the cardModel happens to already be the last thing on the stack before this instruction, so no need
             // to load that again.
             .InsertAndAdvance(CodeInstruction.LoadLocal(5))
-            .InsertAndAdvance(CodeInstruction.Call(() => AddCardModifierDescriptionsHelper(default, default)))
+            // Load the "previewType" argument onto the stack, which is index 2 in the raw IL (note that since this is
+            // an instance method, argument 0 is "this", so the rest of the arguments are shifted down one index).
+            .InsertAndAdvance(CodeInstruction.LoadArgument(2))
+            .InsertAndAdvance(CodeInstruction.Call(() => AddCardModifierDescriptionsHelper(default, default, default)))
             // Store the top of the stack into the "source" local variable.
             .InsertAndAdvance(CodeInstruction.StoreLocal(5))
             // Load the cardModel onto the stack again to restore its original state before this patch.
@@ -44,15 +47,20 @@ public class CardModifierDescriptionPatch
         return codeMatcher.Instructions();
     }
 
-    public static List<string> AddCardModifierDescriptionsHelper(CardModel cardModel, List<string> source)
+    public static List<string> AddCardModifierDescriptionsHelper(CardModel cardModel, List<string> source,
+        CardModel.DescriptionPreviewType previewType)
     {
         var honed = CardModifierTracker.HonedAmount[cardModel];
         if (honed > 0)
         {
-            var locString = new LocString("static_hover_tips", "HONED.extraText");
             string formattedHoned;
-            if (cardModel.UpgradePreviewType == CardUpgradePreviewType.None) formattedHoned = honed.ToString();
-            else formattedHoned = $"[green]{honed}[/green]";
+            if ((previewType == CardModel.DescriptionPreviewType.Upgrade || cardModel.UpgradePreviewType.IsPreview()) &&
+                CardModifierTracker.IsHonedIncreasedOnUpgrade[cardModel])
+                formattedHoned = $"[green]{honed}[/green]";
+            else
+                formattedHoned = honed.ToString();
+
+            var locString = new LocString("static_hover_tips", "HONED.extraText");
             locString.Add("Honed", formattedHoned);
             source.Add(locString.GetFormattedText());
         }
@@ -154,7 +162,8 @@ public class ModifierClonePatch
         if (__result is CardModel resultCardModel && __instance is CardModel instanceCardModel)
         {
             CardModifierTracker.HonedAmount[resultCardModel] = CardModifierTracker.HonedAmount[instanceCardModel];
-            CardModifierTracker.IsHonedIncreasedOnUpgrade[resultCardModel] = CardModifierTracker.IsHonedIncreasedOnUpgrade[instanceCardModel];
+            CardModifierTracker.IsHonedIncreasedOnUpgrade[resultCardModel] =
+                CardModifierTracker.IsHonedIncreasedOnUpgrade[instanceCardModel];
         }
     }
 }
