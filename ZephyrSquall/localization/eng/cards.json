@@ -44,6 +44,8 @@
   "ZEPHYRSQUALL-EXIT_STRATEGY.title": "Exit Strategy",
   "ZEPHYRSQUALL-EXPLOIT_AN_OPENING.description": "Deal {Damage:diff()} damage.\nIf the enemy does not intend to attack, hits 2 additional times.",
   "ZEPHYRSQUALL-EXPLOIT_AN_OPENING.title": "Exploit an Opening",
+  "ZEPHYRSQUALL-EYES_IN_THE_SKY.description": "After this combat, you may ignore paths when choosing the next {EyesInTheSkyPower:plural:room|{:diff()} rooms} to travel to.",
+  "ZEPHYRSQUALL-EYES_IN_THE_SKY.title": "Eyes in the Sky",
   "ZEPHYRSQUALL-FAIR_WINDS.description": "The next time you take an extra turn, all allies take an extra turn as well.",
   "ZEPHYRSQUALL-FAIR_WINDS.title": "Fair Winds",
   "ZEPHYRSQUALL-FEINT.description": "Apply {CalculationBase:diff()} [gold]Vulnerable[/gold], plus an additional {CalculationExtra:diff()} [gold]Vulnerable[/gold] for every {HonedThreshold:diff()} [gold]Honed[/gold] on this card.{InCombat:\n(Apply {CalculatedVulnerable:diff()} [gold]Vulnerable[/gold])|}",
