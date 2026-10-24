@@ -1,14 +1,11 @@
 using System.Reflection;
 using BaseLib.Utils;
 using HarmonyLib;
-using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace ZephyrSquall.ZephyrSquallCode.Patches;
@@ -47,7 +44,7 @@ public class CardModifierDescriptionPatch
         return codeMatcher.Instructions();
     }
 
-    public static List<string> AddCardModifierDescriptionsHelper(CardModel cardModel, List<string> source,
+    private static List<string> AddCardModifierDescriptionsHelper(CardModel cardModel, List<string> source,
         CardModel.DescriptionPreviewType previewType)
     {
         var honed = CardModifierTracker.HonedAmount[cardModel];
@@ -93,7 +90,7 @@ public class CardModifierHoverTipPatch
         return codeMatcher.Instructions();
     }
 
-    public static List<IHoverTip> AddCardModifierHoverTipsHelper(CardModel cardModel, List<IHoverTip> list)
+    private static List<IHoverTip> AddCardModifierHoverTipsHelper(CardModel cardModel, List<IHoverTip> list)
     {
         var honed = CardModifierTracker.HonedAmount[cardModel];
         if (honed > 0)
@@ -121,19 +118,22 @@ public class HonedBlockPatch
         codeMatcher.End()
             .MatchStartBackwards(CodeMatch.Calls(method))
             .ThrowIfInvalid("Could not find call to IterateHookListeners")
-            // Load current block amount "num1" (local index 1) and card source (argument index 4)
-            .InsertAndAdvance(CodeInstruction.LoadArgument(4))
+            // Load current Block amount "num1" (local index 1), props (argument index 3), and cardSource (argument
+            // index 4)
             .InsertAndAdvance(CodeInstruction.LoadLocal(1))
-            .InsertAndAdvance(CodeInstruction.Call(() => IncreaseBlockHelper(default, default)))
-            // Store the top of the stack into the "num1" local variable.
+            .InsertAndAdvance(CodeInstruction.LoadArgument(3))
+            .InsertAndAdvance(CodeInstruction.LoadArgument(4))
+            .InsertAndAdvance(CodeInstruction.Call(() => IncreaseBlockHelper(default, default, default)))
+            // Store the top of the stack (the returned modified Block amount) into the "num1" local variable.
             .InsertAndAdvance(CodeInstruction.StoreLocal(1));
 
         return codeMatcher.Instructions();
     }
 
-    public static decimal IncreaseBlockHelper(CardModel? cardSource, decimal block)
+    private static decimal IncreaseBlockHelper(decimal block, ValueProp props, CardModel? cardSource)
     {
-        if (cardSource != null) block += CardModifierTracker.HonedAmount[cardSource];
+        if (cardSource != null && props.IsPoweredCardOrMonsterMoveBlock())
+            block += CardModifierTracker.HonedAmount[cardSource];
 
         return block;
     }
@@ -143,11 +143,9 @@ public class HonedBlockPatch
 public class HonedDamagePatch
 {
     [HarmonyPrefix]
-    private static bool IncreaseDamage(IRunState runState, ICombatState? combatState, Creature? target,
-        Creature? dealer, ref decimal damage, ValueProp props, CardModel? cardSource,
-        ModifyDamageHookType modifyDamageHookType, List<AbstractModel> modifiers)
+    private static bool IncreaseDamage(ref decimal damage, ValueProp props, CardModel? cardSource)
     {
-        if (cardSource != null) damage += CardModifierTracker.HonedAmount[cardSource];
+        if (cardSource != null && props.IsPoweredAttack()) damage += CardModifierTracker.HonedAmount[cardSource];
 
         return true;
     }
