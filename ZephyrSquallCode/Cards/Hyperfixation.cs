@@ -19,8 +19,5 @@ public class Hyperfixation() : ZephyrSquallCard(1, CardType.Power, CardRarity.An
             Owner.Creature, this)).AddDowngradeCards(DynamicVars["DowngradeCards"].IntValue);
     }
 
-    protected override void OnUpgrade()
-    {
-        DynamicVars["UpgradeCards"].UpgradeValueBy(1);
-    }
+    protected override void OnUpgrade() => DynamicVars["UpgradeCards"].UpgradeValueBy(1);
 }
