@@ -17,13 +17,15 @@ public class Harry() : ZephyrSquallCard(1, CardType.Attack, CardRarity.Common, T
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(8, ValueProp.Move), new DamageVar(4, ValueProp.Move), new CalculationBaseVar(0),
-        new CalculationExtraVar(1),
+        new IntVar("HitRequirement", 3), new BlockVar(8, ValueProp.Move), new DamageVar(4, ValueProp.Move),
+        new CalculationBaseVar(0), new CalculationExtraVar(1),
         new CalculatedVar("TimesDealtAttackDamage").WithMultiplier((Func<CardModel, Creature, decimal>)((card, _) =>
             ZephyrQueries.TimesDealtAttackDamageThisTurn(card.CombatState, card.Owner.Creature)))
     ];
 
-    private bool CanGainBlock => ZephyrQueries.TimesDealtAttackDamageThisTurn(CombatState, Owner.Creature) >= 3;
+    private bool CanGainBlock =>
+        ZephyrQueries.TimesDealtAttackDamageThisTurn(CombatState, Owner.Creature) >=
+        DynamicVars["HitRequirement"].IntValue;
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {

@@ -1,7 +1,11 @@
 using System.Reflection;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Nodes.CommonUi;
+using MegaCrit.Sts2.Core.Random;
 using ZephyrSquall.ZephyrSquallCode.Powers;
 
 namespace ZephyrSquall.ZephyrSquallCode.Patches;
@@ -9,8 +13,13 @@ namespace ZephyrSquall.ZephyrSquallCode.Patches;
 [HarmonyPatch]
 public class ShareExtraTurnPatch
 {
-    private static readonly Type _innerAsyncClass = AccessTools.FirstInner(typeof(CombatManager),
-        t => t.Name.Contains("<SwitchFromPlayerToEnemySide>d__"));
+    private static readonly MethodInfo SwitchFromPlayerToEnemySideMethod = AccessTools.Method(
+        typeof(CombatManager), "SwitchFromPlayerToEnemySide");
+
+    private static MethodBase TargetMethod()
+    {
+        return AccessTools.AsyncMoveNext(SwitchFromPlayerToEnemySideMethod);
+    }
 
     // In our code, we need a list of all players in the game so we can insert everyone into the list of players taking
     // an extra turn if needed. Unfortunately, from within CombatManager, this list of players exists within the
@@ -18,13 +27,6 @@ public class ShareExtraTurnPatch
     // directly, hence we need to do a bunch of Harmony reflection shenanigans to get around the private access
     // modifier.
     private static readonly FieldInfo _turnStateField = AccessTools.Field(typeof(CombatManager), "_turnState");
-
-    // The method I want to patch, "SwitchFromPlayerToEnemySide", is async. In IL, async methods are implemented with a
-    // private inner class (in this case named "<SwitchFromPlayerToEnemySide>d__120") inside its "MoveNext" method.
-    private static MethodBase TargetMethod()
-    {
-        return AccessTools.Method(_innerAsyncClass, "MoveNext");
-    }
 
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> ShareExtraTurn(IEnumerable<CodeInstruction> instructions)

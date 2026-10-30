@@ -42,7 +42,6 @@ internal class SkipIndividualDrawsPatch
             .Advance(-1);
         var playerField = codeMatcher.Operand;
         if (playerField == null) Log.Error("player is NULL");
-        ;
 
         // Check if the current card draw should be skipped immediately at the start of the for loop.
         codeMatcher.Start()
