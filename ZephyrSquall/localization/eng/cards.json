@@ -60,6 +60,8 @@
   "ZEPHYRSQUALL-FORETHOUGHT.title": "Forethought",
   "ZEPHYRSQUALL-FORUM.description": "ALL players draw cards until they have as many cards in their [gold]Hand[/gold] as the player with the most{IfUpgraded:show: +{CalculationBase}|}.{InCombat:\n(Draw to {MostCards:diff()} {MostCards:plural:card|cards})|}",
   "ZEPHYRSQUALL-FORUM.title": "Forum",
+  "ZEPHYRSQUALL-GALE_FORCE.description": "Deal {Damage:diff()} damage.\nWhenever you take an extra turn, if this is in your [gold]Exhaust Pile[/gold], play it.",
+  "ZEPHYRSQUALL-GALE_FORCE.title": "Gale Force",
   "ZEPHYRSQUALL-GUST.description": "Deal {Damage:diff()} damage to ALL enemies.\nGain {TailwindPower:diff()} [gold]Tailwind[/gold].",
   "ZEPHYRSQUALL-GUST.title": "Gust",
   "ZEPHYRSQUALL-HARRY.description": "If you have dealt Attack damage {HitRequirement:inverseDiff()} or more times this turn, gain {Block:diff()} [gold]Block[/gold].\nDeal {Damage:diff()} damage twice.{InCombat:\n(Dealt Atk. damage {TimesDealtAttackDamage:diff()} {TimesDealtAttackDamage:plural:time|times})|}",
