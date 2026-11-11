@@ -9,6 +9,8 @@ namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
 public class EyesInTheSky() : ZephyrSquallCard(1, CardType.Power, CardRarity.Rare, TargetType.Self)
 {
+    public override bool CanBeGeneratedInCombat => false;
+    
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<EyesInTheSkyPower>(1)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)

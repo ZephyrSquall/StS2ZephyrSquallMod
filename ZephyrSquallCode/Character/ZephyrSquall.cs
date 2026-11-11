@@ -14,11 +14,12 @@ public class ZephyrSquall : PlaceholderCharacterModel
     public const string CharacterId = "ZephyrSquall";
 
     public static readonly Color Color = new("6ceef5");
+    public static readonly Color EnergyOutlineColor = new(0.05f, 0.3f, 0.3f);
 
     public override string CustomEnergyCounterPath =>
         "res://ZephyrSquall/scenes/combat/energy_counters/zephyr_squall_energy_counter.tscn";
 
-    public override Color EnergyLabelOutlineColor => new(0.05f, 0.3f, 0.3f);
+    public override Color EnergyLabelOutlineColor => EnergyOutlineColor;
 
     public override Color NameColor => Color;
     public override CharacterGender Gender => CharacterGender.Masculine;
@@ -30,7 +31,7 @@ public class ZephyrSquall : PlaceholderCharacterModel
     [
         ModelDb.Card<Strike>(), ModelDb.Card<Strike>(), ModelDb.Card<Strike>(), ModelDb.Card<Strike>(),
         ModelDb.Card<Defend>(), ModelDb.Card<Defend>(), ModelDb.Card<Defend>(), ModelDb.Card<Defend>(),
-        ModelDb.Card<Whet>(), ModelDb.Card<MakeANote>()
+        ModelDb.Card<Whet>(), ModelDb.Card<Jot>()
     ];
 
     public override IReadOnlyList<RelicModel> StartingRelics => [ModelDb.Relic<FieldJournal>()];

@@ -16,7 +16,7 @@ public class Transcribe() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Rare,
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        IsMutable ? ZephyrHoverTips.Record(Owner) : ZephyrHoverTips.Record(), HoverTipFactory.FromCard<Book>()
+        IsMutable ? ZephyrHoverTips.Record(Owner) : ZephyrHoverTips.Record(), HoverTipFactory.FromCard<Book>(IsUpgraded)
     ];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
@@ -25,9 +25,11 @@ public class Transcribe() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Rare,
     {
         Book? book = await RecordCmd.RecordUpTo(choiceContext, Owner, DynamicVars.Cards.IntValue, CombatState, this);
         if (book != null)
+        {
+            if (IsUpgraded)
+                CardCmd.Upgrade(book);
             await CardPileCmd.AddGeneratedCardToCombat(book.CreateCloneForPlayer(play.Target.Player), PileType.Hand,
                 Owner);
+        }
     }
-
-    protected override void OnUpgrade() => DynamicVars.Cards.UpgradeValueBy(1);
 }

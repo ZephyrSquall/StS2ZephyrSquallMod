@@ -8,6 +8,8 @@ namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
 public class Hyperfixation() : ZephyrSquallCard(1, CardType.Power, CardRarity.Ancient, TargetType.Self)
 {
+    public override bool CanBeGeneratedInCombat => false;
+    
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new IntVar("UpgradeCards", 2), new IntVar("DowngradeCards", 1)
