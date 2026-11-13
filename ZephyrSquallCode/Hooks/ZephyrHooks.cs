@@ -1,3 +1,4 @@
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
@@ -6,6 +7,12 @@ namespace ZephyrSquall.ZephyrSquallCode.Hooks;
 
 public class ZephyrHooks
 {
+    public static async Task AfterExtraTurnStart(ICombatState combatState)
+    {
+        foreach (var model in combatState.IterateHookListeners().OfType<IAfterExtraTurnStart>())
+            await model.AfterExtraTurnStart(combatState);
+    }
+
     public static async Task OnAddHoned(CardModel card, int amount, AbstractModel source)
     {
         foreach (var model in card.CombatState.IterateHookListeners().OfType<IOnAddHoned>())

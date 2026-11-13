@@ -1,11 +1,8 @@
 using System.Reflection;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Combat;
-using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
-using MegaCrit.Sts2.Core.Nodes.CommonUi;
-using MegaCrit.Sts2.Core.Random;
+using MegaCrit.Sts2.Core.Models;
 using ZephyrSquall.ZephyrSquallCode.Powers;
 
 namespace ZephyrSquall.ZephyrSquallCode.Patches;
@@ -13,62 +10,52 @@ namespace ZephyrSquall.ZephyrSquallCode.Patches;
 [HarmonyPatch]
 public class ShareExtraTurnPatch
 {
-    private static readonly MethodInfo SwitchFromPlayerToEnemySideMethod = AccessTools.Method(
-        typeof(CombatManager), "SwitchFromPlayerToEnemySide");
+    private static readonly MethodInfo SwitchFromPlayerToEnemySideMethod =
+        AccessTools.Method(typeof(CombatManager), "SwitchFromPlayerToEnemySide");
 
     private static MethodBase TargetMethod()
     {
         return AccessTools.AsyncMoveNext(SwitchFromPlayerToEnemySideMethod);
     }
 
-    // In our code, we need a list of all players in the game so we can insert everyone into the list of players taking
-    // an extra turn if needed. Unfortunately, from within CombatManager, this list of players exists within the
-    // _turnState field, which is a private CombatTurnState. This means this patch can't reference a CombatTurnState
-    // directly, hence we need to do a bunch of Harmony reflection shenanigans to get around the private access
-    // modifier.
-    private static readonly FieldInfo _turnStateField = AccessTools.Field(typeof(CombatManager), "_turnState");
-
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> ShareExtraTurn(IEnumerable<CodeInstruction> instructions)
     {
         var codeMatcher = new CodeMatcher(instructions);
 
-        // This matches the line `list = turnState.PlayersTakingExtraTurn.ToList<Player>();` which is immediately after
-        // the original list of players is determined and stored in turnState.PlayersTakingExtraTurn. We insert our
-        // helper function directly before this line to modify turnState.PlayersTakingExtraTurn so that it contains
-        // all players if necessary. Note that in the IL, turnState.PlayersTakingExtraTurn (which is a List<Player>) is
-        // on top of the stack at this point, making it easy to intercept.
-        codeMatcher.MatchStartForward(CodeMatch.Calls(() => default(List<Player>).ToList()))
-            .ThrowIfInvalid("Could not find call to List.ToList")
-            // Load the CombatManager instance onto the IL stack.
-            .InsertAndAdvance(CodeInstruction.LoadLocal(1))
-            // This function consumes both the turnState.PlayersTakingExtraTurn that was already on the IL stack and the
-            // CombatManager instance we placed on the stack. This function returns the modified
-            // turnState.PlayersTakingExtraTurn value, which gets placed on top of the stack, thus making sure it still
-            // has the List<Player> value it expects for the rest of the SwitchFromPlayerToEnemySide function.
-            .SetInstruction(CodeInstruction.Call(() => ShareExtraTurnHelper(default, default)));
+        // Match immediately before this.SwitchSides(turnState). This is after the lists of players taking an extra turn
+        // are populated, but before anything is done with them, thus it's the perfect time to check and insert more
+        // players into the lists if required. This method actually maintains two individual lists of players taking an
+        // extra turn, turnstate.PlayersTakingExtraTurn and valueTupleList, so we must make sure to update both.
+        codeMatcher.MatchStartForward(CodeMatch.Calls(AccessTools.Method(typeof(CombatManager), "SwitchSides")))
+            .ThrowIfInvalid("Could not find call to this.SwitchSides")
+            // At this point, the turnState field is already on top of the IL stack, so there is no need to load it
+            // again. We only need to manually load the valueTupleList local variable onto the stack, which is index 2.
+            .InsertAndAdvance(CodeInstruction.LoadLocal(2))
+            // Note that ShareExtraTurnHelper returns the turnState, placing it back on top of the IL stack and
+            // hence restoring it to the state it would have been in before this patch.
+            .InsertAndAdvance(CodeInstruction.Call(() => ShareExtraTurnHelper(default, default)));
 
         return codeMatcher.Instructions();
     }
 
-    public static List<Player> ShareExtraTurnHelper(List<Player> playersTakingExtraTurn, CombatManager combatManager)
+    public static CombatTurnState ShareExtraTurnHelper(CombatTurnState turnState,
+        List<(Player, AbstractModel)> valueTupleList)
     {
-        // If anyone who's taking an extra turn has the Fair Winds power, replace the current list of players taking an
-        // extra turn with a new list that includes every player.
-        if (playersTakingExtraTurn.Any(p => p.Creature.HasPower<FairWindsPower>()))
+        // Check all the players currently taking an extra turn, and get the first FairWindsPower found on one of them,
+        // or null if none of them had that power.
+        PowerModel? fairWindsPower = turnState.PlayersTakingExtraTurn.Select(p => p.Creature.GetPower<FairWindsPower>())
+            .FirstOrDefault();
+        // If this is not null, then a player taking an extra turn has the Fair Winds power, so add everyone who isn't
+        // already taking an extra turn to the list of players taking an extra turn.
+        if (fairWindsPower != null)
         {
-            // Get the private CombatTurnState _turnState field as a plain object pointer.
-            object turnStateObj = _turnStateField?.GetValue(combatManager);
-            // Get the public CombatState class inside _turnState via its compiler backing field.
-            FieldInfo stateBackingField = AccessTools.Field(turnStateObj.GetType(), "<State>k__BackingField");
-            CombatState state = stateBackingField?.GetValue(turnStateObj) as CombatState;
-
-            // To ensure that the _playersTakingExtraTurn field is modified, we must specifically use methods that
-            // modify the list in-place.
-            playersTakingExtraTurn.Clear();
-            playersTakingExtraTurn.AddRange(state.Players);
+            List<Player> playersNotAlreadyTakingExtraTurn =
+                turnState.State.Players.Except(turnState.PlayersTakingExtraTurn).ToList();
+            turnState.PlayersTakingExtraTurn.AddRange(playersNotAlreadyTakingExtraTurn);
+            valueTupleList.AddRange(playersNotAlreadyTakingExtraTurn.Select(p => (p, (AbstractModel)fairWindsPower)));
         }
 
-        return playersTakingExtraTurn;
+        return turnState;
     }
 }

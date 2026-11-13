@@ -46,8 +46,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Publicize Include="sts2:MegaCrit.Sts2.Core.Nodes.Combat.NEnergyCounter._player"/> <!--Needed by ZephyrSquallCode/Nodes/NCustomRotationLayers.cs-->
+        <Publicize Include="sts2:MegaCrit.Sts2.Core.Combat.CombatTurnState"/> <!--Needed by ZephyrSquallCode/Patches/MultiplayerExtraTurnPatches.cs-->
         <Publicize Include="sts2:MegaCrit.Sts2.Core.Models.CardModel+DescriptionPreviewType"/> <!--Needed by ZephyrSquallCode/Patches/CardModifierPatches.cs-->
+        <Publicize Include="sts2:MegaCrit.Sts2.Core.Nodes.Combat.NEnergyCounter._player"/> <!--Needed by ZephyrSquallCode/Nodes/NCustomRotationLayers.cs-->
     </ItemGroup>
 
     <ItemGroup>

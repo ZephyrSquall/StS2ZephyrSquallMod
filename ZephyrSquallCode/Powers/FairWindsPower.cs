@@ -1,20 +1,18 @@
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
+using ZephyrSquall.ZephyrSquallCode.Hooks;
 
 namespace ZephyrSquall.ZephyrSquallCode.Powers;
 
-public sealed class FairWindsPower : ZephyrSquallPower
+public sealed class FairWindsPower : ZephyrSquallPower, IAfterExtraTurnStart
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
 
-    public override async Task AfterTakingExtraTurn(Player player)
+    public async Task AfterExtraTurnStart(ICombatState combatState)
     {
-        if (Owner.Player == player)
-        {
-            Flash();
-            await PowerCmd.Decrement(this);
-        }
+        Flash();
+        await PowerCmd.Decrement(this);
     }
 }
