@@ -19,12 +19,9 @@ public class ZephyrSquall : PlaceholderCharacterModel
     public override string CustomEnergyCounterPath =>
         "res://ZephyrSquall/scenes/combat/energy_counters/zephyr_squall_energy_counter.tscn";
 
-    public override Color EnergyLabelOutlineColor => EnergyOutlineColor;
-
     public override Color NameColor => Color;
     public override CharacterGender Gender => CharacterGender.Masculine;
-    public override Color DialogueColor { get; } = new("6ceef5");
-    public override VfxColor SpeechBubbleColor => VfxColor.Cyan;
+
     public override int StartingHp => 70;
 
     public override IEnumerable<CardModel> StartingDeck =>
@@ -35,6 +32,22 @@ public class ZephyrSquall : PlaceholderCharacterModel
     ];
 
     public override IReadOnlyList<RelicModel> StartingRelics => [ModelDb.Relic<FieldJournal>()];
+
+    public override Color EnergyLabelOutlineColor => EnergyOutlineColor;
+
+    public override Color DialogueColor { get; } = new("6ceef5");
+
+    public override VfxColor SpeechBubbleColor => VfxColor.Cyan;
+
+    public override Color MapDrawingColor => new("00FFFF");
+
+    public override Color RemoteTargetingLineColor => new("00FFFF");
+
+    public override Color RemoteTargetingLineOutline => new("00FFFF");
+
+    public override Color DreadNameColor => new("00FFFFC0");
+
+    // public override string CharacterSelectSfx => "event:/sfx/characters/fool/fool_select_B";
 
     public override CardPoolModel CardPool => ModelDb.CardPool<ZephyrSquallCardPool>();
     public override RelicPoolModel RelicPool => ModelDb.RelicPool<ZephyrSquallRelicPool>();

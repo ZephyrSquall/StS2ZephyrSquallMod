@@ -1,7 +1,7 @@
 {
   "ZEPHYRSQUALL-ACUATE.description": "Deal {Damage:diff()} damage.\nAdd [gold]Honed[/gold] {Honed:diff()} to a card in your [gold]Hand[/gold], then double its [gold]Honed[/gold].",
   "ZEPHYRSQUALL-ACUATE.title": "Acuate",
-  "ZEPHYRSQUALL-ALL_OUT.description": "Convert your [gold]Block[/gold] into [gold]Tailwind[/gold].\nYou cannot gain [gold]Block[/gold].",
+  "ZEPHYRSQUALL-ALL_OUT.description": "Convert your [gold]Block[/gold] into [gold]Tailwind[/gold].\nYou can no longer gain [gold]Block[/gold] this combat.",
   "ZEPHYRSQUALL-ALL_OUT.title": "All-Out",
   "ZEPHYRSQUALL-ANALYSIS.description": "Draw cards equal to the turn number{IfUpgraded:show: +{CalculationBase}|}.{InCombat:\n(Draw {CalculatedCards:diff()} {CalculatedCards:plural:card|cards})|}",
   "ZEPHYRSQUALL-ANALYSIS.title": "Analysis",
@@ -109,7 +109,7 @@
   "ZEPHYRSQUALL-QUICK_REFLEXES.title": "Quick Reflexes",
   "ZEPHYRSQUALL-READ_AHEAD.description": "Draw {Cards:diff()} {Cards:plural:card|cards}.\n[gold]Record[/gold] {RecordCards:diff()} {RecordCards:plural:card|cards}.",
   "ZEPHYRSQUALL-READ_AHEAD.title": "Read Ahead",
-  "ZEPHYRSQUALL-REPOSITORY.description": "Draw {Cards:diff()} {Cards:plural:card|cards}.\nCan be [gold]Upgraded[/gold] any number of times.",
+  "ZEPHYRSQUALL-REPOSITORY.description": "Draw {Cards:diff()} {Cards:plural:card|cards}.\nCan be upgraded any number of times.",
   "ZEPHYRSQUALL-REPOSITORY.title": "Repository",
   "ZEPHYRSQUALL-RESHELVE.description": "Swap your [gold]Draw Pile[/gold] and [gold]Discard Pile[/gold].\nShuffle your [gold]Draw Pile[/gold].{Cards:cond:>0?\nDraw {Cards:diff()} {Cards:plural:card|cards}.|}",
   "ZEPHYRSQUALL-RESHELVE.title": "Reshelve",
@@ -144,6 +144,6 @@
   "ZEPHYRSQUALL-WIND_BARRIER.title": "Wind Barrier",
   "ZEPHYRSQUALL-WIND_BLAST.description": "Deal {Damage:diff()} damage to ALL enemies.",
   "ZEPHYRSQUALL-WIND_BLAST.title": "Wind Blast",
-  "ZEPHYRSQUALL-WINDS_FURY.description": "The first Attack you play each turn hits an additional time.",
+  "ZEPHYRSQUALL-WINDS_FURY.description": "The first Attack you play each turn that hits multiple times hits twice as many times.",
   "ZEPHYRSQUALL-WINDS_FURY.title": "Wind's Fury"
 }

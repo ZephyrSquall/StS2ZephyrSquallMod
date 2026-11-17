@@ -9,7 +9,7 @@ public class Repository() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Uncom
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(3)];
 
-    public override int MaxUpgradeLevel => int.MaxValue;
+    public override int MaxUpgradeLevel => 999999999;
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {

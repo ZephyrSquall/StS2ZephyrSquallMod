@@ -1,4 +1,5 @@
 using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Commands.Builders;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
@@ -11,6 +12,15 @@ public class ZephyrHooks
     {
         foreach (var model in combatState.IterateHookListeners().OfType<IAfterExtraTurnStart>())
             await model.AfterExtraTurnStart(combatState);
+    }
+
+    public static int ModifyAttackHitCountMultiplicative(ICombatState combatState, AttackCommand attackCommand,
+        int originalHitCount)
+    {
+        int hitCount = originalHitCount;
+        foreach (var model in combatState.IterateHookListeners().OfType<IModifyAttackHitCountMultiplicative>())
+            hitCount = model.ModifyAttackHitCountMultiplicative(attackCommand, hitCount);
+        return hitCount;
     }
 
     public static async Task OnAddHoned(CardModel card, int amount, AbstractModel source)

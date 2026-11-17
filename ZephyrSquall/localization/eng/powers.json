@@ -1,6 +1,6 @@
 {
-  "ZEPHYRSQUALL-ALL_OUT_POWER.description": "You cannot gain [gold]Block[/gold].",
-  "ZEPHYRSQUALL-ALL_OUT_POWER.smartDescription": "You cannot gain [gold]Block[/gold].",
+  "ZEPHYRSQUALL-ALL_OUT_POWER.description": "You can no longer gain [gold]Block[/gold] this combat.",
+  "ZEPHYRSQUALL-ALL_OUT_POWER.smartDescription": "You can no longer gain [gold]Block[/gold] this combat.",
   "ZEPHYRSQUALL-ALL_OUT_POWER.title": "All-Out",
   "ZEPHYRSQUALL-BREATHING_DEEPLY_POWER.description": "Next turn, add a [gold]Wind Blast[/gold] into your [gold]Hand[/gold].",
   "ZEPHYRSQUALL-BREATHING_DEEPLY_POWER.smartDescription": "Next turn, add {Amount:plural:a [gold]Wind Blast[/gold]|[blue]{}[/blue] [gold]Wind Blasts[/gold]} into your [gold]Hand[/gold].",
@@ -72,7 +72,7 @@
   "ZEPHYRSQUALL-WIND_BARRIER_POWER.description": "[gold]Block[/gold] is not removed at the start of your next extra turn.",
   "ZEPHYRSQUALL-WIND_BARRIER_POWER.smartDescription": "[gold]Block[/gold] is not removed at the start of your next {Amount:plural:extra turn|[blue]{}[/blue] extra turns}.",
   "ZEPHYRSQUALL-WIND_BARRIER_POWER.title": "Wind Barrier",
-  "ZEPHYRSQUALL-WINDS_FURY_POWER.description": "The first Attack you play each turn hits an additional time.",
-  "ZEPHYRSQUALL-WINDS_FURY_POWER.smartDescription": "The first Attack you play each turn hits {Amount:plural:an additional time|[blue]{}[/blue] additional times}.",
+  "ZEPHYRSQUALL-WINDS_FURY_POWER.description": "The first Attack you play each turn that hits multiple times hits twice as many times.",
+  "ZEPHYRSQUALL-WINDS_FURY_POWER.smartDescription": "The first {Amount:plural:Attack|[blue]{}[/blue] Attacks} you play each turn that {Amount:plural:hits|hit} multiple times {Amount:plural:hits|hit} twice as many times.",
   "ZEPHYRSQUALL-WINDS_FURY_POWER.title": "Wind's Fury"
 }
