@@ -13,7 +13,7 @@ public class BuildMomentum() : ZephyrSquallCard(1, CardType.Attack, CardRarity.U
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DamageVar(4, ValueProp.Move), new CalculationBaseVar(0), new CalculationExtraVar(1),
-        new CalculatedVar("CalculatedHits").WithMultiplier((Func<CardModel, Creature, decimal>)((card, _) =>
+        new CalculatedHitCountVar("CalculatedHits").WithMultiplier((Func<CardModel, Creature, decimal>)((card, _) =>
             card.Owner.PlayerCombatState.TurnNumber))
     ];
 

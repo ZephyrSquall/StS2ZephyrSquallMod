@@ -14,7 +14,6 @@ public class Chain : ZephyrSquallRelic
         if (attack.Attacker == Owner.Creature && attack.ModelSource is CardModel cardSource &&
             cardSource.Tags.Contains(ZephyrCardTags.Combo))
         {
-            Flash();
             return hitCount + 1;
         }
 

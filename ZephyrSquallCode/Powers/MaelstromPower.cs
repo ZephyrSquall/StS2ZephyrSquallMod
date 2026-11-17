@@ -15,7 +15,7 @@ public sealed class MaelstromPower : ZephyrSquallPower
     public override async Task AfterDamageGiven(PlayerChoiceContext context, Creature? dealer, DamageResult result,
         ValueProp props, Creature target, CardModel? cardSource)
     {
-        if (dealer == Owner && props.IsPoweredAttack() && result.TotalDamage > 0)
+        if (dealer == Owner && props.IsPoweredAttack())
         {
             Flash();
             await Cmd.Wait(0.2f);

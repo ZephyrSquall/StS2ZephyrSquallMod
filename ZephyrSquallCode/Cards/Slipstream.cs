@@ -16,11 +16,11 @@ public class Slipstream() : ZephyrSquallCard(1, CardType.Attack, CardRarity.Unco
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DamageVar(5, ValueProp.Move), new CalculationBaseVar(0), new CalculationExtraVar(1),
-        new CalculatedVar("CalculatedHits").WithMultiplier((Func<CardModel, Creature, decimal>)((card, target) =>
-            card.CombatState.GetTeammatesOf(card.Owner.Creature)
-                .Where(c => c != null && c.IsPlayer && c.Player != card.Owner)
-                .Sum(c => ZephyrQueries.TimesDealtAttackDamageToSpecificEnemyThisTurn(card.CombatState, c,
-                    target))))
+        new CalculatedHitCountVar("CalculatedHits").WithMultiplier(
+            (Func<CardModel, Creature, decimal>)((card, target) =>
+                card.CombatState.GetTeammatesOf(card.Owner.Creature)
+                    .Where(c => c != null && c.IsPlayer && c.Player != card.Owner)
+                    .Sum(c => ZephyrQueries.TimesHitSpecificEnemyThisTurn(card.CombatState, c, target))))
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)

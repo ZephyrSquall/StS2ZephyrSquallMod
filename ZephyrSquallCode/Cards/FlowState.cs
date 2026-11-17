@@ -13,14 +13,14 @@ public class FlowState() : ZephyrSquallCard(3, CardType.Attack, CardRarity.Uncom
 {
     protected override bool ShouldGlowGoldInternal => ZephyrQueries.IsWellRead(Owner);
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(12, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(12, ValueProp.Move), new HitCountVar(2)];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [ZephyrHoverTips.WellRead()];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .WithHitCount(2)
+            .WithHitCount(DynamicVars.HitCount.IntValue)
             .FromCard(this, play)
             .Targeting(play.Target)
             .WithHitFx("vfx/vfx_attack_slash")

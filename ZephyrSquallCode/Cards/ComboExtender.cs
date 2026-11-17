@@ -11,17 +11,17 @@ public class ComboExtender() : ZephyrSquallCard(0, CardType.Attack, CardRarity.C
 {
     protected override HashSet<CardTag> CanonicalTags => [ZephyrCardTags.Combo];
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(3, ValueProp.Move), new RepeatVar(2)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(3, ValueProp.Move), new HitCountVar(2)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .WithHitCount(DynamicVars.Repeat.IntValue)
+            .WithHitCount(DynamicVars.HitCount.IntValue)
             .FromCard(this, play)
             .Targeting(play.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
     }
 
-    protected override void OnUpgrade() => DynamicVars.Repeat.UpgradeValueBy(1);
+    protected override void OnUpgrade() => DynamicVars.HitCount.UpgradeValueBy(1);
 }

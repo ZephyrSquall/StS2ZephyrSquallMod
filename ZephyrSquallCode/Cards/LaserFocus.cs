@@ -11,13 +11,13 @@ public class LaserFocus() : ZephyrSquallCard(1, CardType.Attack, CardRarity.Unco
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(7, ValueProp.Move), new PowerVar<LaserFocusPower>(3)
+        new DamageVar(7, ValueProp.Move), new HitCountVar(3), new PowerVar<LaserFocusPower>(3)
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .WithHitCount(3)
+            .WithHitCount(DynamicVars.HitCount.IntValue)
             .FromCard(this, play)
             .Targeting(play.Target)
             .WithHitFx("vfx/vfx_attack_slash")

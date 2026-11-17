@@ -15,7 +15,7 @@ public class DustCloud() : ZephyrSquallCard(1, CardType.Attack, CardRarity.Uncom
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new PowerVar<DustCloudPower>(1), new DamageVar(2, ValueProp.Move), new RepeatVar(2)
+        new PowerVar<DustCloudPower>(1), new DamageVar(2, ValueProp.Move), new HitCountVar(2)
     ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [ZephyrHoverTips.Honed()];
@@ -30,12 +30,12 @@ public class DustCloud() : ZephyrSquallCard(1, CardType.Attack, CardRarity.Uncom
                 Owner.Creature, this)).SetSelectedCard(selectedCard);
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .WithHitCount(DynamicVars.Repeat.IntValue)
+            .WithHitCount(DynamicVars.HitCount.IntValue)
             .FromCard(this, play)
             .Targeting(play.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
     }
 
-    protected override void OnUpgrade() => DynamicVars.Repeat.UpgradeValueBy(1);
+    protected override void OnUpgrade() => DynamicVars.HitCount.UpgradeValueBy(1);
 }

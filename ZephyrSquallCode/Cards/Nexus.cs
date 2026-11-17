@@ -35,7 +35,7 @@ public class Nexus() : ZephyrSquallCard(1, CardType.Attack, CardRarity.Rare, Tar
     [
         new DamageVar(6, ValueProp.Move), new("CombatsRemaining", 3), new CalculationBaseVar(0M),
         new CalculationExtraVar(1M),
-        new CalculatedVar("CalculatedHits").WithMultiplier((Func<CardModel, Creature, Decimal>)((card, _) =>
+        new CalculatedHitCountVar("CalculatedHits").WithMultiplier((Func<CardModel, Creature, Decimal>)((card, _) =>
             card.Owner.PlayerCombatState.AllCards.OfType<Nexus>().Count()))
     ];
 
