@@ -107,6 +107,8 @@
   "ZEPHYRSQUALL-PLAN_OF_ATTACK.title": "Plan of Attack",
   "ZEPHYRSQUALL-QUICK_REFLEXES.description": "Gain {Block:diff()} [gold]Block[/gold].\nDraw {Cards:diff()} {Cards:plural:card|cards}.\nWhenever you draw this card during your turn, play it.",
   "ZEPHYRSQUALL-QUICK_REFLEXES.title": "Quick Reflexes",
+  "ZEPHYRSQUALL-RAZORS_EDGE.description": "Deal {Damage:diff()} damage.\nGain {TailwindPower:diff()} [gold]Tailwind[/gold].\nEnd your turn.",
+  "ZEPHYRSQUALL-RAZORS_EDGE.title": "Razor's Edge",
   "ZEPHYRSQUALL-READ_AHEAD.description": "Draw {Cards:diff()} {Cards:plural:card|cards}.\n[gold]Record[/gold] {RecordCards:diff()} {RecordCards:plural:card|cards}.",
   "ZEPHYRSQUALL-READ_AHEAD.title": "Read Ahead",
   "ZEPHYRSQUALL-REPOSITORY.description": "Draw {Cards:diff()} {Cards:plural:card|cards}.\nCan be upgraded any number of times.",
