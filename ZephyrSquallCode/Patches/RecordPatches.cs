@@ -2,6 +2,7 @@ using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.Cards.Holders;
@@ -35,6 +36,7 @@ public class DisplayRecordedCardsPatch
             // shrink the previewCardSize if cards scroll off-screen in both directions.
             float xOffset = 0;
             var cardsPreviewWidth = book.RecordedCards.Count * cardOffsetSize;
+            if (NGame.Instance == null) throw new InvalidOperationException("NGame.Instance is null");
             if (cardsPreviewWidth > NGame.Instance.GetViewportRect().Size.X)
             {
                 shrinkScale = NGame.Instance.GetViewportRect().Size.X / cardsPreviewWidth;
@@ -60,7 +62,7 @@ public class DisplayRecordedCardsPatch
                 var recordedCard = book.RecordedCards[i];
                 var nCard = NCard.FindOnTable(recordedCard);
 
-                if (nCard is not null)
+                if (nCard != null && nCard.Model?.Pile != null)
                 {
                     __instance.AddChild(nCard);
                     nCard.UpdateVisuals(nCard.Model.Pile.Type, CardPreviewMode.Normal);
@@ -98,43 +100,15 @@ public class HideRecordedCardsPatch
 internal class WatchRecordPileForEscapingCardsPatch
 {
     [HarmonyPostfix]
-    private static void AddActionToRecordPileCardRemoveFinished(CombatManager __instance)
+    private static void AddActionToRecordPileCardRemoveFinished(CombatTurnState? ____turnState)
     {
-        // Is there a better way to get a list of players with only access to the CombatManager?
-        foreach (var player in __instance.DebugOnlyGetState().Players)
+        if (____turnState == null) return;
+        foreach (Player player in ____turnState.State.Players)
             RecordPile.Record.GetPile(player).CardRemoveFinished += () =>
             {
-                foreach (var book in player.Creature.CombatState.IterateHookListeners().OfType<Book>())
+                if (player.Creature.CombatState == null) throw new InvalidOperationException("player.Creature.CombatState is null");
+                foreach (Book book in player.Creature.CombatState.IterateHookListeners().OfType<Book>())
                     book.CheckRecordedCards();
             };
     }
 }
-
-// This is a failed attempt to patch the CardPileCmd.Add method to properly update an autoplayed card from the Record
-// pile. It's left here as a template for when I return to try again later.
-/*
-[HarmonyPatch(typeof(CardPileCmd), MethodType.Async,
-    new Type[]
-    {
-        typeof(IEnumerable<CardModel>), typeof(CardPile), typeof(CardPilePosition), typeof(AbstractModel),
-        typeof(bool)
-    })]
-[HarmonyPatch(nameof(CardPileCmd.Add))]
-class FixDisplayForNarratedCardsPatch
-{
-    [HarmonyTranspiler]
-    static IEnumerable<CodeInstruction> FixDisplayForNarratedCards(ILGenerator generator,
-        IEnumerable<CodeInstruction> instructions, MethodBase original)
-    {
-        var codeMatcher = new CodeMatcher(instructions);
-
-        codeMatcher.MatchStartForward(new CodeMatch(OpCodes.Switch))
-            .MatchStartForward(new CodeMatch(OpCodes.Switch))
-            .Advance(7)
-            .InsertAndAdvance(new CodeInstruction(OpCodes.Ldc_I4_1))
-            .InsertAndAdvance(CodeInstruction.StoreLocal(25));
-
-        return codeMatcher.Instructions();
-    }
-}
-*/

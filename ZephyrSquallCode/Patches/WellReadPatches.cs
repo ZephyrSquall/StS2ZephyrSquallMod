@@ -30,9 +30,10 @@ internal class PlayStartPatch
 internal class SetUpOnBecomeWellReadHookPatch
 {
     [HarmonyPostfix]
-    private static void AddActionToHandContentsChangedPatch(CombatManager __instance)
+    private static void AddActionToHandContentsChangedPatch(CombatTurnState? ____turnState)
     {
-        foreach (var player in __instance.DebugOnlyGetState().Players)
+        if (____turnState == null) return;
+        foreach (var player in ____turnState.State.Players)
             PileType.Hand.GetPile(player).ContentsChanged += async () =>
             {
                 if (ZephyrQueries.IsWellRead(player)) await ZephyrHooks.OnBecomeWellRead(player);

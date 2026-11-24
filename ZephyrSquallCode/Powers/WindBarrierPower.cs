@@ -17,7 +17,7 @@ public sealed class WindBarrierPower : ZephyrSquallPower
 
     public override bool ShouldClearBlock(Creature creature)
     {
-        return !(ExtraTurnTracker.PlayersTakingExtraTurn.Contains(Owner.Player) && Owner == creature);
+        return !(Owner.Player != null && ExtraTurnTracker.PlayersTakingExtraTurn.Contains(Owner.Player) && Owner == creature);
     }
 
     public override Task AfterPreventingBlockClear(AbstractModel preventer, Creature creature)
@@ -29,7 +29,7 @@ public sealed class WindBarrierPower : ZephyrSquallPower
     public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants,
         ICombatState combatState)
     {
-        if (participants.Contains(Owner) && ExtraTurnTracker.PlayersTakingExtraTurn.Contains(Owner.Player))
+        if (Owner.Player != null && participants.Contains(Owner) && ExtraTurnTracker.PlayersTakingExtraTurn.Contains(Owner.Player))
             await PowerCmd.Decrement(this);
     }
 }

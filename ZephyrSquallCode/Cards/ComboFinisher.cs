@@ -16,13 +16,18 @@ public class ComboFinisher() : ZephyrSquallCard(1, CardType.Attack, CardRarity.R
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new HitCountVar(1), new CalculationBaseVar(6), new ExtraDamageVar(6),
-        new CalculatedDamageVar(ValueProp.Move).WithMultiplier(
-            (Func<CardModel, Creature, Decimal>)((card, target) =>
-                ZephyrQueries.TimesHitSpecificEnemyThisTurn(card.CombatState, card.Owner.Creature, target)))
+        new CalculatedDamageVar(ValueProp.Move).WithMultiplier((card, target) =>
+        {
+            if (target == null) return 0;
+            if (card.CombatState == null) throw new InvalidOperationException("card.CombatState is null");
+            return ZephyrQueries.TimesHitSpecificEnemyThisTurn(card.CombatState, card.Owner.Creature, target);
+        })
+
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
+        ArgumentNullException.ThrowIfNull(play.Target);
         await DamageCmd.Attack(DynamicVars.CalculatedDamage)
             .WithHitCount(DynamicVars.HitCount.IntValue)
             .FromCard(this, play)

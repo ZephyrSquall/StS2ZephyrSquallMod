@@ -34,7 +34,7 @@ public class ShareExtraTurnPatch
             .InsertAndAdvance(CodeInstruction.LoadLocal(2))
             // Note that ShareExtraTurnHelper returns the turnState, placing it back on top of the IL stack and
             // hence restoring it to the state it would have been in before this patch.
-            .InsertAndAdvance(CodeInstruction.Call(() => ShareExtraTurnHelper(default, default)));
+            .InsertAndAdvance(CodeInstruction.Call(() => ShareExtraTurnHelper(default!, default!)));
 
         return codeMatcher.Instructions();
     }

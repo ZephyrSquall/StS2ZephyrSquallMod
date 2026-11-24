@@ -28,6 +28,7 @@ public class Confound() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Uncommo
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
+        ArgumentNullException.ThrowIfNull(play.Target);
         var weakAmount = WellReadTracker.WasWellReadAtStartOfCardPlay
             ? DynamicVars.Weak.IntValue + 1
             : DynamicVars.Weak.IntValue;

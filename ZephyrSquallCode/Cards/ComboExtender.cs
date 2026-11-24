@@ -15,6 +15,7 @@ public class ComboExtender() : ZephyrSquallCard(0, CardType.Attack, CardRarity.C
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
+        ArgumentNullException.ThrowIfNull(play.Target);
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(DynamicVars.HitCount.IntValue)
             .FromCard(this, play)

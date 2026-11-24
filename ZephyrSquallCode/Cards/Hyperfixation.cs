@@ -18,7 +18,7 @@ public class Hyperfixation() : ZephyrSquallCard(1, CardType.Power, CardRarity.An
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
         (await PowerCmd.Apply<HyperfixationPower>(choiceContext, Owner.Creature, DynamicVars["UpgradeCards"].IntValue,
-            Owner.Creature, this)).AddDowngradeCards(DynamicVars["DowngradeCards"].IntValue);
+            Owner.Creature, this))?.AddDowngradeCards(DynamicVars["DowngradeCards"].IntValue);
     }
 
     protected override void OnUpgrade() => DynamicVars["UpgradeCards"].UpgradeValueBy(1);

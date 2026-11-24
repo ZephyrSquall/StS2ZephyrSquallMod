@@ -49,6 +49,8 @@ public class DecrementEyesInTheSkyAmountPatch
             else
                 playerToReceiveEyesInTheSkyPower = runState.Rng.CombatTargets.NextItem(runState.Players);
 
+            if (playerToReceiveEyesInTheSkyPower == null)
+                throw new InvalidOperationException("playerToReceiveEyesInTheSkyPower is null");
             await PowerCmd.Apply<EyesInTheSkyPower>(new ThrowingPlayerChoiceContext(),
                 playerToReceiveEyesInTheSkyPower.Creature, EyesInTheSkyTracker.EyesInTheSkyAmount[runState], null,
                 null);
@@ -62,5 +64,5 @@ public class DecrementEyesInTheSkyAmountPatch
 public class EyesInTheSkyTracker
 {
     public static readonly SavedSpireField<IRunState, int> EyesInTheSkyAmount =
-        new(() => 1, "ZephyrSquallEyesInTheSkyAmount");
+        new(() => 0, "ZephyrSquallEyesInTheSkyAmount");
 }

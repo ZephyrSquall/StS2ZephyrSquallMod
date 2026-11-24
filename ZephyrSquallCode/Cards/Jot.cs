@@ -20,6 +20,7 @@ public class Jot() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Basic, Targe
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
+        if (CombatState == null) throw new InvalidOperationException("CombatState is null");
         CardModel? book = await RecordCmd.Record(choiceContext, Owner, DynamicVars.Cards.IntValue, CombatState, this);
         if (book != null && IsUpgraded)
             CardCmd.Upgrade(book);

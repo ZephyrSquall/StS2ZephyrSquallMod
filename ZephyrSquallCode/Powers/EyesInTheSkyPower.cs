@@ -12,6 +12,7 @@ public sealed class EyesInTheSkyPower : ZephyrSquallPower
 
     public override Task AfterCombatEnd(CombatRoom room)
     {
+        if (Owner.Player == null) return Task.CompletedTask;
         IRunState runState = Owner.Player.RunState;
         EyesInTheSkyTracker.EyesInTheSkyAmount[runState] += Amount;
         return Task.CompletedTask;

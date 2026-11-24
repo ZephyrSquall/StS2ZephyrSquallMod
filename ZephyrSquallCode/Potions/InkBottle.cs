@@ -28,6 +28,8 @@ public sealed class InkBottle : ZephyrSquallPotion
 
     protected override async Task OnUse(PlayerChoiceContext choiceContext, Creature? target)
     {
+        AssertValidForTargetedPotion(target);
+        if (Owner.Creature.CombatState == null) throw new InvalidOperationException("Owner.Creature.CombatState is null");
         await RecordCmd.RecordAny(choiceContext, Owner, Owner.Creature.CombatState, this);
     }
 }

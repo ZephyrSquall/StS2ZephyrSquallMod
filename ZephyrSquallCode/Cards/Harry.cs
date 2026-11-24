@@ -19,15 +19,27 @@ public class Harry() : ZephyrSquallCard(1, CardType.Attack, CardRarity.Common, T
     [
         new IntVar("HitRequirement", 3), new BlockVar(8, ValueProp.Move), new DamageVar(4, ValueProp.Move),
         new HitCountVar(2), new CalculationBaseVar(0), new CalculationExtraVar(1),
-        new CalculatedVar("TimesHit").WithMultiplier((Func<CardModel, Creature, decimal>)((card, _) =>
-            ZephyrQueries.TimesHitAnyoneThisTurn(card.CombatState, card.Owner.Creature)))
+        new CalculatedVar("TimesHit").WithMultiplier((card, _) =>
+        {
+            if (card.CombatState == null) throw new InvalidOperationException("card.CombatState is null");
+            return ZephyrQueries.TimesHitAnyoneThisTurn(card.CombatState, card.Owner.Creature);
+        })
+
     ];
 
-    private bool CanGainBlock =>
-        ZephyrQueries.TimesHitAnyoneThisTurn(CombatState, Owner.Creature) >= DynamicVars["HitRequirement"].IntValue;
+    private bool CanGainBlock
+    {
+        get
+        {
+            if (CombatState == null) throw new InvalidOperationException("CombatState is null");
+            return ZephyrQueries.TimesHitAnyoneThisTurn(CombatState, Owner.Creature) >= DynamicVars["HitRequirement"].IntValue;
+        }
+    }
+        
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
+        ArgumentNullException.ThrowIfNull(play.Target);
         if (CanGainBlock) await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, play);
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(DynamicVars.HitCount.IntValue)

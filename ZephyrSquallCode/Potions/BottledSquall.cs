@@ -23,6 +23,7 @@ public sealed class BottledSquall : ZephyrSquallPotion
 
     protected override async Task OnUse(PlayerChoiceContext choiceContext, Creature? target)
     {
+        AssertValidForTargetedPotion(target);
         await PowerCmd.Apply<TailwindPower>(choiceContext, target, DynamicVars["TailwindPower"].BaseValue,
             Owner.Creature, null);
     }

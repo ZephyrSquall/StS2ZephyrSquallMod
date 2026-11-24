@@ -3,7 +3,6 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Models;
 
 namespace ZephyrSquall.ZephyrSquallCode.Cards;
 
@@ -13,9 +12,11 @@ public class Forum() : ZephyrSquallCard(2, CardType.Skill, CardRarity.Rare, Targ
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new CalculationBaseVar(0), new CalculationExtraVar(1), new CalculatedVar("MostCards").WithMultiplier(
-            (Func<CardModel, Creature, decimal>)((card, _) => card.CombatState.GetTeammatesOf(card.Owner.Creature)
-                .Where(c => c != null && c.IsAlive && c.IsPlayer)
+        new CalculationBaseVar(0), new CalculationExtraVar(1),
+        new CalculatedVar("MostCards").WithMultiplier((card, _) => card.CombatState == null
+            ? throw new InvalidOperationException("card.CombatState is null")
+            : card.CombatState.GetTeammatesOf(card.Owner.Creature)
+                .Where(c => c.IsAlive && c.IsPlayer)
                 .Max(c =>
                 {
                     // If Forum's owner is the player with the most cards in Hand, the display amount becomes
@@ -23,19 +24,27 @@ public class Forum() : ZephyrSquallCard(2, CardType.Skill, CardRarity.Rare, Targ
                     // the Hand with the most, but Forum is in the play pile and doesn't count itself when it is
                     // actually played and drawing cards. To account for this, check if Forum is in the owner's Hand,
                     // and if so, subtract 1 from its owner's Hand size.
+                    if (c.Player == null) throw new InvalidOperationException("creature.Player is null");
+                    if (c.Player.PlayerCombatState == null)
+                        throw new InvalidOperationException("creature.Player is null");
                     var cardsInHand = c.Player.PlayerCombatState.Hand.Cards.Count;
-                    if (card.Pile.Type == PileType.Hand && c.Player == card.Owner) cardsInHand -= 1;
+                    if (card.Pile?.Type == PileType.Hand && c.Player == card.Owner) cardsInHand -= 1;
                     return cardsInHand;
-                })))
+                }))
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
         var mostCards = ((CalculatedVar)DynamicVars["MostCards"]).Calculate(play.Target);
-        foreach (Creature creature in
-                 CombatState.GetTeammatesOf(Owner.Creature).Where(c => c != null && c.IsAlive && c.IsPlayer))
+        if (CombatState == null) throw new InvalidOperationException("CombatState is null");
+        foreach (Creature creature in CombatState.GetTeammatesOf(Owner.Creature).Where(c => c.IsAlive && c.IsPlayer))
+        {
+            if (creature.Player == null) throw new InvalidOperationException("creature.Player is null");
+            if (creature.Player.PlayerCombatState == null)
+                throw new InvalidOperationException("creature.Player is null");
             await CardPileCmd.DrawWithoutBlockingOnOtherPlayers(choiceContext,
                 mostCards - creature.Player.PlayerCombatState.Hand.Cards.Count, creature.Player, this);
+        }
     }
 
     protected override void OnUpgrade() => DynamicVars.CalculationBase.UpgradeValueBy(1);

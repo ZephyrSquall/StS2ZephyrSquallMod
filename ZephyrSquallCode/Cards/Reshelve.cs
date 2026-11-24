@@ -25,6 +25,7 @@ public class Reshelve() : ZephyrSquallCard(0, CardType.Skill, CardRarity.Rare, T
 
         // Handle hooks that are normally called during the process of shuffling the deck.
         var initialDrawPileOrder = PileType.Draw.GetPile(Owner).Cards.ToList();
+        if (Owner.Creature.CombatState == null) throw new InvalidOperationException("Owner.Creature.CombatState is null");
         Hook.ModifyShuffleOrder(Owner.Creature.CombatState, Owner, initialDrawPileOrder, false);
         await CardPileCmd.Add(initialDrawPileOrder, PileType.Draw, CardPilePosition.Bottom, null, true);
 

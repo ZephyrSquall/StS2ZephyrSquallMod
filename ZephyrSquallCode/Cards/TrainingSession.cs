@@ -15,9 +15,11 @@ public class TrainingSession() : ZephyrSquallCard(1, CardType.Skill, CardRarity.
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
+        if (CombatState == null) throw new InvalidOperationException("CombatState is null");
         foreach (Creature creature in CombatState.GetTeammatesOf(Owner.Creature)
-                     .Where(c => c != null && c.IsAlive && c.IsPlayer))
+                     .Where(c => c.IsAlive && c.IsPlayer))
         {
+            if (creature.Player == null) throw new InvalidOperationException("creature.Player is null");
             CardModel train = CombatState.CreateCard<Train>(creature.Player);
             if (IsUpgraded) CardCmd.Upgrade(train);
             await CardPileCmd.AddGeneratedCardToCombat(train, PileType.Hand, Owner);

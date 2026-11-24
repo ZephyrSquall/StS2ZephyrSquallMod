@@ -30,11 +30,11 @@ public class RecordPile() : CustomPile(Record)
 
     public override NCard? GetNCard(CardModel card)
     {
-        var nCard = NCard.Create(card);
+        NCard? nCard = NCard.Create(card);
         // Setting the global position here ensures that the card animation for getting placed back in the hand starts
         // from the Book's position. Without this line, the animation always shows the cards coming from the top-left
         // corner of the screen, presumably coming from a default position of 0, 0.
-        nCard.SetGlobalPosition(BookPosition);
+        nCard?.SetGlobalPosition(BookPosition);
         return nCard;
     }
 }

@@ -20,6 +20,7 @@ public class ReadAhead() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Common
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
         await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
+        if (CombatState == null) throw new InvalidOperationException("CombatState is null");
         await RecordCmd.Record(choiceContext, Owner, DynamicVars["RecordCards"].IntValue, CombatState, this);
     }
 

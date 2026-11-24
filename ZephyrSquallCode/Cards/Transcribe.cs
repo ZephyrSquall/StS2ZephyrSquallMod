@@ -23,11 +23,14 @@ public class Transcribe() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Rare,
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
+        ArgumentNullException.ThrowIfNull(play.Target);
+        if (CombatState == null) throw new InvalidOperationException("CombatState is null");
         Book? book = await RecordCmd.RecordUpTo(choiceContext, Owner, DynamicVars.Cards.IntValue, CombatState, this);
         if (book != null)
         {
             if (IsUpgraded)
                 CardCmd.Upgrade(book);
+            if (play.Target.Player == null) throw new InvalidOperationException("play.Target.Player is null");
             await CardPileCmd.AddGeneratedCardToCombat(book.CreateCloneForPlayer(play.Target.Player), PileType.Hand,
                 Owner);
         }

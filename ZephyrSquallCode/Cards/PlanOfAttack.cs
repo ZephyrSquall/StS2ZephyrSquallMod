@@ -15,7 +15,7 @@ public class PlanOfAttack() : ZephyrSquallCard(-1, CardType.Skill, CardRarity.Un
     public override decimal ModifyDamageAdditive(Creature? target, decimal amount, ValueProp props, Creature? dealer,
         CardModel? cardSource, CardPlay? cardPlay)
     {
-        return Owner.Creature == dealer && props.IsPoweredAttack() && Pile.Type == PileType.Hand
+        return Owner.Creature == dealer && props.IsPoweredAttack() && Pile?.Type == PileType.Hand
             ? DynamicVars["AdditionalDamage"].BaseValue
             : 0;
     }

@@ -25,18 +25,21 @@ public class ZephyrHooks
 
     public static async Task OnAddHoned(CardModel card, int amount, AbstractModel source)
     {
+        if (card.CombatState == null) throw new InvalidOperationException("card.CombatState is null");
         foreach (var model in card.CombatState.IterateHookListeners().OfType<IOnAddHoned>())
             await model.OnAddHoned(card, amount, source);
     }
 
     public static async Task OnBecomeWellRead(Player player)
     {
+        if (player.Creature.CombatState == null) throw new InvalidOperationException("player.Creature.CombatState is null");
         foreach (var model in player.Creature.CombatState.IterateHookListeners().OfType<IOnBecomeWellRead>())
             await model.OnBecomeWellRead(player);
     }
 
     public static async Task OnOverflow(PlayerChoiceContext choiceContext, Player player, bool fromHandDraw)
     {
+        if (player.Creature.CombatState == null) throw new InvalidOperationException("player.Creature.CombatState is null");
         foreach (var model in player.Creature.CombatState.IterateHookListeners().OfType<IOnOverflow>())
             await model.OnOverflow(choiceContext, player, fromHandDraw);
     }
@@ -44,7 +47,10 @@ public class ZephyrHooks
     public static async Task OnRecord(List<CardModel> cards, AbstractModel source)
     {
         if (cards.Count > 0)
-            foreach (var model in cards[0].CombatState.IterateHookListeners().OfType<IOnRecord>())
+        {
+            ICombatState combatState = cards[0].CombatState ?? throw new InvalidOperationException("cards[0].CombatState is null");
+            foreach (var model in combatState.IterateHookListeners().OfType<IOnRecord>())
                 await model.OnRecord(cards, source);
+        }
     }
 }

@@ -4,11 +4,11 @@ using MegaCrit.Sts2.Core.Nodes.Combat;
 
 public partial class NCustomRotationLayers : Control
 {
-    private TextureRect _layer2;
-    private TextureRect _layer3;
+    private TextureRect _layer2 = null!;
+    private TextureRect _layer3 = null!;
 
     private NEnergyCounter? _parent;
-    private Player _player;
+    private Player _player = null!;
 
     public override void _Ready()
     {

@@ -22,12 +22,14 @@ public class DustCloud() : ZephyrSquallCard(1, CardType.Attack, CardRarity.Uncom
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
+        ArgumentNullException.ThrowIfNull(play.Target);
+        
         var prefs = new CardSelectorPrefs(SelectionScreenPrompt, 1);
         var selectedCard = (await CardSelectCmd.FromHand(choiceContext, Owner, prefs,
             (Func<CardModel, bool>)(c => c.Type == CardType.Skill), this)).FirstOrDefault();
         if (selectedCard != null)
             (await PowerCmd.Apply<DustCloudPower>(choiceContext, Owner.Creature, DynamicVars["DustCloudPower"].IntValue,
-                Owner.Creature, this)).SetSelectedCard(selectedCard);
+                Owner.Creature, this))?.SetSelectedCard(selectedCard);
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(DynamicVars.HitCount.IntValue)

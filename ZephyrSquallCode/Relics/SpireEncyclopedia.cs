@@ -22,9 +22,11 @@ public class SpireEncyclopedia : ZephyrSquallRelic
     public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext,
         ICombatState combatState)
     {
+        if (Owner.PlayerCombatState == null) throw new InvalidOperationException("Owner.PlayerCombatState is null");
         if (player == Owner && Owner.PlayerCombatState.TurnNumber == 1)
         {
             var cards = new List<CardModel>();
+            if (Owner.Creature.CombatState == null) throw new InvalidOperationException("Owner.Creature.CombatState is null");
             for (var index = 0; index < DynamicVars.Cards.IntValue; ++index)
                 cards.Add(Owner.Creature.CombatState.CreateCard<Analysis>(Owner));
             await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Hand, Owner);

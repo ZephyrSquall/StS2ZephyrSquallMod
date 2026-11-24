@@ -17,6 +17,7 @@ public class BlowAway() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Common,
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
+        ArgumentNullException.ThrowIfNull(play.Target);
         await PowerCmd.Apply<HeadwindPower>(choiceContext, play.Target, DynamicVars["HeadwindPower"].BaseValue,
             Owner.Creature, this);
     }

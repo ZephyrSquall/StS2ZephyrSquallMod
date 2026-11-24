@@ -21,6 +21,7 @@ public class QuickReflexes() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Un
 
     public override async Task AfterCardDrawnEarly(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
     {
+        if (CombatState == null) throw new InvalidOperationException("CombatState is null");
         if (card == this && !fromHandDraw && CombatState.CurrentSide == Owner.Creature.Side)
             await CardCmd.AutoPlay(choiceContext, card, null);
     }

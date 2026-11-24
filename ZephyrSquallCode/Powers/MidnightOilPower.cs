@@ -21,8 +21,11 @@ public sealed class MidnightOilPower : ZephyrSquallPower
     public override Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side,
         IReadOnlyList<Creature> participants, ICombatState combatState)
     {
-        if (participants.Contains(Owner))
+        if (Owner.Player != null && participants.Contains(Owner))
+        {
+            if (Owner.Player.PlayerCombatState == null) throw new InvalidOperationException("Owner.Player.PlayerCombatState is null");
             GetInternalData<Data>().leftoverEnergy = Owner.Player.PlayerCombatState.Energy;
+        }
         return Task.CompletedTask;
     }
 

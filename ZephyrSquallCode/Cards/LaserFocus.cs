@@ -16,6 +16,7 @@ public class LaserFocus() : ZephyrSquallCard(1, CardType.Attack, CardRarity.Unco
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
+        ArgumentNullException.ThrowIfNull(play.Target);
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(DynamicVars.HitCount.IntValue)
             .FromCard(this, play)

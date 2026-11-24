@@ -25,6 +25,7 @@ public class Feint() : ZephyrSquallCard(0, CardType.Skill, CardRarity.Common, Ta
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
+        ArgumentNullException.ThrowIfNull(play.Target);
         await PowerCmd.Apply<VulnerablePower>(choiceContext, play.Target,
             ((CalculatedVar)DynamicVars["CalculatedVulnerable"]).Calculate(play.Target), Owner.Creature, this);
     }

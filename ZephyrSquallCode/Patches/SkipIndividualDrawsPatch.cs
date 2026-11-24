@@ -45,12 +45,12 @@ internal class SkipIndividualDrawsPatch
 
         // Check if the current card draw should be skipped immediately at the start of the for loop.
         codeMatcher.Start()
-            .MatchStartForward(CodeMatch.Calls(() => CardPileCmd.ShuffleIfNecessary(default, default)))
+            .MatchStartForward(CodeMatch.Calls(() => CardPileCmd.ShuffleIfNecessary(default!, default!)))
             .ThrowIfInvalid("Could not find call to List.Add")
             .Advance(-4)
             .InsertAndAdvance(CodeInstruction.LoadArgument(0))
             .InsertAndAdvance(new CodeInstruction(OpCodes.Ldfld, playerField))
-            .InsertAndAdvance(CodeInstruction.Call(() => ShouldSkipIndividualDraw(default)))
+            .InsertAndAdvance(CodeInstruction.Call(() => ShouldSkipIndividualDraw(default!)))
             .InsertAndAdvance(new CodeInstruction(OpCodes.Brtrue, skipIndividualDrawLabel));
 
         return codeMatcher.Instructions();

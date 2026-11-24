@@ -17,6 +17,7 @@ public class ObsessiveResearch() : ZephyrSquallCard(0, CardType.Skill, CardRarit
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
+        if (CombatState == null) throw new InvalidOperationException("CombatState is null");
         await CardPileCmd.AddGeneratedCardToCombat(CombatState.CreateCard<LostInThought>(Owner), PileType.Hand, Owner);
         await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, Owner);
     }

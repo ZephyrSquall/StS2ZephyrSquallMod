@@ -29,6 +29,7 @@ public class Plagiarize() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Rare,
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
+        if (CombatState == null) throw new InvalidOperationException("CombatState is null");
         if (DynamicVars.Cards.IntValue > 0)
             await RecordCmd.Record(choiceContext, Owner, DynamicVars.Cards.IntValue, CombatState, this);
 

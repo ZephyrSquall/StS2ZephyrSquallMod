@@ -16,7 +16,7 @@ public sealed class WatchCloselyPower : ZephyrSquallPower
     public override async Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target,
         DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource)
     {
-        if (target == Owner && props.IsPoweredAttack()) await CardPileCmd.Draw(choiceContext, Amount, Owner.Player);
+        if (Owner.Player != null && target == Owner && props.IsPoweredAttack()) await CardPileCmd.Draw(choiceContext, Amount, Owner.Player);
     }
 
     public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side,

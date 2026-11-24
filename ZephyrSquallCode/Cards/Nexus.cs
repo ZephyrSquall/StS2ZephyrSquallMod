@@ -35,12 +35,17 @@ public class Nexus() : ZephyrSquallCard(1, CardType.Attack, CardRarity.Rare, Tar
     [
         new DamageVar(6, ValueProp.Move), new("CombatsRemaining", 3), new CalculationBaseVar(0M),
         new CalculationExtraVar(1M),
-        new CalculatedHitCountVar("CalculatedHits").WithMultiplier((Func<CardModel, Creature, Decimal>)((card, _) =>
-            card.Owner.PlayerCombatState.AllCards.OfType<Nexus>().Count()))
+        new CalculatedHitCountVar("CalculatedHits").WithMultiplier((card, _) =>
+        {
+            if (card.Owner.PlayerCombatState == null) throw new InvalidOperationException("card.Owner.PlayerCombatState is null");
+            return card.Owner.PlayerCombatState.AllCards.OfType<Nexus>().Count();
+        })
+
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
+        ArgumentNullException.ThrowIfNull(play.Target);
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount((int)((CalculatedVar)DynamicVars["CalculatedHits"]).Calculate(play.Target))
             .FromCard(this, play)
@@ -53,7 +58,7 @@ public class Nexus() : ZephyrSquallCard(1, CardType.Attack, CardRarity.Rare, Tar
 
     public override Task AfterCombatEnd(CombatRoom combatRoom)
     {
-        if (Pile.Type == PileType.Deck && CombatsRemaining > 0)
+        if (Pile?.Type == PileType.Deck && CombatsRemaining > 0)
         {
             CombatsRemaining--;
             if (CombatsRemaining == 0) ShouldAddNexusToCardRewards = true;

@@ -18,12 +18,14 @@ public sealed class HyperfixationPower : ZephyrSquallPower
 
     public override Task AfterCombatEnd(CombatRoom room)
     {
+        if (Owner.Player == null) return Task.CompletedTask;
+        
         List<CardModel> cardsToPreview = [];
 
         var upgradedCards = Owner.Player.Deck.Cards.Where(c => c.IsUpgraded).ToList();
-        for (var i = 0; i < DynamicVars["DowngradeCards"].BaseValue && upgradedCards.Count > 0; i++)
+        for (int i = 0; i < DynamicVars["DowngradeCards"].BaseValue && upgradedCards.Count > 0; i++)
         {
-            var card = Owner.Player.RunState.Rng.Niche.NextItem(upgradedCards);
+            CardModel card = Owner.Player.RunState.Rng.Niche.NextItem(upgradedCards) ?? throw new InvalidOperationException("card is null");
             upgradedCards.Remove(card);
             CardCmd.Downgrade(card);
             cardsToPreview.Add(card);
@@ -34,7 +36,7 @@ public sealed class HyperfixationPower : ZephyrSquallPower
             Owner.Player.Deck.Cards.Where(c => c.IsUpgradable && !cardsToPreview.Contains(c)).ToList();
         for (var i = 0; i < Amount && upgradableCards.Count > 0; i++)
         {
-            var card = Owner.Player.RunState.Rng.Niche.NextItem(upgradableCards);
+            var card = Owner.Player.RunState.Rng.Niche.NextItem(upgradableCards) ?? throw new InvalidOperationException("card is null");
             upgradableCards.Remove(card);
             CardCmd.Upgrade(card, CardPreviewStyle.None);
             cardsToPreview.Add(card);

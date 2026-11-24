@@ -15,8 +15,9 @@ public class Analysis() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Token, 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new CalculationBaseVar(0), new CalculationExtraVar(1),
-        new CalculatedVar("CalculatedCards").WithMultiplier((Func<CardModel, Creature, decimal>)((card, _) =>
-            card.Owner.PlayerCombatState.TurnNumber))
+        new CalculatedVar("CalculatedCards").WithMultiplier((card, _) =>
+            card.Owner.PlayerCombatState?.TurnNumber ??
+            throw new InvalidOperationException("Owner.PlayerCombatState is null"))
     ];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust, CardKeyword.Retain];

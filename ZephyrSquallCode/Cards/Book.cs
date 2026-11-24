@@ -59,6 +59,7 @@ public class Book() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Token, Targ
         // in the Hand the Book will end up by calculating what the Hand size will be after the Book is added to it, and
         // getting the coordinates of where the last card in a Hand that big would be.
         var cardsInHandAfterRecord = PileType.Hand.GetPile(owner).Cards.Count - book.RecordedCards.Count + 1;
+        if (NGame.Instance == null) throw new InvalidOperationException("NGame.Instance is null");
         ((RecordPile)RecordPile.Record.GetPile(owner)).BookPosition =
             HandPosHelper.GetPosition(cardsInHandAfterRecord, cardsInHandAfterRecord - 1) +
             new Vector2(NGame.Instance.GetViewportRect().Size.X / 2, NGame.Instance.GetViewportRect().Size.Y);
@@ -121,22 +122,6 @@ public class Book() : ZephyrSquallCard(1, CardType.Skill, CardRarity.Token, Targ
 
         await CardPileCmd.Add(returnToHand, PileType.Hand);
         foreach (var card in autoPlay) await CardCmd.AutoPlay(choiceContext, card, null);
-    }
-
-    // The following code is a bandaid fix for an issue that causes any card beyond the first Recorded card to appear as
-    // a "Broken Card" in the play pile after it is autoplayed. As best as I can tell, I've narrowed down the true issue
-    // to being that the CardPileCmd.Add method only checks to see if a card is in a hardcoded list of piles before
-    // updating the visuals. This ends up not working here case as the Narrated card is autoplayed from the Record pile,
-    // a custom pile outside the hardcoded list. However, the CardPileCmd.Add is an extremely huge and convoluted
-    // method, so patching it properly is going to be incredibly difficult, and I've left it for another day. The
-    // bandaid fix below doesn't stop the card from momentarily appearing as a "Broken Card", but at least causes it to
-    // eventually switch back to its proper appearance so it's easy to tell the right card was autoplayed.
-    public override CardLocation ModifyCardPlayResultLocation(CardModel card, bool isAutoPlay, ResourceInfo resources,
-        CardLocation cardLocation)
-    {
-        var nCardNarrate = NCard.FindOnTable(card);
-        if (nCardNarrate is not null) nCardNarrate.UpdateVisuals(nCardNarrate.Model.Pile.Type, CardPreviewMode.Normal);
-        return cardLocation;
     }
 
     protected override void OnUpgrade() => EnergyCost.UpgradeBy(-1);

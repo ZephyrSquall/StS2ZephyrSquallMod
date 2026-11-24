@@ -1,4 +1,5 @@
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -20,9 +21,10 @@ public sealed class KnowledgeIsPowerPower : ZephyrSquallPower, IOnOverflow
     {
         if (player == Owner.Player)
         {
-            var hittableEnemies = CombatState.HittableEnemies;
+            IReadOnlyList<Creature> hittableEnemies = CombatState.HittableEnemies;
             if (hittableEnemies.Count == 0) return;
-            var target = Owner.Player.RunState.Rng.CombatTargets.NextItem(hittableEnemies);
+            Creature? target = Owner.Player.RunState.Rng.CombatTargets.NextItem(hittableEnemies);
+            if (target == null) throw new InvalidOperationException("target is null");
             Flash();
             await CreatureCmd.Damage(choiceContext, target, Amount, ValueProp.Unpowered, Owner);
         }

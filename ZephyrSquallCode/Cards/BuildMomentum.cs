@@ -13,12 +13,16 @@ public class BuildMomentum() : ZephyrSquallCard(1, CardType.Attack, CardRarity.U
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DamageVar(4, ValueProp.Move), new CalculationBaseVar(0), new CalculationExtraVar(1),
-        new CalculatedHitCountVar("CalculatedHits").WithMultiplier((Func<CardModel, Creature, decimal>)((card, _) =>
-            card.Owner.PlayerCombatState.TurnNumber))
+        new CalculatedHitCountVar("CalculatedHits").WithMultiplier((card, _) =>
+        {
+            if (card.Owner.PlayerCombatState == null) throw new InvalidOperationException("card.Owner.PlayerCombatState is null");
+            return card.Owner.PlayerCombatState.AllCards.OfType<Nexus>().Count();
+        })
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
+        ArgumentNullException.ThrowIfNull(play.Target);
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount((int)((CalculatedVar)DynamicVars["CalculatedHits"]).Calculate(play.Target))
             .FromCard(this, play)

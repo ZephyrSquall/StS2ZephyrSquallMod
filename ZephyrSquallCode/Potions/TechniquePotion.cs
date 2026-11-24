@@ -23,6 +23,8 @@ public sealed class TechniquePotion : ZephyrSquallPotion
 
     protected override async Task OnUse(PlayerChoiceContext choiceContext, Creature? target)
     {
-        await HonedCmd.AddHoned(choiceContext, Owner, DynamicVars["Honed"].IntValue, 1, this);
+        AssertValidForTargetedPotion(target);
+        if (target.Player == null) throw new InvalidOperationException("target.Player is null");
+        await HonedCmd.AddHoned(choiceContext, target.Player, DynamicVars["Honed"].IntValue, 1, this);
     }
 }

@@ -19,6 +19,7 @@ public class Culmination() : ZephyrSquallCard(1, CardType.Attack, CardRarity.Rar
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
+        ArgumentNullException.ThrowIfNull(play.Target);
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromCard(this, play)
             .Targeting(play.Target)
@@ -31,10 +32,10 @@ public class Culmination() : ZephyrSquallCard(1, CardType.Attack, CardRarity.Rar
     {
         // Add the value of all Honed on all cards, except Honed from this card itself as this is already added by the
         // Honed patch.
-        return this == cardSource
-            ? Owner.PlayerCombatState.AllCards.Where(c => c.Type == CardType.Attack && c != cardSource)
-                .Sum(c => CardModifierTracker.HonedAmount[c])
-            : 0;
+        if (this != cardSource) return 0;
+        if (Owner.PlayerCombatState == null) throw new InvalidOperationException("Owner.PlayerCombatState is null");
+        return Owner.PlayerCombatState.AllCards.Where(c => c.Type == CardType.Attack && c != cardSource)
+                .Sum(c => CardModifierTracker.HonedAmount[c]);
     }
 
     protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(3);

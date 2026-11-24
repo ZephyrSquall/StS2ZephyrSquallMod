@@ -22,6 +22,7 @@ public class PaperCut() : ZephyrSquallCard(1, CardType.Power, CardRarity.Uncommo
     {
         await PowerCmd.Apply<PaperCutPower>(choiceContext, Owner.Creature, DynamicVars["PaperCutPower"].IntValue,
             Owner.Creature, this);
+        if (CombatState == null) throw new InvalidOperationException("CombatState is null");
         await RecordCmd.Record(choiceContext, Owner, DynamicVars.Cards.IntValue, CombatState, this);
     }
 

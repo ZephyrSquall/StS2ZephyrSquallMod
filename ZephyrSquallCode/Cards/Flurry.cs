@@ -17,6 +17,7 @@ public class Flurry() : ZephyrSquallCard(0, CardType.Attack, CardRarity.Uncommon
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
+        ArgumentNullException.ThrowIfNull(play.Target);
         var xValue = ResolveEnergyXValue();
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(xValue * DynamicVars["HitMultiplier"].IntValue)
