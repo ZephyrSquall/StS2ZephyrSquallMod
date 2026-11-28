@@ -1,15 +1,15 @@
 {
-  "HONED.extraText": "[gold]Honed[/gold] {Honed}.",
-  "HONED_DYNAMIC.description": "This card gains [blue]{Honed}[/blue] additional [gold]Block[/gold] and deals [blue]{Honed}[/blue] additional damage.",
-  "HONED_DYNAMIC.title": "Honed",
-  "HONED_STATIC.description": "This card gains additional [gold]Block[/gold] and deals additional damage.",
-  "HONED_STATIC.title": "Honed",
-  "OVERFLOW.description": "Attempt a card draw that fails or is skipped.",
-  "OVERFLOW.title": "Overflow",
-  "RECORD.description": "Store the cards in a new [gold]Book[/gold] and add it into your [gold]Hand[/gold]. Statuses, Curses, Quests, and [gold]Books[/gold] cannot be [gold]Recorded[/gold].",
-  "RECORD.title": "Record",
-  "RECORD_WITH_CURSED_TOME.description": "Store the cards in a new [gold]Book[/gold] and add it into your [gold]Hand[/gold]. [gold]Books[/gold] cannot be [gold]Recorded[/gold].",
-  "RECORD_WITH_CURSED_TOME.title": "Record",
-  "WELL_READ.description": "This effect triggers if your [gold]Hand[/gold] is full.",
-  "WELL_READ.title": "Well Read"
+  "ZEPHYRSQUALL-HONED.extraText": "[gold]Honed[/gold] {Honed}.",
+  "ZEPHYRSQUALL-HONED_DYNAMIC.description": "This card gains [blue]{Honed}[/blue] additional [gold]Block[/gold] and deals [blue]{Honed}[/blue] additional damage.",
+  "ZEPHYRSQUALL-HONED_DYNAMIC.title": "Honed",
+  "ZEPHYRSQUALL-HONED_STATIC.description": "This card gains additional [gold]Block[/gold] and deals additional damage.",
+  "ZEPHYRSQUALL-HONED_STATIC.title": "Honed",
+  "ZEPHYRSQUALL-OVERFLOW.description": "Attempt a card draw that fails or is skipped.",
+  "ZEPHYRSQUALL-OVERFLOW.title": "Overflow",
+  "ZEPHYRSQUALL-RECORD.description": "Store the cards in a new [gold]Book[/gold] and add it into your [gold]Hand[/gold]. Statuses, Curses, Quests, and [gold]Books[/gold] cannot be [gold]Recorded[/gold].",
+  "ZEPHYRSQUALL-RECORD.title": "Record",
+  "ZEPHYRSQUALL-RECORD_WITH_CURSED_TOME.description": "Store the cards in a new [gold]Book[/gold] and add it into your [gold]Hand[/gold]. [gold]Books[/gold] cannot be [gold]Recorded[/gold].",
+  "ZEPHYRSQUALL-RECORD_WITH_CURSED_TOME.title": "Record",
+  "ZEPHYRSQUALL-WELL_READ.description": "This effect triggers if your [gold]Hand[/gold] is full.",
+  "ZEPHYRSQUALL-WELL_READ.title": "Well Read"
 }

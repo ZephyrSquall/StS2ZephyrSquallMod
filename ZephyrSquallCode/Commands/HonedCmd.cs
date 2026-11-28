@@ -15,7 +15,7 @@ public class HonedCmd
     public static async Task AddHoned(PlayerChoiceContext choiceContext, Player player, int honedAmount, int cardAmount,
         AbstractModel source, PileType pileType = PileType.Hand)
     {
-        LocString prompt = new("card_selection", "TO_ADD_HONED");
+        LocString prompt = new("card_selection", "ZEPHYRSQUALL-TO_ADD_HONED");
         prompt.Add("Honed", honedAmount);
         var prefs = new CardSelectorPrefs(prompt, cardAmount);
         await AddHonedWithPrefs(choiceContext, player, honedAmount, prefs, source, pileType);
@@ -24,7 +24,7 @@ public class HonedCmd
     public static async Task AddHonedToUpTo(PlayerChoiceContext choiceContext, Player player, int honedAmount,
         int maxCardAmount, AbstractModel source, PileType pileType = PileType.Hand)
     {
-        LocString prompt = new("card_selection", "TO_ADD_HONED_TO_UP_TO");
+        LocString prompt = new("card_selection", "ZEPHYRSQUALL-TO_ADD_HONED_TO_UP_TO");
         prompt.Add("Honed", honedAmount);
         var prefs = new CardSelectorPrefs(prompt, 0, maxCardAmount);
         await AddHonedWithPrefs(choiceContext, player, honedAmount, prefs, source, pileType);
@@ -33,7 +33,7 @@ public class HonedCmd
     public static async Task AddHonedToAny(PlayerChoiceContext choiceContext, Player player, int honedAmount,
         AbstractModel source, PileType pileType = PileType.Hand)
     {
-        LocString prompt = new("card_selection", "TO_ADD_HONED_TO_ANY");
+        LocString prompt = new("card_selection", "ZEPHYRSQUALL-TO_ADD_HONED_TO_ANY");
         prompt.Add("Honed", honedAmount);
         var prefs = new CardSelectorPrefs(prompt, 0, int.MaxValue);
         await AddHonedWithPrefs(choiceContext, player, honedAmount, prefs, source, pileType);
@@ -45,11 +45,7 @@ public class HonedCmd
         var selectedCards = pileType == PileType.Hand
             ? await CardSelectCmd.FromHand(choiceContext, player, prefs, null, source)
             : await CardSelectCmd.FromSimpleGrid(choiceContext,
-                pileType.GetPile(player)
-                    .Cards
-                    .OrderBy(c => c.Rarity)
-                    .ThenBy(c => c.Id)
-                    .ToList(), player, prefs);
+                pileType.GetPile(player).Cards.OrderBy(c => c.Rarity).ThenBy(c => c.Id).ToList(), player, prefs);
         await AddHonedToSpecific(selectedCards, honedAmount, source);
     }
 

@@ -9,20 +9,20 @@ public static class ZephyrHoverTips
 {
     public static IHoverTip Honed()
     {
-        return new HoverTip(new LocString("static_hover_tips", "HONED_STATIC.title"),
-            new LocString("static_hover_tips", "HONED_STATIC.description"));
+        return new HoverTip(new LocString("static_hover_tips", "ZEPHYRSQUALL-HONED_STATIC.title"),
+            new LocString("static_hover_tips", "ZEPHYRSQUALL-HONED_STATIC.description"));
     }
 
     public static IHoverTip Overflow()
     {
-        return new HoverTip(new LocString("static_hover_tips", "OVERFLOW.title"),
-            new LocString("static_hover_tips", "OVERFLOW.description"));
+        return new HoverTip(new LocString("static_hover_tips", "ZEPHYRSQUALL-OVERFLOW.title"),
+            new LocString("static_hover_tips", "ZEPHYRSQUALL-OVERFLOW.description"));
     }
 
     public static IHoverTip Record()
     {
-        return new HoverTip(new LocString("static_hover_tips", "RECORD.title"),
-            new LocString("static_hover_tips", "RECORD.description"));
+        return new HoverTip(new LocString("static_hover_tips", "ZEPHYRSQUALL-RECORD.title"),
+            new LocString("static_hover_tips", "ZEPHYRSQUALL-RECORD.description"));
     }
 
     public static IHoverTip Record(Player? player)
@@ -32,13 +32,13 @@ public static class ZephyrHoverTips
 
     public static IHoverTip RecordWithCursedTome()
     {
-        return new HoverTip(new LocString("static_hover_tips", "RECORD_WITH_CURSED_TOME.title"),
-            new LocString("static_hover_tips", "RECORD_WITH_CURSED_TOME.description"));
+        return new HoverTip(new LocString("static_hover_tips", "ZEPHYRSQUALL-RECORD_WITH_CURSED_TOME.title"),
+            new LocString("static_hover_tips", "ZEPHYRSQUALL-RECORD_WITH_CURSED_TOME.description"));
     }
 
     public static IHoverTip WellRead()
     {
-        return new HoverTip(new LocString("static_hover_tips", "WELL_READ.title"),
-            new LocString("static_hover_tips", "WELL_READ.description"));
+        return new HoverTip(new LocString("static_hover_tips", "ZEPHYRSQUALL-WELL_READ.title"),
+            new LocString("static_hover_tips", "ZEPHYRSQUALL-WELL_READ.description"));
     }
 }

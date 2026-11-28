@@ -35,7 +35,8 @@ public class CardModifierDescriptionPatch
             // Load the "previewType" argument onto the stack, which is index 2 in the raw IL (note that since this is
             // an instance method, argument 0 is "this", so the rest of the arguments are shifted down one index).
             .InsertAndAdvance(CodeInstruction.LoadArgument(2))
-            .InsertAndAdvance(CodeInstruction.Call(() => AddCardModifierDescriptionsHelper(default!, default!, default)))
+            .InsertAndAdvance(
+                CodeInstruction.Call(() => AddCardModifierDescriptionsHelper(default!, default!, default)))
             // Store the top of the stack into the "source" local variable.
             .InsertAndAdvance(CodeInstruction.StoreLocal(5))
             // Load the cardModel onto the stack again to restore its original state before this patch.
@@ -57,7 +58,7 @@ public class CardModifierDescriptionPatch
             else
                 formattedHoned = honed.ToString();
 
-            var locString = new LocString("static_hover_tips", "HONED.extraText");
+            var locString = new LocString("static_hover_tips", "ZEPHYRSQUALL-HONED.extraText");
             locString.Add("Honed", formattedHoned);
             source.Add(locString.GetFormattedText());
         }
@@ -95,9 +96,9 @@ public class CardModifierHoverTipPatch
         var honed = CardModifierTracker.HonedAmount[cardModel];
         if (honed > 0)
         {
-            var description = new LocString("static_hover_tips", "HONED_DYNAMIC.description");
+            var description = new LocString("static_hover_tips", "ZEPHYRSQUALL-HONED_DYNAMIC.description");
             description.Add("Honed", honed);
-            list.Add(new HoverTip(new LocString("static_hover_tips", "HONED_DYNAMIC.title"), description));
+            list.Add(new HoverTip(new LocString("static_hover_tips", "ZEPHYRSQUALL-HONED_DYNAMIC.title"), description));
         }
 
         return list;

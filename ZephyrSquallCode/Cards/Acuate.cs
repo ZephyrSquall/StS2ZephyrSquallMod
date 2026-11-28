@@ -31,10 +31,11 @@ public class Acuate() : ZephyrSquallCard(1, CardType.Attack, CardRarity.Ancient,
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
 
-        LocString prompt = new("card_selection", "TO_ADD_HONED");
+        LocString prompt = new("card_selection", "ZEPHYRSQUALL-TO_ADD_HONED");
         prompt.Add("Honed", DynamicVars["Honed"].IntValue);
         CardSelectorPrefs prefs = new CardSelectorPrefs(prompt, 1);
-        CardModel? selectedCard = (await CardSelectCmd.FromHand(choiceContext, Owner, prefs, null, this)).FirstOrDefault();
+        CardModel? selectedCard =
+            (await CardSelectCmd.FromHand(choiceContext, Owner, prefs, null, this)).FirstOrDefault();
         if (selectedCard != null)
         {
             await HonedCmd.AddHonedToSpecific(selectedCard, DynamicVars["Honed"].IntValue, this);
