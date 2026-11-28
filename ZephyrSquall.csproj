@@ -37,14 +37,6 @@
         <AdditionalFiles Include="ZephyrSquall/localization/**/*.json"/> <!-- Used by analyzer -->
     </ItemGroup>
 
-    <PropertyGroup>
-        <!-- Somewhere between v0.106.0 and v0.111.0 of Slay the Spire seems to have made a change that broke the mod
-             analyzer, as it now incorrectly reports that everything is missing localization. This error is still useful
-             for auto-genning localization, so I downgrade it to a warning to keep it without flooding my IDE with
-             errors -->
-        <WarningsNotAsErrors>STS001</WarningsNotAsErrors>
-    </PropertyGroup>
-
     <ItemGroup>
         <Publicize Include="sts2:MegaCrit.Sts2.Core.Combat.CombatTurnState"/> <!--Needed by ZephyrSquallCode/Patches/MultiplayerExtraTurnPatches.cs, ZephyrSquallCode/Patches/RecordPatches.cs, and ZephyrSquallCode/Patches/WellReadPatches.cs-->
         <Publicize Include="sts2:MegaCrit.Sts2.Core.Models.CardModel+DescriptionPreviewType"/> <!--Needed by ZephyrSquallCode/Patches/CardModifierPatches.cs-->

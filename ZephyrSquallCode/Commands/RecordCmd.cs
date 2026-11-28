@@ -13,9 +13,9 @@ namespace ZephyrSquall.ZephyrSquallCode.Commands;
 
 public static class RecordCmd
 {
-    private static LocString RecordSelectionPrompt => new("card_selection", "TO_RECORD");
-    private static LocString RecordUpToSelectionPrompt => new("card_selection", "TO_RECORD_UP_TO");
-    private static LocString RecordAnySelectionPrompt => new("card_selection", "TO_RECORD_ANY");
+    public static LocString RecordSelectionPrompt => new("card_selection", "TO_RECORD");
+    public static LocString RecordUpToSelectionPrompt => new("card_selection", "TO_RECORD_UP_TO");
+    public static LocString RecordAnySelectionPrompt => new("card_selection", "TO_RECORD_ANY");
 
     public static async Task<Book?> Record(PlayerChoiceContext choiceContext, Player player, int amount,
         ICombatState combatState, AbstractModel source)
@@ -42,7 +42,7 @@ public static class RecordCmd
         ICombatState combatState, AbstractModel source)
     {
         var selectedCards = (await CardSelectCmd.FromHand(choiceContext, player, prefs,
-            (Func<CardModel, bool>)ZephyrQueries.CanBeRecorded, source)).ToList();
+            ZephyrQueries.CanBeRecorded, source)).ToList();
         Book? book = await Book.CreateInHand(player, selectedCards, combatState);
         await ZephyrHooks.OnRecord(selectedCards, source);
         return book;

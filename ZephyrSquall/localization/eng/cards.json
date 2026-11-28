@@ -88,6 +88,8 @@
   "ZEPHYRSQUALL-MAGNUM_OPUS.title": "Magnum Opus",
   "ZEPHYRSQUALL-MIDNIGHT_OIL.description": "Energy is now conserved between turns.\nAt the start of your turn, draw additional cards equal to your leftover energy.",
   "ZEPHYRSQUALL-MIDNIGHT_OIL.title": "Midnight Oil",
+  "ZEPHYRSQUALL-NEVERENDING_STORY.description": "Draw {Cards:diff()} {Cards:plural:card|cards}.\n[gold]Record[/gold] this card along with {RecordCards:diff()} other {RecordCards:plural:card|cards} in your [gold]Hand[/gold].",
+  "ZEPHYRSQUALL-NEVERENDING_STORY.title": "Neverending Story",
   "ZEPHYRSQUALL-NEXUS.description": "Deal {Damage:diff()} damage for ALL your Nexus cards.{InCombat:\n(Hits {CalculatedHits:diff()} {CalculatedHits:plural:time|times})|}{CombatsRemaining:cond:>0?\nAfter {CombatsRemaining:inverseDiff} {CombatsRemaining:plural:combat|combats}, add a Nexus to your card rewards.|}",
   "ZEPHYRSQUALL-NEXUS.title": "Nexus",
   "ZEPHYRSQUALL-OBSESSIVE_RESEARCH.description": "Add a [gold]Lost in Thought[/gold] into your [gold]Hand[/gold].\nGain {Energy:energyIcons()}.",
